@@ -1,0 +1,26 @@
+{
+  "name": "e-commerce_backend",
+  "version": "1.0.0",
+  "description": "Small e-commerce app for learning sql",
+  "main": "server.js",
+  "scripts": {
+    "dev": "concurrently \"npx tsc --watch\" \"nodemon dist/index.js\"",
+    "build": "npx tsc",
+    "start": "node dist/server.js"
+  },
+  "author": "Sean Paulson",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "pg": "^8.9.0",
+    "sequelize": "^6.28.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/node": "^18.14.0",
+    "concurrently": "^7.6.0",
+    "nodemon": "^2.0.20",
+    "typescript": "^4.9.5"
+  }
+}
