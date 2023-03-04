@@ -1,4 +1,5 @@
 import express, {Express, Request, Response} from 'express';
+const productsRouter = require('./routes/products');
 const db = require('./db')
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
@@ -6,6 +7,9 @@ if (process.env.NODE_ENV !== 'production') {
 
 const app: Express = express();
 const port = process.env.PORT || 3001;
+
+app.use('/product', productsRouter);
+
 
 app.get('/', (req: Request, res: Response, next) => {
     db.query('SELECT * FROM commerce.user WHERE id = 201', (err: any, result: any) => {
@@ -15,6 +19,7 @@ app.get('/', (req: Request, res: Response, next) => {
         res.send(result.rows[0])
     })
 });
+
 
 
 
