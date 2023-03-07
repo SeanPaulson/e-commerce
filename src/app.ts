@@ -1,3 +1,4 @@
+import exp from 'constants';
 import express, {Express, Request, Response} from 'express';
 const productsRouter = require('./routes/products');
 const db = require('./db')
@@ -8,7 +9,12 @@ if (process.env.NODE_ENV !== 'production') {
 const app: Express = express();
 const port = process.env.PORT || 3001;
 
+app.use(express.json());
 app.use('/product', productsRouter);
+app.use('/auth', require('./routes/login'));
+
+
+
 
 
 app.get('/', (req: Request, res: Response, next) => {

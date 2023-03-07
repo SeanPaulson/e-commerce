@@ -5,7 +5,8 @@ const { Pool } = require('pg');
 const pool: PoolClient = new Pool();
 
 module.exports = {
-    query: (text: string,params: any[], callback: any) => {
-        return pool.query(text, params, callback);
+    async query(text: string,params: any[]) {
+        const res = await pool.query(text, params);
+        return res;
     }
 }
