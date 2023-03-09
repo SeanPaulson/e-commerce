@@ -6,7 +6,6 @@ const bcrypt = require("bcrypt");
 router.post("/register", async (req: Request, res: Response) => {
   try {
     const { email, password, firstName, lastName, phone } = req.body;
-    console.log(firstName);
     const user = await db.query(
       "SELECT * FROM commerce.user WHERE email_address = $1",
       [email]
@@ -15,20 +14,13 @@ router.post("/register", async (req: Request, res: Response) => {
       return res.status(401).send("A user with this email already exists");
     }
 
-        try{
-            const saltRounds = 10;
-            bcrypt.hash(password, saltRounds)
-            .then(async (hash: String) => {
-                const result = await db.getClient(
-                "INSERT INTO commerce.user (first_name, last_name, password, email_address, phone) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-                [firstName, lastName, password, email, phone]
+    const saltRounds = 10;
+    const bcryptPassword = await bcrypt.hash(password, saltRounds);
+    const result = await db.getClient(
+                    "INSERT INTO commerce.user (first_name, last_name, password, email_address, phone) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+                    [firstName, lastName, bcryptPassword, email, phone]
                 );
-                console.log(result);
-            });
-        } catch(err:any ) {
-            console.log(err.message);
-        }
-
+    console.log(result)
     return res.send(user.rows[0]);
   } catch (err: any) {
     console.log(err.message);
@@ -37,3 +29,12 @@ router.post("/register", async (req: Request, res: Response) => {
 });
 
 module.exports = router;
+
+
+// bcrypt.hash(password, saltRounds)
+//     .then(async (hash: String) => {
+//       const result = await db.getClient(
+//         "INSERT INTO commerce.user (first_name, last_name, password, email_address, phone) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+//         [firstName, lastName, password, email, phone]
+//        );
+//     });

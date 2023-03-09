@@ -17,8 +17,7 @@ module.exports = {
             return res;
         } catch(error: any) {
             await client.query('ROLLBACK');
-            console.log(error.message);
-            return error;
+            throw error;
         } finally {
             client.release();
         }
