@@ -20,12 +20,11 @@ router.post("/register", async (req: Request, res: Response) => {
                     "INSERT INTO commerce.user (first_name, last_name, password, email_address, phone) VALUES ($1, $2, $3, $4, $5) RETURNING *",
                     [firstName, lastName, bcryptPassword, email, phone]
                 );
-
     return res.send(newUser.rows[0]);
     
   } catch (err: any) {
-    console.log(err.message);
-    res.send(err.message).status(500);
+    console.log('catch: ' + err.message);
+    res.status(404).send(err.message);
   }
 });
 
