@@ -1,20 +1,39 @@
-const router = require('express').Router();
+const router = require("express").Router();
 import { Request, Response } from "express";
-const db = require('../db')
+const db = require("../db");
+const bcrypt = require("bcrypt");
 
-router.post('/register', async (req: Request, res: Response) => {
-    try{
-        const {email, password} = req.body;
-        const user = await db.query("SELECT * FROM commerce.user WHERE email_address = $1", [email]);
-        console.log(user.rows[0]);
-        return res.send(user.rows[0]);
+router.post("/register", async (req: Request, res: Response) => {
+  try {
+    const { email, password, firstName, lastName, phone } = req.body;
+    console.log(firstName);
+    const user = await db.query(
+      "SELECT * FROM commerce.user WHERE email_address = $1",
+      [email]
+    );
+    if (user.rows.length !== 0) {
+      return res.status(401).send("A user with this email already exists");
     }
-    catch(err: any) {
-        console.log(err.message);
-        res.send(err.message).status(500);
-    }
-})
 
+        try{
+            const saltRounds = 10;
+            bcrypt.hash(password, saltRounds)
+            .then(async (hash: String) => {
+                const result = await db.getClient(
+                "INSERT INTO commerce.user (first_name, last_name, password, email_address, phone) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+                [firstName, lastName, password, email, phone]
+                );
+                console.log(result);
+            });
+        } catch(err:any ) {
+            console.log(err.message);
+        }
 
+    return res.send(user.rows[0]);
+  } catch (err: any) {
+    console.log(err.message);
+    res.send(err.message).status(500);
+  }
+});
 
 module.exports = router;

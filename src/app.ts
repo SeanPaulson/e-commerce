@@ -2,6 +2,7 @@ import exp from 'constants';
 import express, {Express, Request, Response} from 'express';
 const productsRouter = require('./routes/products');
 const db = require('./db')
+const cors = require('cors');
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
@@ -10,6 +11,7 @@ const app: Express = express();
 const port = process.env.PORT || 3001;
 
 app.use(express.json());
+app.use(cors());
 app.use('/product', productsRouter);
 app.use('/auth', require('./routes/login'));
 

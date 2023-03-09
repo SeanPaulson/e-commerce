@@ -1,12 +1,26 @@
-import { PoolClient } from "pg";
+import { Pool } from "pg";
 
-const { Pool } = require('pg');
-
-const pool: PoolClient = new Pool();
+const pool: Pool = new Pool();
 
 module.exports = {
     async query(text: string,params: any[]) {
         const res = await pool.query(text, params);
         return res;
-    }
+    },
+    async getClient(query: string, params?: any[]) {
+        const client = await pool.connect();
+
+        try{
+            await client.query('BEGIN')
+            const res = await client.query(query, params);
+            await client.query('COMMIT');
+            return res;
+        } catch(error: any) {
+            await client.query('ROLLBACK');
+            console.log(error.message);
+            return error;
+        } finally {
+            client.release();
+        }
+    },
 }
