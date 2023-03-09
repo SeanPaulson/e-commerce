@@ -1,4 +1,3 @@
-import exp from 'constants';
 import express, {Express, Request, Response} from 'express';
 const productsRouter = require('./routes/products');
 const db = require('./db')

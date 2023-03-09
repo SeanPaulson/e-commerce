@@ -16,12 +16,13 @@ router.post("/register", async (req: Request, res: Response) => {
 
     const saltRounds = 10;
     const bcryptPassword = await bcrypt.hash(password, saltRounds);
-    const result = await db.getClient(
+    const newUser = await db.getClient(
                     "INSERT INTO commerce.user (first_name, last_name, password, email_address, phone) VALUES ($1, $2, $3, $4, $5) RETURNING *",
                     [firstName, lastName, bcryptPassword, email, phone]
                 );
-    console.log(result)
-    return res.send(user.rows[0]);
+
+    return res.send(newUser.rows[0]);
+    
   } catch (err: any) {
     console.log(err.message);
     res.send(err.message).status(500);
