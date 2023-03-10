@@ -1,4 +1,5 @@
 import { Pool } from "pg";
+const pgSession = require("connect-pg-simple");
 
 const pool: Pool = new Pool();
 
@@ -22,4 +23,5 @@ module.exports = {
             client.release();
         }
     },
+    pool
 }
