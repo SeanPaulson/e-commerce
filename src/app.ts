@@ -30,10 +30,11 @@ app.use(expressSession({
         createTableIfMissing: true
     }),
     secret: process.env.SECRET,
-    resave: false,
+    resave: true,
     saveUninitialized: false,
-    cookie: {secure: false, maxAge: 1000 * 60 * 60, sameSite: "strict", httpOnly: 'true'},
+    cookie: {secure: false, maxAge: 1000 * 60 * 60, sameSite: false, httpOnly: 'true'},
 }));
+
 app.get('/', (req: Request, res: Response, next) => {
     res.send('home page- session: ' + req.session);
 });

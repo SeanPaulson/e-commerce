@@ -7,7 +7,7 @@ const userRouter = express.Router();
 userRouter.get('/:id', async (req, res) => {
     try{
         console.log('users: ');
-        console.log(req.session.user);
+        console.log(req.session);
         const reqId = req.params.id;
         const result = await db.query('SELECT * FROM commerce.user WHERE id = $1', [reqId]);
         if(result.rows.length === 0) {
