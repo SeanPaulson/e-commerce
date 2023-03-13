@@ -6,6 +6,7 @@ const expressSession = require("express-session");
 const pgSession = require("connect-pg-simple")(expressSession);
 const compression = require('compression');
 const authRouter = require('./routes/auth');
+const userRouter = require('./routes/users');
 
 if (process.env.NODE_ENV !== 'production'){
     require('dotenv').config();
@@ -16,22 +17,29 @@ const port = process.env.PORT || 3001;
 
 app.set('trust proxy', 1)
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:3001',  //Your Client, do not write '*'
+    credentials: true,
+}));
 app.use(compression());
 app.use(expressSession({
     store: new pgSession({
         pool: db.pool,
         tableName: "shopping_session",
-        schemaName: "commerce"
+        schemaName: "commerce",
+        createTableIfMissing: true
     }),
     secret: process.env.SECRET,
-    cookie: { maxAge: 1000 * 60 * 30, sameSite: "none"},
     resave: false,
     saveUninitialized: false,
-    secure: process.env.NODE_ENV === "production",
-}))
-app.use('/product', productsRouter);
+    cookie: {secure: false, maxAge: 1000 * 60 * 60, sameSite: "strict", httpOnly: 'true'},
+}));
+app.get('/', (req: Request, res: Response, next) => {
+    res.send('home page- session: ' + req.session);
+});
 app.use('/auth', authRouter);
+app.use('/product', productsRouter);
+app.use('/users', userRouter);
 app.use(function (err: Error, req: Request, res: Response, next: NextFunction) {
     console.log('err:' + err);
     next();
@@ -40,12 +48,13 @@ app.use(function (err: Error, req: Request, res: Response, next: NextFunction) {
 
 
 
-app.get('/', (req: Request, res: Response, next) => {
-    res.send('home page' + req.session);
-});
 
 
 
+app.use((req:Request, res: Response, next) => {
+    console.log(req.url)
+    res.status(404).redirect('back');
+})
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);

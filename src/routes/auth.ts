@@ -12,7 +12,7 @@ router.post("/register", async (req: Request, res: Response) => {
       [email]
     );
     if (user.rows.length !== 0) {
-      return res.status(401).send("A user with this email already exists");
+      return res.status(401).send("A user with this email already exists (forgot password functionality comming soon)");
     }
     //Salt and hash password and create new user
     const saltRounds = 10;
@@ -31,7 +31,9 @@ router.post("/register", async (req: Request, res: Response) => {
       phone: newUser.phone,
     };
 
-    res.status(200).redirect('/')
+    req.session.authorized = true;
+
+    res.status(200).send(req.session);
     
   } catch (err: any) {
     console.log('catch: ' + err.message);
@@ -39,28 +41,30 @@ router.post("/register", async (req: Request, res: Response) => {
   }
 });
 
+router.get('/login', (req: Request, res: Response) => {
+  res.send('login page');
+});
 
 router.post('/login', async (req: Request, res: Response) => {
-  console.log('/login');
   try{
+    
     const {email, password} = req.body;
+    //get user password/ from matching email. 
     const data = await db.query("SELECT * FROM commerce.user WHERE email_address = $1", [email]);
     const user = data.rows[0];
 
+    //compare user password
     const matches = bcrypt.compareSync(password, user.password);
     if(!matches) {
       return res.status(403).send('email or password is incorrect');
     }
     req.session.authorized = true;
     req.session.user = {
-      id: user.id,
-      firstName: user.first_name,
-      lastName: user.last_name,
-      email: user.email_address,
-      phone: user.phone,
+      id: user.id
     };
-
-    res.status(202).json({user: req.session.user})
+    console.log('login/session? :')
+    console.log(req.session)
+    res.status(202).send('logged in!');
   }catch(err: any) {
     console.log('/login' + err.message);
     res.status(404).send(err.message);
