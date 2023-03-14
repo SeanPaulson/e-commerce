@@ -13,12 +13,10 @@ userRouter.get('/:id', async (req, res) => {
         if(result.rows.length === 0) {
             throw Error('Could not find user');
         }
-        if(req.session.authorized && req.session.user?.id === reqId) {
-            res.send(result.rows[0]);
+        if(req.session.authorized && req.session.user?.id == reqId) {
+            res.send('you have been authorized!');
         }else {
-            const {id, first_name, last_name, email_address, phone} = result.rows[0];
-            const user = {id, first_name, last_name, email_address, phone}
-            res.send(user);
+            res.send('sorry you are not authorized to view this page');
         }
     }
     catch(err: any) {

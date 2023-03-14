@@ -15,10 +15,11 @@ if (process.env.NODE_ENV !== 'production'){
 const app: Express = express();
 const port = process.env.PORT || 3001;
 
+// app.use express.favicon()
 app.set('trust proxy', 1)
 app.use(express.json());
 app.use(cors({
-    origin: 'http://localhost:3001',  //Your Client, do not write '*'
+    origin: 'localhost:3001',  //Your Client, do not write '*'
     credentials: true,
 }));
 app.use(compression());
@@ -32,7 +33,7 @@ app.use(expressSession({
     secret: process.env.SECRET,
     resave: true,
     saveUninitialized: false,
-    cookie: {secure: false, maxAge: 1000 * 60 * 60, sameSite: false, httpOnly: 'true'},
+    cookie: {secure: false, maxAge: 1000 * 60 * 60 * 24, sameSite: 'none', httpOnly: 'true'},
 }));
 
 app.get('/', (req: Request, res: Response, next) => {

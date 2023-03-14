@@ -32,8 +32,7 @@ router.post("/register", async (req: Request, res: Response) => {
     };
 
     req.session.authorized = true;
-
-    res.status(200).send(req.session);
+    res.status(200).send('logged in!');
     
   } catch (err: any) {
     console.log('catch: ' + err.message);
