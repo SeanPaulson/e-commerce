@@ -6,6 +6,8 @@ const productRouter = express.Router();
 productRouter.get('/', async (req, res, next) => {
     try{
         const result = await db.query('SELECT * FROM commerce.product LIMIT 10');
+        console.log('/product: ');
+        console.log(req.session);
         res.send(result.rows);
     }
     catch(err: any) {
