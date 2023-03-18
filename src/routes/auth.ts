@@ -1,5 +1,5 @@
 const router = require("express").Router();
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 const db = require("../db");
 const bcrypt = require("bcrypt");
 
@@ -44,7 +44,7 @@ router.get('/login', (req: Request, res: Response) => {
   res.send('login page');
 });
 
-router.post('/login', async (req: Request, res: Response) => {
+router.post('/login', async (req: Request, res: Response, next: NextFunction) => {
   try{
     
     const {email, password} = req.body;
@@ -61,7 +61,7 @@ router.post('/login', async (req: Request, res: Response) => {
     req.session.user = {
       id: user.id
     };
-    res.status(202).send('logged in!');
+    next();
   }catch(err: any) {
     console.log('/login' + err.message);
     res.status(404).send(err.message);
