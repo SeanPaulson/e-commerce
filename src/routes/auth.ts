@@ -1,8 +1,7 @@
 const router = require("express").Router();
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 const db = require("../db");
 const bcrypt = require("bcrypt");
-const importedPasswords = require("../../passwords.js");
 
 router.post("/register", async (req: Request, res: Response) => {
   try {
@@ -62,8 +61,6 @@ router.post('/login', async (req: Request, res: Response) => {
     req.session.user = {
       id: user.id
     };
-    console.log('login/session? :')
-    console.log(req.session)
     res.status(202).send('logged in!');
   }catch(err: any) {
     console.log('/login' + err.message);
@@ -80,7 +77,6 @@ router.get('/logout', async (req: Request, res: Response) => {
       if (e){
         throw(e);
       } else {
-        console.log(req.session);
         res.redirect('/');
       }
     });
@@ -89,30 +85,8 @@ router.get('/logout', async (req: Request, res: Response) => {
     console.error(err)
     return res.sendStatus(500)
 }
-})
+});
 
-// router.get('/passwordHash', async (req: Request, res: Response) => {
-//   try {
-    
-//     const saltRounds = 10;
-//     const plainTextPasswords = await db.query("SELECT password FROM commerce.user;");
-//     console.log(plainTextPasswords.rows)
-
-//     for (let i = 0; i < plainTextPasswords.rows.length; ++i) {
-//       console.log(plainTextPasswords.rows[i].password)
-//     }
-
-
-//     // plainTextPasswords.rows.forEach( async (password: {password: String}) => {
-//     //   // const bcryptPassword = await bcrypt.hash(password.password, saltRounds);
-//     //   for(const i in plainTextPasswords) {
-//     //     console.log(i);
-//     //   }
-//     //   // await db.query("UPDATE commerce.user SET password = $1 WHERE password = $2;", [ password.password])
-//     // })
-//     res.send('complete!');
-//   } catch (err: any) {res.status(400).send(err.message)}
-// })
 
 
 module.exports = router;
