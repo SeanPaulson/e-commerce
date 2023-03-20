@@ -7,8 +7,9 @@ const pgSession = require("connect-pg-simple")(expressSession);
 const compression = require('compression');
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/users');
-// import cartRouter from "./routes/shopping_cart";
+import cartRouter from "./routes/shopping_cart";
 import {createCart} from './controllers/cart_controller';
+import {isAuthorized} from './utils/auth';
 
 if (process.env.NODE_ENV !== 'production'){
     require('dotenv').config();
@@ -41,9 +42,10 @@ app.use(expressSession({
 app.get('/', (req: Request, res: Response, next) => {
     res.send('home page- session: ' + req.session);
 });
-app.use('/auth', authRouter, createCart);
+app.use('/auth', authRouter);
 app.use('/product', productsRouter);
 app.use('/users', userRouter);
+app.use('/cart',isAuthorized, cartRouter);
 app.use((req:Request, res: Response, next) => {
     console.log(req.url)
     res.status(404).redirect('back');
