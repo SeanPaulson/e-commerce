@@ -1,5 +1,6 @@
 const db = require("../db");
 import { Response, Request } from "express";
+import { profileBodyReq } from "../types";
 
 /**
  *
@@ -42,7 +43,8 @@ export const getUser = async (req: Request, res: Response) => {
 export const profileSettings = async (req: Request, res: Response) => {
   try {
     const reqId = req.params.id;
-    const user = await db.query(`SELECT 
+    const user = await db.query(
+      `SELECT 
         commerce.user.id, 
         commerce.user.first_name, 
         commerce.user.last_name,
@@ -60,15 +62,30 @@ export const profileSettings = async (req: Request, res: Response) => {
             ON commerce.user.id = commerce.user_address.user_id
         JOIN commerce.user_payment
             ON commerce.user.id = commerce.user_payment.user_id
-        WHERE commerce.user.id = $1;`, [
-        reqId,
-        ]);
+        WHERE commerce.user.id = $1;`,
+      [reqId]
+    );
     if (user.rows.length === 0) {
-        res.send('Could not find user');
+      res.send("Could not find user");
     } else {
-        res.send(user.rows[0]);
+      res.send(user.rows[0]);
     }
   } catch (err: any) {
     res.status(500).send(err.message);
   }
+};
+
+//will nedd to create a switch statement for each user profile field...
+export const updateProfile = async (req: Request, res: Response) => {
+  try {
+    const user_id = req.params.id
+    const profileInfo: profileBodyReq = req.body;
+    const userField = Object.keys(profileInfo)[0];
+
+    const updatedProfile = await db.query(
+      `UPDATE commerce.user SET first_name = $1 WHERE id = $2`,
+      [profileInfo[userField], user_id]
+    );
+    res.send(updatedProfile);
+  } catch (err: any) {res.send(err.message)}
 };
