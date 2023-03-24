@@ -10,7 +10,7 @@ export const addItemToCart = async (
   try {
     const { prod_id, quantity } = req.body;
     const user_id = req.session.user?.id;
-    const newCart = await db.query(
+    const newCart = await db.getClient(
       "INSERT INTO commerce.cart_items (prod_id, quantity, user_id) VALUES ($1, $2, $3) ON CONFLICT (user_id, prod_id) DO UPDATE SET quantity = $2 RETURNING *",
       [prod_id, quantity, user_id]
     );

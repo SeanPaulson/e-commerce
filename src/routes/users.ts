@@ -1,41 +1,20 @@
 import express = require('express');
-const db = require('../db');
+import { getUser, getUsers, profileSettings, updateProfile } from '../controllers/user_controller';
+import { isAuthorized } from '../utils/auth';
 const userRouter = express.Router();
 
 
-userRouter.get('/', async (req, res) => {
-    try {
-        const users = await db.query("SELECT (id, first_name, last_name, email_address, phone) FROM commerce.user LIMIT 50");
-        if(users.rows.length === 0) {
-            throw Error('Could not find users');
-        }else {
-            res.send(users.rows);
-        }
-    } 
-    catch(err: any) {
-        res.status(500).send(err.message)
-    }
-})
-
-
-userRouter.get('/:id', async (req, res) => {
-    try{
-        const reqId = req.params.id;
-        const user = await db.query('SELECT * FROM commerce.user WHERE id = $1', [reqId]);
-        if(user.rows.length === 0) {
-            throw Error('Could not find user');
-        }
-        if(req.session.authorized && req.session.user?.id == reqId) {
-            res.send(user.rows[0]);
-        }else {
-            res.send('sorry you are not authorized to view this page');
-        }
-    }
-    catch(err: any) {
-        res.status(500).send(err.message);
-    }
-        
-});
+userRouter.get('/', getUsers)
+userRouter.get('/:id', getUser);
+userRouter.get('/:id/profile', isAuthorized, profileSettings);
+userRouter.put('/:id/profile', isAuthorized, updateProfile);
+//user profile
+    // address
+        // CRUD
+    //payment
+        //CRUD
+    //view orders
+        //R
 
 
 module.exports = userRouter;
