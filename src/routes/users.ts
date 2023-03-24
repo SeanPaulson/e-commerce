@@ -8,6 +8,6 @@ userRouter.get('/', getUsers)
 userRouter.get('/:id', getUser);
 userRouter.get('/:id/profile', isAuthorized, profileSettings);
 userRouter.put('/:id/profile', isAuthorized, updateProfile);
-userRouter.delete('/id', isAuthorized, deleteUser);
+userRouter.delete('/:id', isAuthorized, deleteUser);
 
 module.exports = userRouter;

@@ -130,10 +130,10 @@ export const deleteUser = async (req: Request, res: Response) => {
   try {
     const user_id = req.params.id;
     const isDeleted = await db.getClient(
-      "DELETE FROM commerce.user CASCADE WHERE user_id = $1 RETURNING *",
+      "DELETE FROM commerce.user CASCADE WHERE id = $1 RETURNING *",
       [user_id]
     );
-    console.log(isDeleted);
+    console.log(isDeleted.rowCount);
     res.send("deleted user");
   } catch (err: any) {
     console.log('cannot delete user');
