@@ -5,13 +5,9 @@ const userRouter = express.Router();
 
 
 userRouter.get('/', getUsers)
-
-
 userRouter.get('/:id', getUser);
-
-userRouter.get('/:id/profile', isAuthorized, profileSettings)
-
-userRouter.put('/:id/profile', updateProfile)
+userRouter.get('/:id/profile', isAuthorized, profileSettings);
+userRouter.put('/:id/profile', isAuthorized, updateProfile);
 //user profile
     // address
         // CRUD

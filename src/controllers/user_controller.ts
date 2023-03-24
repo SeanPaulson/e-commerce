@@ -1,10 +1,10 @@
 const db = require("../db");
 import { Response, Request } from "express";
-import { queries } from "../db/queries";
+import { updateUserProfile } from "../db/queries";
 import { profileBodyReq } from "../types";
 
 /**
- *
+ *gets all users (currently only gets 10) todo
  * @param req
  * @param res
  * @returns {[users]} || Error
@@ -23,7 +23,11 @@ export const getUsers = async (req: Request, res: Response) => {
     res.status(500).send(err.message);
   }
 };
-
+/**
+ * gets a spicific user by id
+ * @param req 
+ * @param res 
+ */
 export const getUser = async (req: Request, res: Response) => {
   try {
     const reqId = req.params.id;
@@ -40,7 +44,11 @@ export const getUser = async (req: Request, res: Response) => {
     res.status(500).send(err.message);
   }
 };
-
+/**
+ * gets authed user profile information not including password.
+ * @param req 
+ * @param res 
+ */
 export const profileSettings = async (req: Request, res: Response) => {
   try {
     const reqId = req.params.id;
@@ -75,19 +83,36 @@ export const profileSettings = async (req: Request, res: Response) => {
     res.status(500).send(err.message);
   }
 };
-
-
-//will nedd to create a switch statement for each user profile field...
+/**
+ * Updates authed user profile information not including password.
+ * @param req 
+ * @param res 
+ */
 export const updateProfile = async (req: Request, res: Response) => {
   try {
-    const user_id = req.params.id
+    const user_id = req.params.id;
     const profileInfo: profileBodyReq = req.body;
     const userField = Object.keys(profileInfo)[0];
-      
-    const updatedProfile = await db.getClient(
-      queries.updateProfileName,
-      [profileInfo[userField], user_id]
-    );
-    res.send(updatedProfile);
-  } catch (err: any) {res.send(err.message)}
+    let updatedProfile;
+    console.log(userField);
+    switch (userField) {
+      case "first_name" || "last_name" || "email_address" || 'phone':
+        const t1 = 'user';
+        updatedProfile = await db.getClient(updateUserProfile(userField, t1), [profileInfo[userField], user_id]);
+        break;
+      case "expires" || "provider":
+        let t2 = 'user_payment';
+        updatedProfile = await db.getClient(updateUserProfile(userField, t2), [profileInfo[userField], user_id]);
+        break;
+      default:
+        const t3 = 'user_address';
+        updatedProfile = await db.getClient(updateUserProfile(userField, t3), [profileInfo[userField], user_id]);
+        break;
+    }
+    if (updatedProfile.rowCount > 0) {
+      res.send(updatedProfile);
+    }
+  } catch (err: any) {
+    res.send(err.message + err);
+  }
 };
