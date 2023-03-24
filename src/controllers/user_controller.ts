@@ -25,8 +25,8 @@ export const getUsers = async (req: Request, res: Response) => {
 };
 /**
  * gets a spicific user by id
- * @param req 
- * @param res 
+ * @param req
+ * @param res
  */
 export const getUser = async (req: Request, res: Response) => {
   try {
@@ -46,8 +46,8 @@ export const getUser = async (req: Request, res: Response) => {
 };
 /**
  * gets authed user profile information not including password.
- * @param req 
- * @param res 
+ * @param req
+ * @param res
  */
 export const profileSettings = async (req: Request, res: Response) => {
   try {
@@ -85,8 +85,8 @@ export const profileSettings = async (req: Request, res: Response) => {
 };
 /**
  * Updates authed user profile information not including password.
- * @param req 
- * @param res 
+ * @param req
+ * @param res
  */
 export const updateProfile = async (req: Request, res: Response) => {
   try {
@@ -96,17 +96,26 @@ export const updateProfile = async (req: Request, res: Response) => {
     let updatedProfile;
     console.log(userField);
     switch (userField) {
-      case "first_name" || "last_name" || "email_address" || 'phone':
-        const t1 = 'user';
-        updatedProfile = await db.getClient(updateUserProfile(userField, t1), [profileInfo[userField], user_id]);
+      case "first_name" || "last_name" || "email_address" || "phone":
+        const t1 = "user";
+        updatedProfile = await db.getClient(updateUserProfile(userField, t1), [
+          profileInfo[userField],
+          user_id,
+        ]);
         break;
       case "expires" || "provider":
-        let t2 = 'user_payment';
-        updatedProfile = await db.getClient(updateUserProfile(userField, t2), [profileInfo[userField], user_id]);
+        let t2 = "user_payment";
+        updatedProfile = await db.getClient(updateUserProfile(userField, t2), [
+          profileInfo[userField],
+          user_id,
+        ]);
         break;
       default:
-        const t3 = 'user_address';
-        updatedProfile = await db.getClient(updateUserProfile(userField, t3), [profileInfo[userField], user_id]);
+        const t3 = "user_address";
+        updatedProfile = await db.getClient(updateUserProfile(userField, t3), [
+          profileInfo[userField],
+          user_id,
+        ]);
         break;
     }
     if (updatedProfile.rowCount > 0) {
@@ -114,5 +123,20 @@ export const updateProfile = async (req: Request, res: Response) => {
     }
   } catch (err: any) {
     res.send(err.message + err);
+  }
+};
+
+export const deleteUser = async (req: Request, res: Response) => {
+  try {
+    const user_id = req.params.id;
+    const isDeleted = await db.getClient(
+      "DELETE FROM commerce.user CASCADE WHERE user_id = $1 RETURNING *",
+      [user_id]
+    );
+    console.log(isDeleted);
+    res.send("deleted user");
+  } catch (err: any) {
+    console.log('cannot delete user');
+    res.send(err);
   }
 };

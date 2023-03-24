@@ -47,7 +47,7 @@ app.use('/users', userRouter);
 app.use('/cart', isAuthorized, cartRouter);
 app.use((req:Request, res: Response, next) => {
     console.log(req.url)
-    res.status(404).redirect('back');
+    next();
 });
 
 
