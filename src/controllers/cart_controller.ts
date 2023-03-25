@@ -62,3 +62,29 @@ export const getUserCart = async (
     res.send(err);
   }
 };
+
+export const checkoutCart = async (req: Request, res: Response) => {
+  const user_id = req.params.id;
+  const { product_id, quantity, total } = req.body;
+
+  //create a insert into order_details table
+  const order_details_id = await db.getClient(`
+  INSERT INTO commerce.order_details (
+    user_id,
+    total
+  )
+  SELECT product.id, product.price * quantity AS total
+  FROM commerce.cart_items 
+  INNER JOIN commerce.product
+  ON commerce.product.id = commerce.cart_items.prod_id
+  WHERE user_id = $1; returning id`, [user_id]);
+  if (order_details_id.rows) {
+    return res.send(order_details_id);
+  }
+  res.send();
+  //order_items table 
+  //and payment_details
+  //confirm payment (successful table inserts in this case)
+  //then delete users items from order_items table
+  //res with successful order and confirmation code
+}

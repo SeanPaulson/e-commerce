@@ -126,6 +126,12 @@ export const updateProfile = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Deletes user;
+ * @param req 
+ * @param res 
+ * TODO: need to add a confirm delete popup. 
+ */
 export const deleteUser = async (req: Request, res: Response) => {
   try {
     const user_id = req.params.id;
