@@ -60,7 +60,7 @@ export const checkoutCart = async (req: Request, res: Response) => {
   // const { product_id, quantity, total } = req.body;
 
   //create a insert into order_details table
-  const order_details_id = await db.getClient("CALL commerce.checkout(1004) RETURNING *;", 
+  const order_details_id = await db.getClient("CALL commerce.checkout($1) RETURNING *;", 
     [user_id]);
   if (order_details_id.rows) {
     return res.send(order_details_id);
