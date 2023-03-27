@@ -60,16 +60,16 @@ export const checkoutCart = async (req: Request, res: Response) => {
   // const { product_id, quantity, total } = req.body;
 
   //create a insert into order_details table
-  const order_details_id = await db.getClient("CALL commerce.checkout($1) RETURNING *;", 
+  const order_details_id = await db.getClient("CALL commerce.checkout($1);", 
     [user_id]);
+  //check for err
+  //if err handle err.
+  
+  //if no error return order_details? as confirmation code and set req.session.cart = -1;
   if (order_details_id.rows) {
     return res.send(order_details_id);
   }
-  res.send();
-  //order_items table 
-  //and payment_details
-  //confirm payment (successful table inserts in this case)
-  //then delete users items from order_items table
+  res.send(order_details_id);
   //res with successful order and confirmation code
   }catch (err: any) {
     res.send(err);
