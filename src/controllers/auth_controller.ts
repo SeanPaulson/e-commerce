@@ -14,8 +14,11 @@ export const login = async (
       "SELECT * FROM commerce.user WHERE email_address = $1",
       [email]
     );
+    if (data.rows.length === 0) {
+      return res.send('email or password is incorrect: redirect to login comming soon');
+    }
     const user = data.rows[0];
-
+    
     //compare user password
     const matches = bcrypt.compareSync(password, user.password);
     if (!matches) {
