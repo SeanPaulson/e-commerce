@@ -44,7 +44,7 @@ app.get('/', (req: Request, res: Response, next) => {
 app.use('/auth', authRouter);
 app.use('/product', productsRouter);
 app.use('/users', userRouter);
-app.use('/cart', isAuthorized, cartRouter);
+app.use('/cart', cartRouter);
 app.use((req:Request, res: Response, next) => {
     console.log(req.url)
     next();

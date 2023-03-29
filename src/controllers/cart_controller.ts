@@ -37,6 +37,7 @@ export const getUserCart = async (
   next: NextFunction
 ) => {
   try {
+    console.log(req.params.id);
     const user_id = req.session.user?.id;
     const cart_items = await db.query(
       "SELECT * FROM commerce.get_user_cart($1);",
