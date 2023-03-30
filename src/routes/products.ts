@@ -1,9 +1,10 @@
-import express = require('express');
+import { NextFunction, Response, Request } from "express";
+
+const productRouter = require('express').Router();;
 const db = require ('../db');
-const productRouter = express.Router();
 
 
-productRouter.get('/', async (req, res, next) => {
+productRouter.get('/', async (req: Request, res: Response, next: NextFunction) => {
     try{
         const result = await db.query('SELECT * FROM commerce.product LIMIT 10');
         console.log('/product: ');
@@ -16,7 +17,7 @@ productRouter.get('/', async (req, res, next) => {
         
 });
 
-productRouter.get('/:id', async (req, res) => {
+productRouter.get('/:id', async (req: Request, res: Response) => {
     const id = req.params.id;
     try {
         const result = await db.query("SELECT * FROM commerce.product WHERE product.id = $1", [id]);
@@ -32,7 +33,7 @@ productRouter.get('/:id', async (req, res) => {
 });
 
 
-productRouter.get('/:categoryId', async (req, res) => {
+productRouter.get('/:categoryId', async (req: Request, res: Response) => {
     const category_id = req.params.categoryId;
     try {
         const result = await db.query("SELECT * FROM commerce.product WHERE product.category_id = $1", [category_id]);

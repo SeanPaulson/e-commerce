@@ -24,7 +24,7 @@ export const getUsers = async (req: Request, res: Response) => {
   }
 };
 /**
- * gets a spicific user by id
+ * gets a specific user by id
  * @param req
  * @param res
  */

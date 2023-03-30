@@ -1,7 +1,6 @@
-import express = require('express');
+const userRouter = require('express').Router();
 import { deleteUser, getUser, getUsers, profileSettings, updateProfile } from '../controllers/user_controller';
 import { isAuthorized } from '../utils/auth';
-const userRouter = express.Router();
 
 
 userRouter.get('/', getUsers)

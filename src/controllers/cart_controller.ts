@@ -55,7 +55,7 @@ export const getUserCart = async (
   }
 };
 
-export const checkoutCart = async (req: Request, res: Response) => {
+export const checkoutCart = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const user_id = req.params.id;
   // const { product_id, quantity, total } = req.body;
@@ -69,7 +69,16 @@ export const checkoutCart = async (req: Request, res: Response) => {
   //if no error return order_details? as confirmation code and set req.session.cart = -1;
   res.send(order_details_id);
   //res with successful order and confirmation code
-  }catch (err: any) {
-    res.send(err);
+  } catch (err: any) {
+    if (err.code === '23514') {
+      console.log(err);
+      return res.send('there is not enough inventory. Lower');
+      //notify user that there is not enough inventory
+      //as if they want to lower there quantity
+      // or find a similar item. 
+      //TODO need to find a way to figure out what item is throwing the error.
+    }
+
+    next(err);
   }
 }

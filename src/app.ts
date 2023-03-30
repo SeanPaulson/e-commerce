@@ -8,7 +8,6 @@ const compression = require('compression');
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/users');
 import cartRouter from "./routes/shopping_cart";
-import {isAuthorized} from './utils/auth';
 
 if (process.env.NODE_ENV !== 'production'){
     require('dotenv').config();
@@ -50,9 +49,8 @@ app.use((req:Request, res: Response, next) => {
     next();
 });
 
-
 app.use(function (err: Error, req: Request, res: Response, next: NextFunction) {
-    console.log('err:' + err);
+    console.log( err);
     next();
 })
 
