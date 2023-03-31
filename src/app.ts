@@ -8,7 +8,7 @@ const compression = require('compression');
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/users');
 import cartRouter from "./routes/shopping_cart";
-// const openapiSpecification = require('../Design/api_doc');
+const openapiSpecification = require('../Design/api_doc');
 
 if (process.env.NODE_ENV !== 'production'){
     require('dotenv').config();
@@ -17,24 +17,9 @@ if (process.env.NODE_ENV !== 'production'){
 const app: Express = express();
 const port = process.env.PORT || 3001;
 
-const swaggerJsdoc = require('swagger-jsdoc');
 
-
-const options = {
-    failOnErrors: true,
-    definition: {
-        openapi: '3.0.0',
-        info: {
-          title: 'E-commerce',
-          version: '1.0.0',
-        },
-      },
-      apis: ['../src/routes*.ts'],
-    };
-    
-const openapiSpecification = swaggerJsdoc(options);
 // app.use express.favicon()
-app.use(express.static(__dirname + '../Design'));
+// app.use(express.static(__dirname + '../Design'));
 app.set('trust proxy', 1)
 app.use(express.json());
 app.use(cors({
@@ -56,7 +41,7 @@ app.use(expressSession({
 }));
 
 app.get('/', (req: Request, res: Response, next: NextFunction) => {
-    res.send(req.baseUrl);
+    res.send('hi');
 });
 app.get('/hello', (req: Request, res: Response, next: NextFunction) => {
     res.send('hello');
