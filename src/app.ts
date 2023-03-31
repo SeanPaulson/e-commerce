@@ -8,6 +8,7 @@ const compression = require('compression');
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/users');
 import cartRouter from "./routes/shopping_cart";
+// const openapiSpecification = require('../Design/api_doc');
 
 if (process.env.NODE_ENV !== 'production'){
     require('dotenv').config();
@@ -16,7 +17,24 @@ if (process.env.NODE_ENV !== 'production'){
 const app: Express = express();
 const port = process.env.PORT || 3001;
 
+const swaggerJsdoc = require('swagger-jsdoc');
+
+
+const options = {
+    failOnErrors: true,
+    definition: {
+        openapi: '3.0.0',
+        info: {
+          title: 'E-commerce',
+          version: '1.0.0',
+        },
+      },
+      apis: ['../src/routes*.ts'],
+    };
+    
+const openapiSpecification = swaggerJsdoc(options);
 // app.use express.favicon()
+app.use(express.static(__dirname + '../Design'));
 app.set('trust proxy', 1)
 app.use(express.json());
 app.use(cors({
@@ -37,8 +55,15 @@ app.use(expressSession({
     cookie: {secure: false, maxAge: 1000 * 60 * 60 * 24, sameSite: 'none', httpOnly: 'true'},
 }));
 
-app.get('/', (req: Request, res: Response, next) => {
-    res.send('home page- session: ' + req.session);
+app.get('/', (req: Request, res: Response, next: NextFunction) => {
+    res.send(req.baseUrl);
+});
+app.get('/hello', (req: Request, res: Response, next: NextFunction) => {
+    res.send('hello');
+});
+app.get('/swagger.json', (req: Request, res: Response) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(openapiSpecification);
 });
 app.use('/auth', authRouter);
 app.use('/product', productsRouter);
@@ -48,6 +73,7 @@ app.use((req:Request, res: Response, next) => {
     console.log(req.url)
     next();
 });
+
 
 app.use(function (err: Error, req: Request, res: Response, next: NextFunction) {
     console.log( err);

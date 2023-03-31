@@ -24,6 +24,34 @@ export const addItemToCart = async (
     return err.message;
   }
 };
+
+
+
+
+//TODO DELETE CART ITEMS
+export const deleteCartItem = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const user_id = req.params.id;
+    const item_id = req.body.cart_item;
+    const result = await db.query("DELETE FROM commerce.cart_items WHERE user_id = $1 AND prod_id = $2",
+    [user_id, item_id]);
+    if (result.rowCount != 1) {
+      throw Error('cart is empty');
+    }
+    console.log(result);
+    res.send(result);
+  }
+  catch (err) {
+    res.send(err);
+  }
+}
+
+
+
 //get cart items
 /**
  * @param req
@@ -72,11 +100,8 @@ export const checkoutCart = async (req: Request, res: Response, next: NextFuncti
   } catch (err: any) {
     if (err.code === '23514') {
       console.log(err);
-      return res.send('there is not enough inventory. Lower');
-      //notify user that there is not enough inventory
-      //as if they want to lower there quantity
-      // or find a similar item. 
-      //TODO need to find a way to figure out what item is throwing the error.
+      return res.send('there is not enough inventory on item: ' + Number(err.column) + '. Lower quantity selected');
+      //TODO need to find a better way to handle this error. for example show similar items or show how many items are left.
     }
 
     next(err);

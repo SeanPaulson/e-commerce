@@ -128,9 +128,9 @@ export const updateProfile = async (req: Request, res: Response) => {
 
 /**
  * Deletes user;
- * @param req 
- * @param res 
- * TODO: need to add a confirm delete popup. 
+ * @param req
+ * @param res
+ * TODO: need to add a confirm delete popup.
  */
 export const deleteUser = async (req: Request, res: Response) => {
   try {
@@ -142,7 +142,39 @@ export const deleteUser = async (req: Request, res: Response) => {
     console.log(isDeleted.rowCount);
     res.send("deleted user");
   } catch (err: any) {
-    console.log('cannot delete user');
+    console.log("cannot delete user");
+    res.send(err);
+  }
+};
+
+export const getAllOrders = async (req: Request, res: Response) => {
+  try {
+    const user_id = req.params.id;
+    const orders = await db.query(
+      "SELECT id, user_id, total FROM commerce.order_details WHERE user_id = $1",
+      [user_id]
+    );
+    if (orders.rows == 0) {
+      return res.send("no orders found");
+    }
+    res.send(orders.rows);
+  } catch (err) {
+    res.send(err);
+  }
+};
+
+export const getOrder = async (req: Request, res: Response) => {
+  try {
+    const orderID = req.params.orderID;
+    const orders = await db.query(
+      "SELECT * FROM commerce.order_items WHERE id = $1",
+      [orderID]
+    );
+    if (orders.rows == 0) {
+      return res.send("no orders found");
+    }
+    res.send(orders.rows);
+  } catch (err) {
     res.send(err);
   }
 };
