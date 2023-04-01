@@ -5,6 +5,7 @@ const cors = require('cors');
 const expressSession = require("express-session");
 const pgSession = require("connect-pg-simple")(expressSession);
 const compression = require('compression');
+const swaggerUi = require('swagger-ui-express');
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/users');
 import cartRouter from "./routes/shopping_cart";
@@ -19,7 +20,7 @@ const port = process.env.PORT || 3001;
 
 
 // app.use express.favicon()
-// app.use(express.static(__dirname + '../Design'));
+app.use(express.static(__dirname + '../Design'));
 app.set('trust proxy', 1)
 app.use(express.json());
 app.use(cors({
@@ -39,17 +40,18 @@ app.use(expressSession({
     saveUninitialized: false,
     cookie: {secure: false, maxAge: 1000 * 60 * 60 * 24, sameSite: 'none', httpOnly: 'true'},
 }));
-
+app.use('/api-docs', swaggerUi.serve)
+app.get('/api-docs',  swaggerUi.setup(openapiSpecification))
 app.get('/', (req: Request, res: Response, next: NextFunction) => {
     res.send('hi');
 });
 app.get('/hello', (req: Request, res: Response, next: NextFunction) => {
     res.send('hello');
 });
-app.get('/swagger.json', (req: Request, res: Response) => {
-    res.setHeader('Content-Type', 'application/json');
-    res.send(openapiSpecification);
-});
+// app.get('/swagger.json', (req: Request, res: Response) => {
+//     res.setHeader('Content-Type', 'application/json');
+//     res.send(openapiSpecification);
+// });
 app.use('/auth', authRouter);
 app.use('/product', productsRouter);
 app.use('/users', userRouter);
