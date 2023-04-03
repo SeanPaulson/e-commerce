@@ -1,17 +1,16 @@
 const swaggerJsdoc = require('swagger-jsdoc');
 
 
-const options = {
-    failOnErrors: true,
-    definition: {
-        openapi: '3.0.0',
-        info: {
-          title: 'E-commerce',
-          version: '1.0.0',
-        },
-      },
-      apis: ['./routes/*.ts'],
-    };
+export default {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Hello World',
+      version: '1.0.0',
+    },
+  },
+  apis: ['./routes*.js'], // files containing annotations as above
+};
     
-export const openapiSpecification = swaggerJsdoc(options);
+// waggerJsdoc(options);
 
