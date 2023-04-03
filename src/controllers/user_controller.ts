@@ -12,7 +12,7 @@ import { profileBodyReq } from "../types";
 export const getUsers = async (req: Request, res: Response) => {
   try {
     const users = await db.query(
-      "SELECT (id, first_name, last_name, email_address, phone) FROM commerce.user LIMIT 50"
+      "SELECT id, first_name, last_name, email_address, phone FROM commerce.user LIMIT 50"
     );
     if (users.rows.length === 0) {
       throw Error("Could not find users");
@@ -32,11 +32,11 @@ export const getUser = async (req: Request, res: Response) => {
   try {
     const reqId = req.params.id;
     const user = await db.query(
-      "SELECT (id, first_name, last_name, email_address, phone) FROM commerce.user WHERE id = $1",
+      "SELECT id, first_name, last_name, email_address, phone FROM commerce.user WHERE id = $1",
       [reqId]
     );
     if (user.rows.length === 0) {
-      res.send("Could not find user");
+      return res.status(204).send("Could not find user");
     } else {
       res.send(user.rows[0]);
     }
@@ -104,7 +104,7 @@ export const updateProfile = async (req: Request, res: Response) => {
         ]);
         break;
       case "expires" || "provider":
-        let t2 = "user_payment";
+        const t2 = "user_payment";
         updatedProfile = await db.getClient(updateUserProfile(userField, t2), [
           profileInfo[userField],
           user_id,
