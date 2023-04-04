@@ -49,8 +49,6 @@ const options = {
       info: {
         title: 'Hello World',
         version: '1.0.0',
-        basePath: '/api-docs',
-        tags: 'users'
       },
       servers: [
         {
@@ -58,9 +56,23 @@ const options = {
           description: 'Development server',
           
         },
+        ],
+        tags: [
+            {
+                name: "users",
+                description: "Everything about users/customers",
+            },
+            {
+                products: "products",
+                description: "information about available products",
+            },
+            {
+                shoppingCart: "cart",
+                description: "user cart information",
+            }
         ]
     },
-    apis: ['./dist/src/swagger_docs/routes/*.js'], // files containing annotations as above
+    apis: ['./dist/src/swagger_docs/*.yaml'], // files containing annotations as above
   };
 
 const openapiSpecification = swaggerJsdoc(options);

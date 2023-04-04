@@ -76,7 +76,7 @@ export const getUserCart = async (
       res.send(cart_items.rows);
     } else {
       req.session.user!.cart = -1;
-      res.send("your cart is empty");
+      res.status(202).send("your cart is empty");
     }
   } catch (err: any) {
     res.send(err);
