@@ -4,7 +4,7 @@
   "description": "Small e-commerce app for learning sql",
   "main": "server.js",
   "scripts": {
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon dist/src/app.js\"",
+    "dev": "concurrently \"npx tsc --watch && copyFiles 1 src/swagger_docs/**/* src/swagger_docs\" \"nodemon dist/src/app.js\"",
     "build": "npx tsc",
     "start": "node dist/src/app.js --watch"
   },

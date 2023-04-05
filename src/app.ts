@@ -42,15 +42,13 @@ app.use(expressSession({
     saveUninitialized: false,
     cookie: {secure: false, maxAge: 1000 * 60 * 60 * 24, sameSite: 'none', httpOnly: 'true'},
 }));
-const options = {
+const openAPIoptions = {
     failOnErrors: true,
     definition: {
       openapi: '3.0.0',
       info: {
         title: 'Hello World',
         version: '1.0.0',
-        basePath: '/api-docs',
-        tags: 'users'
       },
       servers: [
         {
@@ -58,24 +56,30 @@ const options = {
           description: 'Development server',
           
         },
+        ],
+        tags: [
+            {
+                name: "users",
+                description: "Everything about users/customers",
+            },
+            {
+                products: "products",
+                description: "information about available products",
+            },
+            {
+                cart: "cart",
+                description: "user cart information",
+            }
         ]
     },
-    apis: ['./dist/src/swagger_docs/routes/*.js'], // files containing annotations as above
+    apis: ['./dist/src/swagger_docs/*.yaml'], // files containing annotations as above
   };
 
-const openapiSpecification = swaggerJsdoc(options);
+const openapiSpecification = swaggerJsdoc(openAPIoptions);
 app.use('/api-docs', swaggerUi.serve)
 app.get('/api-docs',  swaggerUi.setup(openapiSpecification))
-app.get('/', (req: Request, res: Response, next: NextFunction) => {
-    res.send('hi');
-});
-app.get('/hello', (req: Request, res: Response, next: NextFunction) => {
-    res.send('hello');
-});
-// app.get('/swagger.json', (req: Request, res: Response) => {
-//     res.setHeader('Content-Type', 'application/json');
-//     res.send(openapiSpecification);
-// });
+
+
 app.use('/auth', authRouter);
 app.use('/product', productsRouter);
 app.use('/users', userRouter);
