@@ -239,7 +239,7 @@ paths:
           schema:
             type: integer
             minimum: 0
-            description: cart ID
+          description: user ID
       responses:
         '200':  
           description: array of products in users category.
@@ -251,8 +251,98 @@ paths:
                     $ref: '#/components/schemas/products'
           '202': 
             description: your cart is empty.
+    post: 
+      tags: 
+        - cart
+      description: add items to users category.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 0
+          description: user ID
+      requestBody:
+       description: The product ID and quantity to add to cart.
+       required: true
+       content:
+         application/json:
+            schema:
+              type: object
+              properties:
+                prod_id: 
+                  type: integer
+                  description: product id
+                quantity:
+                  type: integer
+                  description: quantity of items to add to cart.
+            example:
+                prod_id: 0
+                quantity: 0
+      responses:
+        '201':  
+          description: success!
+        '400': 
+          description: your cart is empty.
+    delete:
+      tags:
+        - cart
+      description: delete item from cart
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 0
+          description: user ID
+      requestBody:
+       description: The product ID and quantity to add to cart.
+       required: true
+       content:
+         application/json:
+            schema:
+              type: object
+              properties:
+                prod_id: 
+                  type: integer
+                description: user ID
+            example:
+                prod_id: 0
+      responses:
+        '201':  
+          description: success!
+        '400': 
+          description: your cart is empty.
+  /cart/{id}/checkout:
+    post:
+      tags:
+        - cart
+      description: checkout all items in cart
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 0
+          description: user ID
+      responses:
+          '201':  
+            description: success!
+          '23514':
+            description: Not enough inventory
+          '500': 
+            description: default error
 
 
+
+
+
+
+
+            
 components:
   schemas:
     user:
