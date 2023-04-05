@@ -18,17 +18,13 @@ export const addItemToCart = async (
       res.send('could not update cart');
     } else {
       req.session.user!.cart = 1;
-      res.send(newCart.rows[0]);
+      res.status(201).send(newCart.rows[0]);
     }
   } catch (err: any) {
     return err.message;
   }
 };
 
-
-
-
-//TODO DELETE CART ITEMS
 export const deleteCartItem = async (
   req: Request,
   res: Response,

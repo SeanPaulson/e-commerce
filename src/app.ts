@@ -42,7 +42,7 @@ app.use(expressSession({
     saveUninitialized: false,
     cookie: {secure: false, maxAge: 1000 * 60 * 60 * 24, sameSite: 'none', httpOnly: 'true'},
 }));
-const options = {
+const openAPIoptions = {
     failOnErrors: true,
     definition: {
       openapi: '3.0.0',
@@ -67,7 +67,7 @@ const options = {
                 description: "information about available products",
             },
             {
-                shoppingCart: "cart",
+                cart: "cart",
                 description: "user cart information",
             }
         ]
@@ -75,19 +75,11 @@ const options = {
     apis: ['./dist/src/swagger_docs/*.yaml'], // files containing annotations as above
   };
 
-const openapiSpecification = swaggerJsdoc(options);
+const openapiSpecification = swaggerJsdoc(openAPIoptions);
 app.use('/api-docs', swaggerUi.serve)
 app.get('/api-docs',  swaggerUi.setup(openapiSpecification))
-app.get('/', (req: Request, res: Response, next: NextFunction) => {
-    res.send('hi');
-});
-app.get('/hello', (req: Request, res: Response, next: NextFunction) => {
-    res.send('hello');
-});
-// app.get('/swagger.json', (req: Request, res: Response) => {
-//     res.setHeader('Content-Type', 'application/json');
-//     res.send(openapiSpecification);
-// });
+
+
 app.use('/auth', authRouter);
 app.use('/product', productsRouter);
 app.use('/users', userRouter);
