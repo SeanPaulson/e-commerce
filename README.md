@@ -60,7 +60,7 @@ ___
 
 ## **Back End:**
 ### DataBase Schema
-<img>TODO
+<img src="./Design/schemaV2.png">
 #### **Topics** 
 - listitem
   - item 2
