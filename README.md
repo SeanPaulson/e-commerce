@@ -60,6 +60,7 @@ ___
 
 ## **Back End:**
 ### DataBase Schema
+Main tables: Customers, Products, shopping_session
 <img src="./Design/schemaV2.png">
 #### **Topics** 
 - listitem
