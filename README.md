@@ -46,7 +46,12 @@ while designing the backend for this application
 ___
 
 ## **Instillation and usage**
-    Todo
+###**comming soon**
+  - Fork or clone Git
+  - npm install
+  - npm run build
+  - npm run dev
+  - prebuilt database is comming soon. 
 
 ## **Live Link**
 *<Link:TODO>*
