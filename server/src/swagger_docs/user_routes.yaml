@@ -1,0 +1,451 @@
+paths:
+  /users:
+    get:
+      tags: 
+        - users
+      description: Get all users. Currently limited to 10.
+      responses: 
+        '200': 
+          description: A array of users.
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+  /users/{id}:
+    get:
+      tags: 
+       - users
+      description: Get user by id.
+      parameters:
+         - in: path
+           name: id
+           required: true
+           schema:
+             type: integer
+             minimum: 0
+           description: The user ID
+      responses:
+        200:
+          description: A user object.
+          content: 
+           application/json:
+            schema:
+              $ref: '#/components/schemas/user'
+        402:
+          description: Not found Error
+    delete:
+      tags: 
+        - users
+      description: delete user profile by id.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 0
+          description: The user ID
+      responses:
+        200:
+          description: user Deleted
+        402:
+          description: cannot delete user
+  /users/{id}/profile: 
+    put:
+      tags: 
+        - users
+      description: update user profile by id.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 0
+          description: The user ID
+      requestBody:
+       description: User can update one Property at a time. see schema
+       required: true
+       content:
+         application/json:
+           schema:
+             allOf:
+                - $ref: '#/components/schemas/user'
+                - $ref: '#/components/schemas/userAddress'
+                - $ref: '#/components/schemas/userPayment'
+           example:
+             first_name
+      responses:
+        200:
+          description: A user object.
+          content: 
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/user'
+                  - $ref: '#/components/schemas/userAddress'
+                  - $ref: '#/components/schemas/userPayment'
+        402:
+          description: Not found Error
+    get:
+      tags:
+        - "users"
+      description: Get user Profile by id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 0
+          description: The user ID
+      responses:
+        200:
+          description: A user object
+          content: 
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/user'
+                  - $ref: '#/components/schemas/userAddress'
+                  - $ref: '#/components/schemas/userPayment'
+          402:
+            description: Not found Error
+  /users/{id}/orders: 
+    get:
+      tags: 
+        - users
+      description: gets all user orders by id.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 0
+          description: The user ID
+      responses:
+        200:
+          description: list of users orders.
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userOrders'
+        402:
+          description: Not found Error
+  /users/{id}/orders/{order_id}: 
+    get:
+      tags:
+      - users
+      description: gets all user orders by id.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 0
+          description: The user ID
+        - in: path
+          name: order_id
+          required: true
+          schema:
+            type: integer
+            minimum: 0
+          description: The order ID
+      responses:
+        200:
+          description: list of users orders.
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/orderItems'
+        402:
+          description: Not found Error
+  /product:
+    get: 
+      tags:
+        - products
+      description: get all products in store. Limited to 10 for now.
+      responses:
+        '200': 
+          description: Products active in store
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/products'
+                  - $ref: '#/components/schemas/products'
+                  - $ref: '#/components/schemas/products'
+        500:
+          description: Error TODO handle error
+  /product/{id}:
+    get: 
+      tags:
+        - products
+      description: get all products in store. Limited to 10 for now.
+      parameters:
+         - in: path
+           name: id
+           required: true
+           schema:
+             type: integer
+             minimum: 0
+           description: The product ID
+      responses:
+        '200': 
+          description: successfully returned product info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/products'
+        202:
+          description: could not find product
+        404:
+          description: default     
+  /product/{categoryId}:
+    get: 
+      tags:
+        - products
+      description: get all products in store based on category. Limited to 10 for now.
+      parameters:
+         - in: path
+           name: categoryId
+           required: true
+           schema:
+             type: integer
+             minimum: 0
+           description: The product category ID
+      responses:
+        '200': 
+          description: successfully returned array of products
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/products'
+        202:
+          description: could not find product
+        404:
+          description: default 
+  /cart/{id}:
+    get: 
+      tags: 
+        - cart
+      description: get all items from ursers active category.
+      parameters:
+        - in: path 
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 0
+          description: user ID
+      responses:
+        '200':  
+          description: array of products in users category.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                    $ref: '#/components/schemas/products'
+          '202': 
+            description: your cart is empty.
+    post: 
+      tags: 
+        - cart
+      description: add items to users category.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 0
+          description: user ID
+      requestBody:
+       description: The product ID and quantity to add to cart.
+       required: true
+       content:
+         application/json:
+            schema:
+              type: object
+              properties:
+                prod_id: 
+                  type: integer
+                  description: product id
+                quantity:
+                  type: integer
+                  description: quantity of items to add to cart.
+            example:
+                prod_id: 0
+                quantity: 0
+      responses:
+        '201':  
+          description: success!
+        '400': 
+          description: your cart is empty.
+    delete:
+      tags:
+        - cart
+      description: delete item from cart
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 0
+          description: user ID
+      requestBody:
+       description: The product ID and quantity to add to cart.
+       required: true
+       content:
+         application/json:
+            schema:
+              type: object
+              properties:
+                prod_id: 
+                  type: integer
+                description: user ID
+            example:
+                prod_id: 0
+      responses:
+        '201':  
+          description: success!
+        '400': 
+          description: your cart is empty.
+  /cart/{id}/checkout:
+    post:
+      tags:
+        - cart
+      description: checkout all items in cart
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 0
+          description: user ID
+      responses:
+          '201':  
+            description: success!
+          '23514':
+            description: Not enough inventory
+          '500': 
+            description: default error
+
+
+
+
+
+
+
+            
+components:
+  schemas:
+    user:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: user ID
+          example: 1
+        first_name:
+          type: string
+          description: user ID
+          example: sean
+        last_name:
+          type: string
+          description: user ID
+          example: dirt
+        email_address:
+          type: string
+          description: user ID
+          example: fake@fake.com
+        phone:
+          type: string
+          description: user ID
+          example: 111-111-1111
+    userAddress:
+      type: object
+      properties:
+        address_line1:
+          type: string
+          description: users address
+        address_line2:
+          type: string
+        city:
+          type: string
+          description: user ID
+          example: city
+        zip_code:
+          type: string
+          description: zip_code
+          example: 11111
+        country_code:
+          type: string
+          description: Country where customer resides
+          example: US
+    userPayment:
+      type: object
+      properties:
+        expires:
+          type: string
+          format: date
+          description: date the payment method expires
+        provider:
+          type: string
+          description: payment provider -ie Visa
+    userOrders:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: order ID
+        user_id:
+          type: integer
+          description: users ID
+        total:
+          type: integer
+          description: total user spent on all items in order
+    orderItems:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: order item ID
+        order_id:
+          type: integer
+          description: order ID
+        product_id:
+          type: integer
+          description: product id for this order
+        quantity:
+          type: integer
+          description: order quantity for this item.
+        created_at:
+          type: string
+          format: date
+          description: time the order was placed
+        modified_at:
+          type: string
+          format: date
+          description: time the order was modified. should be the same as created. 
+    products:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: product ID
+        name:
+          type: string
+          description: name of the product
+        description:
+          type: string  
+          description: description of the product
+        price:
+          type: integer
+          description: price of the product.
+        
