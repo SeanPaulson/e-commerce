@@ -61,13 +61,15 @@ ___
 ___
 
 ## **Front End:**
+### Mobile First Design 1.0
+	<img src"./client/design/mobileV1.0pdf" >
     TODO
 
 ___
 
 ## **Back End:**
 ### DataBase Schema
-<img src="./Design/schemaV2.0.1.png">
+<img src="./server/Design/schemaV2.0.1.png">
 
 ### **Points of interest:** 
 #### *product, quantity and category table :* <br>
