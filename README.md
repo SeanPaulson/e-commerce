@@ -62,7 +62,7 @@ ___
 
 ## **Front End:**
 ### Mobile First Design 1.0
-<img src"./client/design/mobileV1.0.jpg" >
+![mobile first design 1.0](./client/design/mobileV1.0.jpg)
     TODO
 
 ___
