@@ -61,6 +61,8 @@ ___
 ___
 
 ## **Front End:**
+### Mobile First Design 1.0
+	<img src"./client/design/mobileV1.0pdf" >
     TODO
 
 ___
