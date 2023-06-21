@@ -1,12 +1,14 @@
 import { useState } from "react";
 import "./app.scss";
 import Button from "react-bootstrap/Button";
+import NavbarComponent from "./components/navbar/Navbar";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
+      <NavbarComponent />
       <h1>Vite + React</h1>
       <div className="card">
         <Button onClick={() => setCount((count) => count + 1)}>
