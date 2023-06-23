@@ -8,10 +8,12 @@ import "./_navbar.scss";
 function NavbarComponent() {
   return (
     <Navbar expand="sm">
-      <Navbar.Brand href="#home" className="navLogo">
-        E-commerce
-      </Navbar.Brand>
-      <Col sm={6}>
+      <Col>
+        <Navbar.Brand href="#home" className="navLogo">
+          E-commerce
+        </Navbar.Brand>
+      </Col>
+      <Col sm={1}>
         <Image src="/person.svg" alt="profile" roundedCircle></Image>
         <Image src="/cart.svg" alt="shopping cart" roundedCircle></Image>
       </Col>
