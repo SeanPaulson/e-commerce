@@ -1,0 +1,23 @@
+// @import '../../scss/custom.scss';
+.navLogo {
+    color: #BE5C34;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1.5rem;
+    font-weight: bolder;
+}
+.navLogo:hover {
+    color: #BE5C34;
+}
+
+nav {
+    justify-content: center;
+    img {
+        height: 20px;
+        &:hover {
+            background-color: lightgray;
+            cursor: pointer;
+            
+        }
+    }
+}
+
