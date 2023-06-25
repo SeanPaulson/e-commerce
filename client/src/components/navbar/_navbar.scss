@@ -2,22 +2,17 @@
 .navLogo {
     color: #BE5C34;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: bolder;
 }
 .navLogo:hover {
     color: #BE5C34;
 }
 
-nav {
-    justify-content: center;
-    img {
-        height: 20px;
-        &:hover {
-            background-color: lightgray;
-            cursor: pointer;
-            
-        }
-    }
+.navbar {
+    padding: 0px 10px;
+   img {
+    margin-left: 20px;
+   }
 }
 

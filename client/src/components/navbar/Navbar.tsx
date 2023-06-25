@@ -13,7 +13,7 @@ function NavbarComponent() {
           E-commerce
         </Navbar.Brand>
       </Col>
-      <Col sm={1}>
+      <Col sm={{span: 2}}>
         <Image src="/person.svg" alt="profile" roundedCircle></Image>
         <Image src="/cart.svg" alt="shopping cart" roundedCircle></Image>
       </Col>
