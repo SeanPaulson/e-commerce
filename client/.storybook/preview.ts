@@ -1,4 +1,4 @@
-import type { Preview } from "@storybook/react";
+import { Preview } from "@storybook/react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "react-bootstrap/dist/react-bootstrap";
 import '../src/scss/index.scss';

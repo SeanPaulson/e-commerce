@@ -12,24 +12,31 @@ function NavbarComponent() {
       <Navbar.Brand href="#home" className="navLogo ">
         E-commerce
       </Navbar.Brand>
-      <Nav>
-        <Nav.Link>
+      <Nav className="flex-row gap-4">
+        <Nav.Link className="p-1 nav-img-link">
           <Image
-            className="ms-4"
+            className="profile-img"
             src="/person.svg"
             alt="profile"
             roundedCircle
           ></Image>
+        </Nav.Link>
+        <Nav.Link className="p-1 nav-img-link">
           <Image
-            className="ms-4"
+            className="cart-img"
             src="/cart.svg"
             alt="shopping cart"
             roundedCircle
+            fluid
+            role="shopping cart"
           ></Image>
         </Nav.Link>
       </Nav>
       <Container className="justify-content-start">
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" className="nav-btn">
+        <Navbar.Toggle
+          aria-controls="responsive-navbar-nav"
+          className="nav-btn"
+        >
           <Image src="/list.svg"></Image>
           <Navbar.Offcanvas restoreFocus>
             <Offcanvas.Header closeButton>
@@ -50,11 +57,11 @@ function NavbarComponent() {
         </Form>
       </Container>
       <Container>
-      <Navbar.Collapse>
-        <Nav>
-          <Nav.Item>klsdjf</Nav.Item> {/* <category nav/div> */}
-        </Nav>
-      </Navbar.Collapse>
+        <Navbar.Collapse>
+          <Nav>
+            <Nav.Item>klsdjf</Nav.Item> {/* <category nav/div> */}
+          </Nav>
+        </Navbar.Collapse>
       </Container>
     </Navbar>
   );
