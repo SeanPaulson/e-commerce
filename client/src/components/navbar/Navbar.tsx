@@ -1,13 +1,10 @@
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Image from "react-bootstrap/Image";
-import Col from "react-bootstrap/esm/Col";
-import Row from "react-bootstrap/esm/Row";
 import "./_navbar.scss";
-import NavbarCollapse from "react-bootstrap/esm/NavbarCollapse";
 import Container from "react-bootstrap/esm/Container";
 import Form from "react-bootstrap/esm/Form";
-import { Offcanvas } from "react-bootstrap";
+import Offcanvas from "react-bootstrap/esm/Offcanvas";
 
 function NavbarComponent() {
   return (
