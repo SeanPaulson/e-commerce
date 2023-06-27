@@ -1,26 +1,19 @@
-import { useState } from "react";
 import "./app.scss";
-import Button from "react-bootstrap/Button";
 import NavbarComponent from "./components/navbar/Navbar";
+import ImgPreviewCircle from "./components/imgPreviewCircle/ImgPreviewCircle";
+import CardComponent from "./components/card/CardComponent";
 
 function App() {
-  const [count, setCount] = useState(0);
-
+  const arr = [0, 1, 2, 3, 4, 5];
   return (
     <>
       <NavbarComponent />
-      <h1>Vite + React</h1>
-      <div className="card">
-        <Button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </Button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+      <ImgPreviewCircle />
+      <div style={{display: 'flex', paddingTop: '2rem', flexWrap: 'wrap'}}>
+        {arr.map((index) => (
+          <CardComponent key={index} />
+        ))}
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   );
 }
