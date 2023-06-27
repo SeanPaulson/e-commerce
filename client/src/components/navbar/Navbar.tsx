@@ -37,7 +37,7 @@ function NavbarComponent() {
           aria-controls="responsive-navbar-nav"
           className="nav-btn"
         >
-          <Image src="/list.svg"></Image>
+          <Image className="menu-img__btn" src="/list.svg"></Image>
           <Navbar.Offcanvas restoreFocus>
             <Offcanvas.Header closeButton>
               <h1>
@@ -46,7 +46,10 @@ function NavbarComponent() {
             </Offcanvas.Header>
             <Offcanvas.Body>
               {/* <category nav/div> */}
-              <p>ldkjf</p>
+              <p>Men's Clothing</p>
+              <p>Women's clothing</p>
+              <p>jewelry</p>
+              <p>electronics</p>
             </Offcanvas.Body>
           </Navbar.Offcanvas>
         </Navbar.Toggle>
@@ -59,7 +62,10 @@ function NavbarComponent() {
       <Container>
         <Navbar.Collapse>
           <Nav>
-            <Nav.Item>klsdjf</Nav.Item> {/* <category nav/div> */}
+            <Nav.Item>Men's Clothing</Nav.Item> {/* <category nav/div> */}
+            <Nav.Item>Women's clothing</Nav.Item> {/* <category nav/div> */}
+            <Nav.Item>jewelry</Nav.Item> {/* <category nav/div> */}
+            <Nav.Item>electronics</Nav.Item> {/* <category nav/div> */}
           </Nav>
         </Navbar.Collapse>
       </Container>
