@@ -1,3 +1,25 @@
-// @import './scss/custom';
+// @import './scss/index';
 
+#root {
+    display: flex;
+    flex-direction: column;
+    font-family:sans-serif;
+    font-style: bold;
+}
 
+.cardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-basis: 10em;
+    justify-content: space-evenly;
+    margin-top: 40px;
+    padding: 0vh 10vw;
+}
+
+@media screen and (max-width: 608px) {
+    .cardContainer {
+        padding: 0vh 0vw;
+        margin-top: 0px;
+        row-gap: 2rem;
+    }
+}

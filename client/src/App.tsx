@@ -9,7 +9,7 @@ function App() {
     <>
       <NavbarComponent />
       <ImgPreviewCircle />
-      <div style={{display: 'flex', paddingTop: '2rem', flexWrap: 'wrap'}}>
+      <div className="cardContainer">
         {arr.map((index) => (
           <CardComponent key={index} />
         ))}
