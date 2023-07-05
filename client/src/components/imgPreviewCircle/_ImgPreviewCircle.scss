@@ -31,7 +31,7 @@ img {
     background-repeat: no-repeat;
     background-position: center top;
     min-height: 400px;
-    margin-bottom: 150px;
+    margin-bottom: 100px;
 
     p {
         text-align: center;
@@ -55,13 +55,13 @@ h3 {
     background: linear-gradient(#ffe8b92b, rgba(255, 248, 231, 0));
 }
 
-@media screen and (min-width: 480px) {
+@media screen and (max-width: 480px) {
     #hero {
         position: relative;
         top: 300px;
     }
 
     #intro {
-        margin-bottom: 200px;
+        margin-bottom: 250px;
     }
 }

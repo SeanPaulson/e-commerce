@@ -7,13 +7,18 @@
     font-style: bold;
 }
 
+@media screen and (min-width: 768px) {
+    #root {
+        padding: 0vh 15vw;
+    }
+}
+
 .cardContainer {
     display: flex;
     flex-wrap: wrap;
     flex-basis: 10em;
     justify-content: space-evenly;
     margin-top: 40px;
-    padding: 0vh 10vw;
 }
 
 @media screen and (max-width: 608px) {
