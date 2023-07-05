@@ -11,26 +11,57 @@ img {
     cursor:pointer;
 }
 
+.col {
+    max-width: 150px;
+}
+
+#col-empty {
+    display: none;
+}
+
 #col-empty:hover {
     cursor: default;
 }
 
+
 #intro {
-    background: transparent url("/fathers-day-messages-a860e8.jpg") no-repeat top center;
-    background-size: 100%;
+    // background: transparent  auto cover no-repeat top center;
+    background-image: url("/fathers-day-messages-a860e8.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center top;
+    min-height: 400px;
+    margin-bottom: 150px;
 
     p {
         text-align: center;
     }
 }
 
+#hero {
+    position: relative;
+    top: 250px;
+}
+
 #intro-img-static {
-    align-self: start;
+    // align-self: start;
 }
 
 h3 {
     text-align: center;
-    color: rgb(46, 46, 46);
+    color: rgb(72, 72, 72);
     font-style: italic;
     margin-bottom: 1rem;
+    background: linear-gradient(#ffe8b92b, rgba(255, 248, 231, 0));
+}
+
+@media screen and (min-width: 480px) {
+    #hero {
+        position: relative;
+        top: 300px;
+    }
+
+    #intro {
+        margin-bottom: 200px;
+    }
 }

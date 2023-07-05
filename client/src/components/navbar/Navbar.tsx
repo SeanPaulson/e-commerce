@@ -8,68 +8,63 @@ import Offcanvas from "react-bootstrap/esm/Offcanvas";
 
 function NavbarComponent() {
   return (
-    <Navbar expand="md">
-      <Navbar.Brand href="#home" className="navLogo ">
-        E-commerce
-      </Navbar.Brand>
-      <Nav className="flex-row gap-4">
-        <Nav.Link className="p-1 nav-img-link">
-          <Image
-            className="profile-img"
-            src="/person.svg"
-            alt="profile"
-            roundedCircle
-          ></Image>
-        </Nav.Link>
-        <Nav.Link className="p-1 nav-img-link">
-          <Image
-            className="cart-img"
-            src="/cart.svg"
-            alt="shopping cart"
-            roundedCircle
-            fluid
-            role="shopping cart"
-          ></Image>
-        </Nav.Link>
-      </Nav>
-      <Container className="justify-content-start">
-        <Navbar.Toggle
-          aria-controls="responsive-navbar-nav"
-          className="nav-btn"
-        >
-          <Image className="menu-img__btn" src="/list.svg"></Image>
-          <Navbar.Offcanvas restoreFocus>
-            <Offcanvas.Header closeButton>
-              <h1>
-                <b>Shop By Category</b>
-              </h1>
-            </Offcanvas.Header>
-            <Offcanvas.Body>
-              {/* <category nav/div> */}
-              <p>Men's Clothing</p>
-              <p>Women's clothing</p>
-              <p>jewelry</p>
-              <p>electronics</p>
-            </Offcanvas.Body>
-          </Navbar.Offcanvas>
-        </Navbar.Toggle>
-        <Form className="flex-grow-1 me-4">
+    <>
+      <Navbar>
+        <Navbar.Brand href="#home" className="navLogo">
+          E-commerce
+        </Navbar.Brand>
+        <Form className="flex-grow-1 flex-shrink-0">
           <Form.Group>
-            <Form.Control size="sm" type="text" placeholder="Search" />
+            <Form.Control className="border-dark rounded-pill" size="sm" type="text" placeholder="Search" />
           </Form.Group>
         </Form>
-      </Container>
-      <Container>
-        <Navbar.Collapse>
-          <Nav>
-            <Nav.Item>Men's Clothing</Nav.Item> {/* <category nav/div> */}
-            <Nav.Item>Women's clothing</Nav.Item> {/* <category nav/div> */}
-            <Nav.Item>jewelry</Nav.Item> {/* <category nav/div> */}
-            <Nav.Item>electronics</Nav.Item> {/* <category nav/div> */}
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+        <Nav.Item className=" nav-profile-cart d-flex flex-shrink-0 gap-2 ">
+          <Nav.Link className="p-1 nav-img-link ">
+            <Image
+              className="profile-img"
+              src="/person.svg"
+              alt="profile"
+              roundedCircle
+            ></Image>
+          </Nav.Link>
+          <Nav.Link className="p-1 nav-img-link">
+            <Image
+              className="cart-img"
+              src="/cart.svg"
+              alt="shopping cart"
+              roundedCircle
+              fluid
+              role="shopping cart"
+            ></Image>
+          </Nav.Link>
+        </Nav.Item>
+      </Navbar>
+      <Navbar expand="md">
+        <Navbar.Toggle
+          aria-controls={`offcanvasNavbar-expand-md`}
+          className="nav-btn"
+        />
+        {/* <Image className="menu-img__btn" src="/list.svg"></Image> */}
+        <Navbar.Offcanvas
+          restoreFocus
+          aria-labelledby={`offcanvasNavbarLabel-expand-md`}
+        >
+          <Offcanvas.Header closeButton>
+            <h1>
+              <b>Shop By Category</b>
+            </h1>
+          </Offcanvas.Header>
+          <Offcanvas.Body>
+            <Nav className="justify-content-between w-100">
+              <Nav.Link>Men's Clothing</Nav.Link>
+              <Nav.Link>Women's clothing</Nav.Link>
+              <Nav.Link>Jewelry</Nav.Link>
+              <Nav.Link>Electronics</Nav.Link>
+            </Nav>
+          </Offcanvas.Body>
+        </Navbar.Offcanvas>
+      </Navbar>
+    </>
   );
 }
 

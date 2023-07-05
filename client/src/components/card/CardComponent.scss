@@ -1,8 +1,16 @@
 .card__hover:hover {
     cursor: pointer;
-    scale: 1.05;
+    box-shadow: 2px 2px 2px 1px rgb(230, 230, 230);
 }
 
 .cardComponent {
-    flex-basis: 45%;
+    flex-basis: 20em;
+    flex-shrink: 1;
+    flex-grow: 1;
+}
+
+@media screen and (max-width: 608px) {
+    .cardComponent {
+        flex-basis: 45%;
+    }
 }
