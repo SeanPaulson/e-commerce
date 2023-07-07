@@ -12,24 +12,24 @@ const ImgPreviewCircle = () => {
       <h3>Happy 4th!</h3>
       <Row className="gap-4 justify-content-center" id="hero">
         <Col className="mw-25">
-          <Image roundedCircle src="/computer.jpg"></Image>
+          <Image roundedCircle alt="image preview" src="/computer.webP"></Image>
           <p>alsdfjdskafj</p>
         </Col>
         <Col id="col-empty"></Col>
         <Col>
-          <Image roundedCircle src="/ring.jpg"></Image>
+          <Image roundedCircle alt="image preview" src="/ring.webP"></Image>
           <p>alsdfjdskafj</p>
         </Col>
         <Col>
-          <Image roundedCircle src="/shirt.jpeg"></Image>
+          <Image roundedCircle alt="image preview" src="/shirt.webP"></Image>
           <p>alsdfjdskafj</p>
         </Col>
         <Col id="intro-img-static">
-          <Image roundedCircle src="/jacket.jpg"></Image>
+          <Image roundedCircle alt="image preview" src="/jacket.webP"></Image>
           <p>alsdfjdskafj</p>
         </Col>
         <Col className="mw-25">
-          <Image roundedCircle src="/backpack.jpg"></Image>
+          <Image roundedCircle alt="image preview" src="/backpack.webP"></Image>
           <p>alsdfjdskafj</p>
         </Col>
       </Row>
