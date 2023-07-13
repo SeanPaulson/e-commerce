@@ -26,12 +26,12 @@
 
 #intro {
     // background: transparent  auto cover no-repeat top center;
-    background-image: url("/fathers-day-messages-a860e8.webP");
+    background-image: linear-gradient(#f2d870, #efde6fca, #efd76f00);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center top;
     min-height: 400px;
-    margin-bottom: 100px;
+    // margin-bottom: 100px;
 
     p {
         text-align: center;
@@ -40,7 +40,9 @@
 
 #hero {
     position: relative;
-    top: 250px;
+    padding: 0vh 15vw !important;
+    
+    // top: 250px;
 }
 
 #intro-img-static {
@@ -57,11 +59,20 @@ h3 {
 
 @media screen and (max-width: 480px) {
     #hero {
-        position: relative;
-        top: 300px;
+        // position: relative;
+        // top: 300px;
     }
 
     #intro {
-        margin-bottom: 250px;
+        // margin-bottom: 250px;
+    }
+}
+
+
+@media screen and (min-width: 610px) {
+    #hero {
+        position: relative;
+        
+        top:150px;
     }
 }

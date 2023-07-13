@@ -1,3 +1,25 @@
-.dropdown__item{
-    text-align: center;
+.dropdown__item {
+  text-align: center;
+}
+
+@media screen and (min-width: 767px) {
+  .app_body {
+    width: 50%;
+    overflow: visible;
+    height: 400px
+  }
+
+  .app__container {
+    display: flex;
+    padding: 10px 0px;
+    height: 550px;
+    justify-content: center;
+  }
+  .accordion-button:not(.collapsed) {
+    background-color: white !important;
+    border: none !important;
+  }
+  .accordion-button:focus {
+    border: none !important;
+  }
 }

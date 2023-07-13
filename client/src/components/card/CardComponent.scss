@@ -7,10 +7,12 @@
     flex-basis: 20em;
     flex-shrink: 1;
     flex-grow: 1;
+    
 }
 
 @media screen and (max-width: 608px) {
     .cardComponent {
         flex-basis: 45%;
+        
     }
 }

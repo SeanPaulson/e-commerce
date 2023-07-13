@@ -38,7 +38,7 @@ const LoginOverlay = () => {
             </Container>
           </Popover.Body>
           <div className="d-flex">
-            <Button variant="light" className="rounded-circle r-100">
+            <Button variant="light" className="rounded-circle r-100" >
               <Image alt="logout" src="/box-arrow-left.svg" roundedCircle />
             </Button>
             <p style={{margin: 'auto 0px'}}>logout</p>

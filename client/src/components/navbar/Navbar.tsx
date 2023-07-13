@@ -6,11 +6,12 @@ import "./_navbar.scss";
 import Form from "react-bootstrap/esm/Form";
 import Offcanvas from "react-bootstrap/esm/Offcanvas";
 import LoginOverlay from "../loginOverlay/LoginOverlay";
+import Button from "react-bootstrap/esm/Button";
 
 function NavbarComponent() {
   return (
     <>
-      <Navbar>
+      <Navbar className="navbar__component">
         <Navbar.Brand href="#home" className="navLogo">
           E-commerce
         </Navbar.Brand>
@@ -24,26 +25,27 @@ function NavbarComponent() {
             />
           </Form.Group>
         </Form>
-        <Nav.Item className="p-1 nav-profile-cart d-flex flex-shrink-0 gap-2 ">
+        <Nav.Item className="p-1 nav-profile-cart d-flex flex-shrink-0  ">
           <LoginOverlay />
           <Nav.Link className="rounded-circle nav-img-link">
-            <Image
-              className="cart-img"
-              src="/cart.svg"
-              alt="cart"
-              roundedCircle
-              fluid
-              role="navigation"
-            ></Image>
+            <Button variant="light" className="rounded-circle">
+              <Image
+                className="cart-img"
+                src="/cart.svg"
+                alt="cart"
+                roundedCircle
+                fluid
+                role="navigation"
+              ></Image>
+            </Button>
           </Nav.Link>
         </Nav.Item>
       </Navbar>
-      <Navbar expand="md">
+      <Navbar expand="md" className="navbar__component">
         <Navbar.Toggle
-          aria-controls={`offcanvasNavbar-expand-md`}
+          aria-controls={`offcan>vasNavbar-expand-md`}
           className="nav-btn"
         />
-        {/* <Image className="menu-img__btn" src="/list.svg"></Image> */}
         <Navbar.Offcanvas
           restoreFocus
           aria-labelledby={`offcanvasNavbarLabel-expand-md`}
