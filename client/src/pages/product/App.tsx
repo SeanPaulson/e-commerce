@@ -1,12 +1,24 @@
-import React from "react";
+// import React from "react";
 import "./app.scss";
-import NavbarComponent from "../src/components/navbar/Navbar";
-import CarouselComponent from "../src/components/carousel/Carousel";
+import NavbarComponent from "../../components/navbar/Navbar";
+import CarouselComponent from "../../components/carousel/Carousel";
 import Button from "react-bootstrap/esm/Button";
 import Accordion from "react-bootstrap/esm/Accordion";
 import Image from "react-bootstrap/esm/Image";
 
+
+
 function App() {
+
+  
+
+  //check if user is signed in via secure client side cookie
+  //if not 
+    // if registered login
+    // store auth cred in cookie and set state
+      // else
+      // register user and store returned auth state in state and cookies
+
   return (
     <>
       <NavbarComponent />

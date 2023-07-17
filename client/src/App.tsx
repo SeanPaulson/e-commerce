@@ -2,7 +2,7 @@ import "./app.scss";
 import NavbarComponent from "./components/navbar/Navbar";
 import ImgPreviewCircle from "./components/imgPreviewCircle/ImgPreviewCircle";
 import CardComponent from "./components/card/CardComponent";
-import {useEffect} from 'react';
+// import {useEffect} from 'react';
 
 function App () {
 
