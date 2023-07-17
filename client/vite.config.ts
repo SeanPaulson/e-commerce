@@ -1,12 +1,17 @@
 import { defineConfig } from "vite";
-import { resolve } from 'path';
+// import path from 'path';
 import react from "@vitejs/plugin-react-swc";
-const root = resolve(__dirname, 'src');
-
+// const root = path.resolve(__dirname, 'src');
+// const root = __dirname;
+// console.log(root);
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  root,
+  // root,
+  // base: path.join('/', root),
+  // build: {
+
+  // },
   server: {
     proxy: {
       '/api': {
