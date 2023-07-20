@@ -15,7 +15,7 @@ export const login = async (
       [email]
     );
     if (data.rows.length === 0) {
-      return res.send('email or password is incorrect: redirect to login comming soon');
+      return res.status(401).send('email or password is incorrect: redirect to login comming soon');
     }
     const user = data.rows[0];
     

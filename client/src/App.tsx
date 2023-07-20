@@ -2,10 +2,16 @@ import "./app.scss";
 import NavbarComponent from "./components/navbar/Navbar";
 import ImgPreviewCircle from "./components/imgPreviewCircle/ImgPreviewCircle";
 import CardComponent from "./components/card/CardComponent";
+import { useLoaderData } from "react-router-dom";
+import { Users } from "./main";
 // import {useEffect} from 'react';
+
+// type Users = any;
 
 function App () {
 
+  const users  = useLoaderData() as Array<Users>;
+  console.log(users)
   // useEffect(() => {
   //   const getData = async () => {
   //     const data = await fetch('/api/product/');

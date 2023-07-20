@@ -5,6 +5,7 @@ import Image from "react-bootstrap/esm/Image";
 import "./_LoginOverlay.scss";
 import Container from "react-bootstrap/esm/Container";
 import Col from "react-bootstrap/esm/Col";
+import LoginModal from '../loginModal/LoginModal';
 
 const LoginOverlay = () => {
   return (
@@ -37,12 +38,7 @@ const LoginOverlay = () => {
               <Col>Check this info.info</Col>
             </Container>
           </Popover.Body>
-          <div className="d-flex">
-            <Button variant="light" className="rounded-circle r-100" >
-              <Image alt="logout" src="/box-arrow-left.svg" roundedCircle />
-            </Button>
-            <p style={{margin: 'auto 0px'}}>logout</p>
-          </div>
+          <LoginModal></LoginModal>
         </Popover>
       }
     >
