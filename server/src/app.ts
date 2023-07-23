@@ -1,4 +1,4 @@
-import express, {Express, NextFunction, Request, Response} from 'express';
+import express, {Express, NextFunction, Request, Response, urlencoded} from 'express';
 const productsRouter = require('./routes/products');
 const db = require('./db')
 const cors = require('cors');
@@ -22,6 +22,8 @@ const port = process.env.PORT || 3001;
 
 
 // app.use express.favicon()
+app.use(express.json());
+app.use(urlencoded({ extended: true}))
 app.use(express.static(__dirname + '../Design'));
 app.set('trust proxy', 1)
 app.use(express.json());

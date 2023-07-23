@@ -21,7 +21,7 @@ const LoginModal = () => {
   } = useForm<Inputs>({
     defaultValues: {
       email: "guest@guest.com",
-      password: "guest",
+      password: "lsajf03fhwojf",
     },
   });
   const [show, setShow] = useState(false);
@@ -30,6 +30,20 @@ const LoginModal = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+const logout = async () => {
+  try {
+    const res = await fetch('/api/auth/logout', {
+      method: 'GET',
+      credentials: 'include',
+    });
+    if (res.status === 200) {
+      console.log(res);
+    }
+  } catch(e) {
+    console.log(e);
+  }
+}
+
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
       clearErrors();
@@ -37,8 +51,8 @@ const LoginModal = () => {
       if (userData instanceof Error) {
         throw new Error(userData.message);
       }
-
       
+
     } catch (e: any) {
       setError("serverError", {
         type: "400",
@@ -57,6 +71,10 @@ const LoginModal = () => {
         {/* <Image alt="logout" src="/box-arrow-left.svg" roundedCircle /> */}
         <p style={{ margin: "auto 0px" }}>login</p>
       </Button>
+      
+      <Button onClick={logout}>
+              logout
+            </Button>
       <Modal
         size="lg"
         centered

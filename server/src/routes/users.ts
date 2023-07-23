@@ -15,9 +15,9 @@ import { isAuthorized } from "../utils/auth";
 userRouter.get("/", getUsers);
 userRouter.get("/:id", getUser);
 userRouter.delete("/:id", isAuthorized, deleteUser);
-userRouter.get("/:id/profile", isAuthorized, profileSettings);
-userRouter.put("/:id/profile", isAuthorized, updateProfile);
-userRouter.get("/:id/orders", isAuthorized, getAllOrders);
-userRouter.get("/:id/orders/:orderID", isAuthorized, getOrder);
+userRouter.get("/profile", isAuthorized, profileSettings);
+userRouter.put("/profile", isAuthorized, updateProfile);
+userRouter.get("/orders", isAuthorized, getAllOrders);
+userRouter.get("/orders/:orderID", isAuthorized, getOrder);
 
 module.exports = userRouter;

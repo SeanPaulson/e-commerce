@@ -1,8 +1,9 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, createContext, useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ErrorPage from "./pages/error/Error";
+import { getSessionStatus } from "./utils/fetchApi";
 
 export type Users = {
   email_address: String,
@@ -14,6 +15,17 @@ export type Users = {
 
 const App = lazy(() => import("./App"));
 const Product = lazy(() => import("./pages/product/App"));
+
+
+//TODO use getSessionStatus() to check for user session and set userAuthContext
+// const userAuthContext = createContext(null);
+
+// const [user, setUser] = useState<Users | null>(null);
+
+(async () => {
+  const isLoggedIn = await getSessionStatus().catch(e => {console.log(e)})
+console.log(isLoggedIn)
+})();
 
 const userLoader = async function () {
   const data = await fetch('/api/users/');
@@ -36,6 +48,7 @@ const router = createBrowserRouter([
     children: [{}],
   },
 ]);
+
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>

@@ -2,11 +2,7 @@ import { NextFunction, Request, Response } from "express";
 const db = require("../db");
 const bcrypt = require("bcrypt");
 
-export const login = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const login = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
     //get user password/ from matching email.
@@ -14,11 +10,13 @@ export const login = async (
       "SELECT * FROM commerce.user WHERE email_address = $1",
       [email]
     );
+    console.log(data);
     if (data.rows.length === 0) {
-      return res.status(401).send('email or password is incorrect: redirect to login comming soon');
+      return res
+        .status(401)
+        .send("email or password is incorrect: redirect to login comming soon");
     }
     const user = data.rows[0];
-    
     //compare user password
     const matches = bcrypt.compareSync(password, user.password);
     if (!matches) {
@@ -28,7 +26,14 @@ export const login = async (
     req.session.user = {
       id: user.id,
     };
-    next();
+    const userData = {
+      firstName: user.first_name,
+      lastName: user.last_name,
+      email: user.email_address,
+    };
+    res.status(200).json({
+      userData,
+    });
   } catch (err: any) {
     console.log("/login" + err.message);
     res.status(404).send(err.message);
@@ -93,7 +98,14 @@ export const register = async (req: Request, res: Response) => {
       };
 
       req.session.authorized = true;
-      res.status(200).send("logged in!");
+      const userData = {
+        firstName: req.session.user.first_name,
+        lastName: req.session.user.last_name,
+        email: req.session.user.email_address,
+      };
+      res.status(200).json({
+        userData,
+      });
     } else if (data.rows.length === 0) {
       throw Error("something went wrong");
     }
@@ -105,13 +117,18 @@ export const register = async (req: Request, res: Response) => {
 
 export const logout = async (req: Request, res: Response) => {
   try {
-    req.session.destroy((e) => {
-      if (e) {
-        throw e;
-      } else {
-        res.redirect("/");
-      }
-    });
+    if (req.session) {
+      res.status(200).clearCookie("connect.sid");
+      req.session.destroy((e) => {
+        if (e) {
+          throw e;
+        } else {
+          res.send("logout successful");
+        }
+      });
+    } else {
+      res.end();
+    }
   } catch (err) {
     console.error(err);
     return res.sendStatus(500);
