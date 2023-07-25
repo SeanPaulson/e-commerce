@@ -10,6 +10,7 @@ const swaggerUi = require('swagger-ui-express');
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/users');
 import cartRouter from "./routes/shopping_cart";
+const morgan = require('morgan');
 
 // const openapiSpecification = require('../Design/api_doc');
 
@@ -27,6 +28,7 @@ app.use(urlencoded({ extended: true}))
 app.use(express.static(__dirname + '../Design'));
 app.set('trust proxy', 1)
 app.use(express.json());
+app.use(morgan('dev'));
 app.use(cors({
     origin: 'localhost:3001',  //Your Client, do not write '*'
     credentials: true,
