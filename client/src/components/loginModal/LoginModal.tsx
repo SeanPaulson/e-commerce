@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Button from "react-bootstrap/esm/Button";
 import Form from "react-bootstrap/esm/Form";
 import Modal from "react-bootstrap/Modal";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { login } from "../../utils/fetchApi";
+import { ContextApp } from "../ContextProvider";
+import { ACTION_TYPES } from "../../reducers/profileReducer";
 
 export type Inputs = {
   email: string;
@@ -12,6 +14,7 @@ export type Inputs = {
 };
 
 const LoginModal = () => {
+  const {state, dispatch} = useContext(ContextApp);
   const {
     register,
     handleSubmit,
@@ -24,35 +27,36 @@ const LoginModal = () => {
       password: "lsajf03fhwojf",
     },
   });
+
   const [show, setShow] = useState(false);
-  // const [validated, setValidated] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-const logout = async () => {
-  try {
-    const res = await fetch('/api/auth/logout', {
-      method: 'GET',
-      credentials: 'include',
-    });
-    if (res.status === 200) {
-      console.log(res);
+  const logout = async () => {
+    try {
+      const res = await fetch("/api/auth/logout", {
+        method: "GET",
+        credentials: "include",
+      });
+      if (res.status === 200) {
+        console.log(res);
+        dispatch({type: ACTION_TYPES.LOGOUT, payload: {}})
+      }
+    } catch (e) {
+      console.log(e);
     }
-  } catch(e) {
-    console.log(e);
-  }
-}
+  };
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
       clearErrors();
-      const userData = await login(data);
+      const {userData} = await login(data);
+      console.log(userData)
+      dispatch({type: ACTION_TYPES.LOGIN, payload: userData})
       if (userData instanceof Error) {
         throw new Error(userData.message);
       }
-      
-
     } catch (e: any) {
       setError("serverError", {
         type: "400",
@@ -62,19 +66,17 @@ const logout = async () => {
   };
 
   return (
-    <>
-      <Button
-        onClick={handleShow}
-        variant="light"
-        className="d-flex gap-4 w-100 "
-      >
-        {/* <Image alt="logout" src="/box-arrow-left.svg" roundedCircle /> */}
-        <p style={{ margin: "auto 0px" }}>login</p>
-      </Button>
-      
-      <Button onClick={logout}>
-              logout
-            </Button>
+    
+    <>{console.log('render loginModel')}
+      {'first_name' in state.userProfile ? (
+        <Button variant="light" onClick={logout}>
+          logout
+        </Button>
+      ) : (
+        <Button onClick={handleShow} className="d-flex gap-4 w-100 ">
+          <p style={{ margin: "auto 0px" }}>login</p>
+        </Button>
+      )}
       <Modal
         size="lg"
         centered
@@ -113,7 +115,7 @@ const logout = async () => {
                 placeholder="Password"
               />
               {errors.serverError?.type === "400" && (
-                <p style={{color: 'red'}}>{errors.serverError.message}</p>
+                <p style={{ color: "red" }}>{errors.serverError.message}</p>
               )}
             </Form.Group>
             <Button className="rounded-pill " variant="primary" type="submit">

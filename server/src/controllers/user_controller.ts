@@ -30,7 +30,7 @@ export const getUsers = async (req: Request, res: Response) => {
  */
 export const getUser = async (req: Request, res: Response) => {
   try {
-    const reqId = req.session.user!.id;
+    const reqId = req.params.id
     const user = await db.query(
       "SELECT id, first_name, last_name, email_address, phone FROM commerce.user WHERE id = $1",
       [reqId]
@@ -54,6 +54,7 @@ export const profileSettings = async (req: Request, res: Response) => {
     if (!req.session.user) {
       return res.status(402).send('please login');
     }
+    console.log('users/profile')
     const reqId = req.session.user.id;
     const user = await db.query(
       `SELECT 

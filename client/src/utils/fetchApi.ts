@@ -14,7 +14,6 @@ export const login = async function ({ email, password }: Inputs) {
         password: password,
       }),
     });
-    console.log(data);
     if (data.status === 200) {
       return data.json();
     } else if (data.status === 401) {
@@ -27,7 +26,7 @@ export const login = async function ({ email, password }: Inputs) {
   }
 };
 
-export const getSessionStatus = async function () {
+export const getUserProfile = async function () {
   try {
       const data = await fetch(`/api/users/profile`, {
         method: "GET",
