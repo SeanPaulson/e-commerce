@@ -14,16 +14,14 @@ export type ActionType = {
 export function profileReducer(state: UserProfileStateContext, action: ActionType) {
   switch (action.type) {
     case ACTION_TYPES.INITIALIZE: {
-        console.log(action.payload);
       return {
         ...state,
         ...action.payload,
       };
     }
     case ACTION_TYPES.LOGIN: {
-      console.log(action.payload)
       return {
-        ...state,
+        ...state, 
         userProfile: action.payload
       }
     }

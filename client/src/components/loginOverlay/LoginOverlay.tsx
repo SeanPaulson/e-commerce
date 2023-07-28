@@ -6,17 +6,17 @@ import "./_LoginOverlay.scss";
 import Container from "react-bootstrap/esm/Container";
 import Col from "react-bootstrap/esm/Col";
 import LoginModal from '../loginModal/LoginModal';
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ContextApp } from "../ContextProvider";
 const LoginOverlay = () => {
 
-  const {state:{userProfile}} = useContext(ContextApp);
-
-
+  const {state} = useContext(ContextApp);
+  const [showOverLay, setShowOverLay] = useState(false);
   return (
     <OverlayTrigger
       trigger="click"
       placement="bottom"
+      show={showOverLay}
       overlay={
         <Popover id={"popover-positioned-bottom"}>
           <Popover.Header className="d-flex align-items-center column-gap-1 bg-light">
@@ -28,7 +28,7 @@ const LoginOverlay = () => {
             />
             <span>
               <p style={{ margin: "0px" }}>
-                <b>{ 'first_name' in userProfile  ? userProfile.first_name + " " + userProfile.last_name : 'userName'}</b>
+                <b>{ Object.keys(state.userProfile).length != 0 ? state.userProfile.firstName + " " + state.userProfile.lastName : 'userName'}</b>
               </p>
               <p style={{ margin: "0px", fontSize: ".7rem" }}>
                 <i>view your profile</i>
@@ -43,11 +43,11 @@ const LoginOverlay = () => {
               <Col>Check this info.info</Col>
             </Container>
           </Popover.Body>
-          <LoginModal></LoginModal>
+          <LoginModal handleOverlay={setShowOverLay}></LoginModal>
         </Popover>
       }
     >
-      <Button className="popover__btn" variant="light">
+      <Button className="popover__btn" variant="light" onClick={() => setShowOverLay((prev) => !prev)}>
         <Image
           className="profile-img"
           src="/person.svg"

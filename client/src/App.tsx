@@ -9,8 +9,9 @@ import { UsersType } from "./utils/types";
 // type Users = any;
 
 function App () {
-
   const users  = useLoaderData() as Array<UsersType>;
+
+
   console.log(users)
   // useEffect(() => {
   //   const getData = async () => {

@@ -54,7 +54,6 @@ export const profileSettings = async (req: Request, res: Response) => {
     if (!req.session.user) {
       return res.status(402).send('please login');
     }
-    console.log('users/profile')
     const reqId = req.session.user.id;
     const user = await db.query(
       `SELECT 

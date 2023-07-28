@@ -1,8 +1,8 @@
 export type UserProfileType = {
   id: Number;
-  first_name: String;
-  last_name: String;
-  email_address: String;
+  firstName: String;
+  lastName: String;
+  email: String;
   phone: String;
   address_line1?: String;
   address_line2?: String;
@@ -14,7 +14,7 @@ export type UserProfileType = {
 };
 
 export type UserProfileStateContext = {
-  userProfile: UserProfileType | {}
+  userProfile: Partial<UserProfileType>
 };
 
 export type UsersType = {

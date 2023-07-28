@@ -13,8 +13,13 @@ export type Inputs = {
   serverError: string;
 };
 
-const LoginModal = () => {
+type handleOverlayType = {handleOverlay: React.Dispatch<React.SetStateAction<boolean>>}
+
+
+const LoginModal = ({handleOverlay}: handleOverlayType) => {
   const {state, dispatch} = useContext(ContextApp);
+  
+  console.log(state);
   const {
     register,
     handleSubmit,
@@ -29,9 +34,9 @@ const LoginModal = () => {
   });
 
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
 
   const logout = async () => {
     try {
@@ -42,18 +47,22 @@ const LoginModal = () => {
       if (res.status === 200) {
         console.log(res);
         dispatch({type: ACTION_TYPES.LOGOUT, payload: {}})
+        handleOverlay(false);
       }
     } catch (e) {
       console.log(e);
     }
   };
 
+  
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
       clearErrors();
       const {userData} = await login(data);
       console.log(userData)
-      dispatch({type: ACTION_TYPES.LOGIN, payload: userData})
+      dispatch({type: ACTION_TYPES.LOGIN, payload: userData});
+      handleClose();
+      handleOverlay(false);
       if (userData instanceof Error) {
         throw new Error(userData.message);
       }
@@ -68,7 +77,7 @@ const LoginModal = () => {
   return (
     
     <>{console.log('render loginModel')}
-      {'first_name' in state.userProfile ? (
+      {Object.keys(state.userProfile).length != 0 ? (
         <Button variant="light" onClick={logout}>
           logout
         </Button>
