@@ -27,8 +27,8 @@ export const login = async (req: Request, res: Response) => {
       id: user.id,
     };
     const userData = {
-      firstName: user.first_name,
-      lastName: user.last_name,
+      first_name: user.first_name,
+      last_name: user.last_name,
       email: user.email_address,
     };
     res.status(200).json({
@@ -45,8 +45,8 @@ export const register = async (req: Request, res: Response) => {
     const {
       email,
       password,
-      firstName,
-      lastName,
+      first_name,
+      last_name,
       phone,
       address_line1,
       address_line2,
@@ -74,7 +74,7 @@ export const register = async (req: Request, res: Response) => {
     const bcryptPassword = await bcrypt.hash(password, saltRounds);
     const data = await db.getClient(
       "INSERT INTO commerce.user (first_name, last_name, password, email_address, phone) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-      [firstName, lastName, bcryptPassword, email, phone]
+      [first_name, last_name, bcryptPassword, email, phone]
     );
 
     if (data.rows.length !== 0) {

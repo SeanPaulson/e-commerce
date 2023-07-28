@@ -1,8 +1,8 @@
 export type UserProfileType = {
   id: Number;
-  firstName: String;
-  lastName: String;
-  email: String;
+  first_name: String;
+  last_name: String;
+  email_address: String;
   phone: String;
   address_line1?: String;
   address_line2?: String;

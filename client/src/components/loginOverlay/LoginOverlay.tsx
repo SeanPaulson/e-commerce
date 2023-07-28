@@ -28,7 +28,7 @@ const LoginOverlay = () => {
             />
             <span>
               <p style={{ margin: "0px" }}>
-                <b>{ Object.keys(state.userProfile).length != 0 ? state.userProfile.firstName + " " + state.userProfile.lastName : 'userName'}</b>
+                <b>{ Object.keys(state.userProfile).length != 0 ? state.userProfile.first_name + " " + state.userProfile.last_name : 'userName'}</b>
               </p>
               <p style={{ margin: "0px", fontSize: ".7rem" }}>
                 <i>view your profile</i>
