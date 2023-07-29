@@ -74,7 +74,7 @@ ___
 ### **Points of interest:** 
 #### *product, quantity and category table :* <br>
 The tricky part about this design is products are not listed as there own tuple, instead items(products) are grouped together and their quantity is referenced in a separate product_inventory table with a quantity field. Probably not necessary since this is a 1 to 1 relationship but it allows for expansion.<br>
-Because of this, quantity has a *non_negative_check* before checkout and only on a successful checkout is the product_inventory is reduced.<br>
+Because of this, quantity has a *non_negative_check* before checkout and only on a successful checkout is product_inventory reduced.<br>
 <br>
 #### *Cart checkout process:* <br>
 The shopping cart (cart_items table) is made up of 3 columns ~ *customer_id*, *product_id* and quantity.
