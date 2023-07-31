@@ -12,7 +12,7 @@ function NavbarComponent() {
   return (
     <>
       <Navbar className="navbar__component">
-        <Navbar.Brand href="#home" className="navLogo">
+        <Navbar.Brand href="/" className="navLogo">
           E-commerce
         </Navbar.Brand>
         <Form className="flex-grow-1 flex-shrink-0">
@@ -41,7 +41,7 @@ function NavbarComponent() {
           </Nav.Link>
         </Nav.Item>
       </Navbar>
-      <Navbar expand="md" className="navbar__component">
+      <Navbar expand="md" className="navbar__component" id='navbar_categories'>
         <Navbar.Toggle
           aria-controls={`offcan>vasNavbar-expand-md`}
           className="nav-btn"

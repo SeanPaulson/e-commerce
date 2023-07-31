@@ -40,11 +40,11 @@ function App() {
             variant="light"
             className="mx-3 my-3 rounded-pill border border-dark border-2"
           >
-            <b>Buy it now</b>
+            <b>Add to cart</b>
           </Button>
           <Button
-            variant="dark"
-            className="mx-3 my-2 rounded-pill border border-dark border-2"
+            variant="success"
+            className="mx-3 my-2 rounded-pill"
           >
             <b>Buy it now</b>
           </Button>

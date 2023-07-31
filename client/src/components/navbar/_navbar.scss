@@ -7,12 +7,16 @@
   margin: 0;
 }
 
-.navbar__component {
-  // padding: 0vh 10vw !important;
-}
+// .navbar__component {
+  
+// }
 
 .nav-btn {
   border: none;
+}
+
+.nav-btn:focus {
+  box-shadow: none !important;
 }
 
 
