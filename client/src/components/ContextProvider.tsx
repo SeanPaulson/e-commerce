@@ -27,10 +27,11 @@ export const ContextApp = createContext<IContext>({
 
 export default function ContextProvider({ children }: PropTypes) {
   const [state, dispatch] = useReducer(profileReducer, initialState);
+
+  //TODO clean up this use effect.
   const fetchData = async () => {
     //TODO send error response from server user not logged in if get profile returns null or empty
   const res = await getUserProfile();
-  console.log(res);
   dispatch({type: ACTION_TYPES.INITIALIZE, payload: { userProfile: res}})
 };
   useEffect(() => {

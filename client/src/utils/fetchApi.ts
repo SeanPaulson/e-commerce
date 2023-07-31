@@ -1,8 +1,6 @@
 import { Inputs } from "../components/loginModal/LoginModal";
 export const login = async function ({ email, password }: Inputs) {
   try {
-    console.log(email + password);
-    console.log(JSON.stringify({ email, password }));
     const data = await fetch("/api/auth/login", {
       method: "POST",
       headers: {
@@ -31,7 +29,6 @@ export const getUserProfile = async function () {
       const data = await fetch(`/api/users/profile`, {
         method: "GET",
       });
-      console.log(data);
       if (data.status === 200) {
         return data.json();
       } else {

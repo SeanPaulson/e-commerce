@@ -19,7 +19,6 @@ type handleOverlayType = {handleOverlay: React.Dispatch<React.SetStateAction<boo
 const LoginModal = ({handleOverlay}: handleOverlayType) => {
   const {state, dispatch} = useContext(ContextApp);
   
-  console.log(state);
   const {
     register,
     handleSubmit,
@@ -45,11 +44,11 @@ const LoginModal = ({handleOverlay}: handleOverlayType) => {
         credentials: "include",
       });
       if (res.status === 200) {
-        console.log(res);
         dispatch({type: ACTION_TYPES.LOGOUT, payload: {}})
         handleOverlay(false);
       }
     } catch (e) {
+      //TODO find a way to handle logout errors
       console.log(e);
     }
   };
@@ -59,7 +58,6 @@ const LoginModal = ({handleOverlay}: handleOverlayType) => {
     try {
       clearErrors();
       const {userData} = await login(data);
-      console.log(userData)
       dispatch({type: ACTION_TYPES.LOGIN, payload: userData});
       handleClose();
       handleOverlay(false);
