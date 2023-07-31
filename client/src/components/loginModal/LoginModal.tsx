@@ -80,7 +80,7 @@ const LoginModal = ({handleOverlay}: handleOverlayType) => {
           logout
         </Button>
       ) : (
-        <Button onClick={handleShow} className="d-flex gap-4 w-100 ">
+        <Button variant="light" onClick={handleShow} className="d-flex gap-4 w-100 ">
           <p style={{ margin: "auto 0px" }}>login</p>
         </Button>
       )}

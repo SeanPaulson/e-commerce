@@ -10,15 +10,6 @@ import Image from "react-bootstrap/esm/Image";
 
 function App() {
 
-  
-
-  //check if user is signed in via secure client side cookie
-  //if not 
-    // if registered login
-    // store auth cred in cookie and set state
-      // else
-      // register user and store returned auth state in state and cookies
-
   return (
     <>
       <NavbarComponent />
