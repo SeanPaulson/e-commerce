@@ -6,7 +6,7 @@ import "./CardComponent.scss";
 const CardComponent = () => {
   return (
     <Card className="m-2 w-50 cardComponent card__hover flex-shrink-0 ">
-      <a href="/product/">
+      <a href="/product">
         <Card.Body>
           <Card.Img src="card-image.svg" alt="product" />
           <Card.ImgOverlay className="d-flex flex-row-reverse align-items-center">

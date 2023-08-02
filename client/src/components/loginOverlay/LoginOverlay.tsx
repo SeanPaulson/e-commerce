@@ -13,7 +13,7 @@ import { ContextApp } from "../ContextProvider";
 
 const LoginOverlay = () => {
 
-  const {state} = useContext(ContextApp);
+  const { state } = useContext(ContextApp);
   const [showOverLay, setShowOverLay] = useState(false);
   return (
     <OverlayTrigger
@@ -23,15 +23,17 @@ const LoginOverlay = () => {
       overlay={
         <Popover id={"popover-positioned-bottom"}>
           <Popover.Header className="d-flex align-items-center column-gap-1 bg-light">
-          {Object.keys(state.userProfile).length != 0 && <Image
-              className="profile-img"
-              src="/person.svg"
-              alt="profile"
-              roundedCircle
-            />}
+            {Object.keys(state.userProfile).length != 0 && <a href="/settings">
+              <Image
+                className="profile-img"
+                src="/person.svg"
+                alt="profile"
+                roundedCircle
+              />
+            </a>}
             <span>
               <p style={{ margin: "0px" }}>
-                { Object.keys(state.userProfile).length != 0 ? <b>{state.userProfile.first_name} {state.userProfile.last_name}</b> : 'login to'}
+                {Object.keys(state.userProfile).length != 0 ? <b>{state.userProfile.first_name} {state.userProfile.last_name}</b> : 'login to'}
               </p>
               <p style={{ margin: "0px", fontSize: ".7rem" }}>
                 <i>view your profile</i>

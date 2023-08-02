@@ -1,6 +1,5 @@
 // import React from "react";
 import "./app.scss";
-import NavbarComponent from "../../components/navbar/Navbar";
 import CarouselComponent from "../../components/carousel/Carousel";
 import Button from "react-bootstrap/esm/Button";
 import Accordion from "react-bootstrap/esm/Accordion";
@@ -12,7 +11,6 @@ function App() {
 
   return (
     <>
-      <NavbarComponent />
       <div className="app__container">
         <CarouselComponent />
         <div className="app__body mx-4 ">

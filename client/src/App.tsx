@@ -1,5 +1,4 @@
 import "./app.scss";
-import NavbarComponent from "./components/navbar/Navbar";
 import ImgPreviewCircle from "./components/imgPreviewCircle/ImgPreviewCircle";
 import CardComponent from "./components/card/CardComponent";
 // import { useLoaderData } from "react-router-dom";
@@ -24,7 +23,6 @@ function App () {
   const arr = [0, 1, 2, 3, 4, 5];
   return (
     <>
-      <NavbarComponent />
       <ImgPreviewCircle />
       <div className="cardContainer">
         {arr.map((index) => (

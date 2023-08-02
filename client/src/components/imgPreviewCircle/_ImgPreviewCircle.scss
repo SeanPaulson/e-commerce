@@ -30,7 +30,7 @@
   background-repeat: no-repeat;
   background-position: center top;
   min-height: 400px;
-
+  // margin: 0px 15vw;
   p {
     text-align: center;
   }
@@ -39,7 +39,7 @@
 #hero {
   position: relative;
   padding: 0vh 15vw !important;
-  // top: 250px;
+  margin: 0px;
 }
 
 #intro-img-static {
@@ -65,13 +65,13 @@ h4 {
 //     }
 // }
 
-@media screen and (min-width: 876px) {
+@media screen and (max-width: 876px) {
   #hero {
-    top: 100px;
+    // top: 100px;
   }
 
   #intro {
-    margin: 0px 15vw;
+    // margin: 0px 15vw;
   }
 }
 

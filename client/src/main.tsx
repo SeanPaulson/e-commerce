@@ -5,9 +5,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import ErrorPage from "./pages/error/Error";
 import { UserProfileType } from "./utils/types";
 import ContextProvider from "./components/ContextProvider";
+import NavbarComponent from "./components/navbar/Navbar";
+import Footer from "./components/footer/Footer";
 
 const App = lazy(() => import("./App"));
 const Product = lazy(() => import("./pages/product/App"));
+const Settings = lazy(() => import("./pages/settings/Settings"));
 
 const userLoader = async function () {
   const data = await fetch("/api/users/");
@@ -24,11 +27,16 @@ const router = createBrowserRouter([
     children: [{}],
   },
   {
-    path: "/product/",
+    path: "/product",
     element: <Product />,
     errorElement: <ErrorPage />,
     children: [{}],
   },
+  {
+    path: "/settings",
+    element: <Settings />,
+    errorElement: <ErrorPage />,
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
@@ -39,7 +47,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       }
     >
       <ContextProvider>
+        <NavbarComponent />
         <RouterProvider router={router} />
+        <Footer />
       </ContextProvider>
     </Suspense>
   </React.StrictMode>
