@@ -22,25 +22,27 @@ export interface IContext {
 
 export const ContextApp = createContext<IContext>({
   state: initialState,
-  dispatch: () => {},
+  dispatch: () => { },
 });
 
 export default function ContextProvider({ children }: PropTypes) {
   const [state, dispatch] = useReducer(profileReducer, initialState);
 
-  //TODO clean up this use effect.
-  const fetchData = async () => {
-    //TODO send error response from server user not logged in if get profile returns null or empty
-  const res = await getUserProfile();
-  dispatch({type: ACTION_TYPES.INITIALIZE, payload: { userProfile: res}})
-};
   useEffect(() => {
-    
+    console.log('useEffect')
+    const fetchData = async () => {
+      //TODO send error response from server user not logged in if get profile returns null or empty
+      return await getUserProfile();
+    };
 
-    fetchData().then(d => console.log(d)).catch((error) => {
-      console.log({ message: error });
-      dispatch({type: ACTION_TYPES.LOGOUT, payload: {}})
-    });
+    fetchData()
+      .then(d => {
+        dispatch({ type: ACTION_TYPES.INITIALIZE, payload: { userProfile: d } })
+      })
+      .catch((error) => {
+        console.log({ message: error });
+        dispatch({ type: ACTION_TYPES.LOGOUT, payload: {} })
+      });
   }, []);
 
   return (
