@@ -28,21 +28,21 @@ export const ContextApp = createContext<IContext>({
 export default function ContextProvider({ children }: PropTypes) {
   const [state, dispatch] = useReducer(profileReducer, initialState);
 
+  const fetchData = async () => {
+    //TODO send error response from server user not logged in if get profile returns null or empty
+    getUserProfile()
+    .then((data) => {
+      dispatch({ type: ACTION_TYPES.INITIALIZE, payload: { userProfile: data } })
+    })
+    .catch((error) => {
+      console.log({ message: error });
+      dispatch({ type: ACTION_TYPES.LOGOUT, payload: {} })
+    });
+  };
+
   useEffect(() => {
     console.log('useEffect')
-    const fetchData = async () => {
-      //TODO send error response from server user not logged in if get profile returns null or empty
-      return await getUserProfile();
-    };
-
     fetchData()
-      .then(d => {
-        dispatch({ type: ACTION_TYPES.INITIALIZE, payload: { userProfile: d } })
-      })
-      .catch((error) => {
-        console.log({ message: error });
-        dispatch({ type: ACTION_TYPES.LOGOUT, payload: {} })
-      });
   }, []);
 
   return (

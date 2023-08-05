@@ -8,6 +8,7 @@ import Col from "react-bootstrap/esm/Col";
 import LoginModal from '../loginModal/LoginModal';
 import { useContext, useState } from "react";
 import { ContextApp } from "../ContextProvider";
+import { Link } from "react-router-dom";
 
 
 
@@ -23,14 +24,14 @@ const LoginOverlay = () => {
       overlay={
         <Popover id={"popover-positioned-bottom"}>
           <Popover.Header className="d-flex align-items-center column-gap-1 bg-light">
-            {Object.keys(state.userProfile).length != 0 && <a href="/settings">
+            {Object.keys(state.userProfile).length != 0 && <Link to="/settings">
               <Image
                 className="profile-img"
                 src="/person.svg"
                 alt="profile"
                 roundedCircle
               />
-            </a>}
+            </Link>}
             <span>
               <p style={{ margin: "0px" }}>
                 {Object.keys(state.userProfile).length != 0 ? <b>{state.userProfile.first_name} {state.userProfile.last_name}</b> : 'login to'}

@@ -4,7 +4,7 @@ import CardComponent from "./components/card/CardComponent";
 
 // type Users = any;
 
-function App () {
+function App() {
   console.log('render App')
   // }, [])
 

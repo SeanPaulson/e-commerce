@@ -4,8 +4,9 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ErrorPage from "./pages/error/Error";
 import ContextProvider from "./components/ContextProvider";
-import NavbarComponent from "./components/navbar/Navbar";
 import Footer from "./components/footer/Footer";
+import PrivateRoute from "./components/PrivateRoute";
+import NavbarWrapper from "./components/NavbarWrapper";
 
 
 const App = lazy(() => import("./App"));
@@ -15,20 +16,40 @@ const Settings = lazy(() => import("./pages/settings/Settings"));
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <NavbarWrapper />,
     errorElement: <ErrorPage />,
-    children: [{}],
+    children: [
+      {
+        path: "/",
+        element: <App />,
+        errorElement: <ErrorPage />,
+      }
+    ],
+  },
+
+  {
+    path: "/",
+    element: <NavbarWrapper />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/product",
+        element: <Product />,
+        errorElement: <ErrorPage />,
+      }
+    ]
   },
   {
-    path: "/product",
-    element: <Product />,
+    element: <PrivateRoute />,
     errorElement: <ErrorPage />,
-  },
-  {
-    path: "/settings",
-    element: <Settings />,
-    errorElement: <ErrorPage />,
-  },
+    children: [
+      {
+        path: "/settings",
+        element: <Settings />,
+        errorElement: <ErrorPage />,
+      },
+    ]
+  }
 ],
 );
 
@@ -40,7 +61,6 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       }
     >
       <ContextProvider>
-        <NavbarComponent />
         <RouterProvider router={router} />
         <Footer />
       </ContextProvider>

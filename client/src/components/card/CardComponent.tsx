@@ -2,11 +2,12 @@ import Card from "react-bootstrap/esm/Card";
 import Button from "react-bootstrap/esm/Button";
 import Image from "react-bootstrap/esm/Image";
 import "./CardComponent.scss";
+import { Link } from "react-router-dom";
 
 const CardComponent = () => {
   return (
     <Card className="m-2 w-50 cardComponent card__hover flex-shrink-0 ">
-      <a href="/product">
+      <Link to="/product">
         <Card.Body>
           <Card.Img src="card-image.svg" alt="product" />
           <Card.ImgOverlay className="d-flex flex-row-reverse align-items-center">
@@ -27,7 +28,7 @@ const CardComponent = () => {
             </Card.Title>
           </Card.ImgOverlay>
         </Card.Body>
-      </a>
+      </Link>
     </Card>
   );
 };

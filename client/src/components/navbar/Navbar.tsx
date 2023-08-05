@@ -7,14 +7,15 @@ import Form from "react-bootstrap/esm/Form";
 import Offcanvas from "react-bootstrap/esm/Offcanvas";
 import LoginOverlay from "../loginOverlay/LoginOverlay";
 import Button from "react-bootstrap/esm/Button";
+import { Link } from "react-router-dom";
 
 function NavbarComponent() {
   return (
     <>
       <Navbar className="navbar__component">
-        <Navbar.Brand href="/" className="navLogo">
+        <Nav.Link as={Link} to="/" className="navLogo"> 
           E-commerce
-        </Navbar.Brand>
+        </Nav.Link>
         <Form className="flex-grow-1 flex-shrink-0">
           <Form.Group>
             <Form.Control
