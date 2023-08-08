@@ -6,21 +6,22 @@ import { Link } from "react-router-dom";
 
 const CardComponent = () => {
   return (
-    <Card className="m-2 w-50 cardComponent card__hover flex-shrink-0 ">
+    <Card className="cardComponent card__hover ">
       <Link to="/product">
-        <Card.Body>
-          <Card.Img src="card-image.svg" alt="product" />
-          <Card.ImgOverlay className="d-flex flex-row-reverse align-items-center">
-            <Button variant="light" className="align-self-start rounded-5">
+        <Card.Body className="p-0" id="cardBody">
+          <Card.Img src="jacket.webP" alt="product" />
+          <Card.ImgOverlay className="d-flex flex-row-reverse p-0 align-items-center">
+            <Button variant="light" className="align-self-start rounded-5 p-0 heart__button">
               <Image alt="favorite button" src="/heart.svg"></Image>
             </Button>
-            <Card.Title className="bg-light rounded-5 p-1 align-self-end flex-grow-1">
+            <Card.Title className="bg-light rounded-5 align-self-end flex-grow-1">
               <p
                 style={{
-                  fontSize: ".65em",
+                  fontSize: ".6em",
                   height: "2px",
                   textAlign: "center",
                   textOverflow: "ellipsis",
+                  color: "black",
                 }}
               >
                 <span>Product Name</span>

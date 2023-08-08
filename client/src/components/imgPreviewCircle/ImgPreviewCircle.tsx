@@ -10,34 +10,33 @@ import { ContextApp } from "../ContextProvider";
 
 const ImgPreviewCircle = () => {
 
-  const {state} = useContext(ContextApp);
+  const { state } = useContext(ContextApp);
 
   return (
     <Container id="intro">
       {Object.keys(state.userProfile).length != 0 && <h4><i>Welcome back, {state.userProfile.first_name}!</i></h4>}
-      <Row className="gap-4 flex justify-content-end" id="hero">
-        <Col className="mw-25">
+      <div className="container" id="hero">
+        <div  className="col">
           <Image roundedCircle className="imagePreview" alt="image preview" src="/computer.webP"></Image>
           <p>alsdfjdskafj</p>
-        </Col>
-        <Col id="col-empty"></Col>
-        <Col>
+        </div>
+        <div className="col">
           <Image roundedCircle className="imagePreview" alt="image preview" src="/ring.webP"></Image>
           <p>alsdfjdskafj</p>
-        </Col>
-        <Col>
+        </div>
+        <div className="col">
           <Image roundedCircle className="imagePreview" alt="image preview" src="/shirt.webP"></Image>
           <p>alsdfjdskafj</p>
-        </Col>
-        <Col id="intro-img-static">
+        </div>
+        <div className="col">
           <Image roundedCircle className="imagePreview" alt="image preview" src="/jacket.webP"></Image>
           <p>alsdfjdskafj</p>
-        </Col>
-        <Col className="mw-25">
+        </div>
+        <div className="col">
           <Image roundedCircle className="imagePreview" alt="image preview" src="/backpack.webP"></Image>
           <p>alsdfjdskafj</p>
-        </Col>
-      </Row>
+        </div>
+      </div>
     </Container>
   );
 };

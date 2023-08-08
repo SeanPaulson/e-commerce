@@ -1,29 +1,25 @@
 import type { StorybookConfig } from "@storybook/react-vite";
-const config: StorybookConfig = {
+const config: StorybookConfig = ({
   stories: ["../src/components/**/*.mdx", "../src/components/**/*.stories.@(js|jsx|ts|tsx)"],
-  addons: [
-    "@storybook/addon-links",
-    "@storybook/addon-essentials",
-    "@storybook/addon-interactions",
-    // "@storybook/addon-styling",
-    // {
-    //   name: '@storybook/addon-styling',
-    //   options: {
-    //     sass: {
-    //       implementation: require('sass'),
-    //     }
-    //   }
-    // }
+  addons: ["@storybook/addon-links", "@storybook/addon-essentials", "@storybook/addon-interactions", 'storybook-addon-react-router-v6'
+  // "@storybook/addon-styling",
+  // {
+  //   name: '@storybook/addon-styling',
+  //   options: {
+  //     sass: {
+  //       implementation: require('sass'),
+  //     }
+  //   }
+  // }
   ],
-  core: {
-    builder: '@storybook/builder-vite',
-  },
+
+  core: {},
   framework: {
     name: "@storybook/react-vite",
-    options: {},
+    options: {}
   },
   docs: {
-    autodocs: "tag",
-  },
-};
+    autodocs: "tag"
+  }
+} satisfies StorybookConfig);
 export default config;

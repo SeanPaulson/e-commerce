@@ -57,11 +57,11 @@ function NavbarComponent() {
             </h1>
           </Offcanvas.Header>
           <Offcanvas.Body>
-            <Nav className="justify-content-between w-100">
-              <Nav.Link>Men's Clothing</Nav.Link>
-              <Nav.Link>Women's clothing</Nav.Link>
-              <Nav.Link>Jewelry</Nav.Link>
-              <Nav.Link>Electronics</Nav.Link>
+            <Nav className="justify-content-around w-100 " id="nav-categories">
+              <Nav.Link as={Link} to='#'>Men's Clothing</Nav.Link>
+              <Nav.Link as={Link} to='#'>Women's clothing</Nav.Link>
+              <Nav.Link as={Link} to='#'>Jewelry</Nav.Link>
+              <Nav.Link as={Link} to='#'>Electronics</Nav.Link>
             </Nav>
           </Offcanvas.Body>
         </Navbar.Offcanvas>

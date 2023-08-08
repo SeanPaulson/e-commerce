@@ -1,10 +1,12 @@
 import type { Preview } from "@storybook/react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../src/scss/index.scss';
-import { withThemeByDataAttribute } from '@storybook/addon-styling';
+// import { withThemeByDataAttribute } from '@storybook/addon-styling';
+import { reactRouterParameters, withRouter } from 'storybook-addon-react-router-v6';
 
 const preview: Preview = {
   parameters: {
+    reactRouter: reactRouterParameters({}),
     actions: { argTypesRegex: "^on[A-Z].*" },
     controls: {
       matchers: {
@@ -13,17 +15,18 @@ const preview: Preview = {
       },
     },
   },
+  decorators: [withRouter],
 };
 
-export const decorators = [
-  withThemeByDataAttribute({
-    themes: {
-      light: 'light',
-      dark: 'dark',
-    },
-    defaultTheme: 'light',
-    attributeName: 'data-bs-theme',
-  })
-]
+// export const decorators = [
+//   withThemeByDataAttribute({
+//     themes: {
+//       light: 'light',
+//       dark: 'dark',
+//     },
+//     defaultTheme: 'light',
+//     attributeName: 'data-bs-theme',
+//   })
+// ]
 
 export default preview;

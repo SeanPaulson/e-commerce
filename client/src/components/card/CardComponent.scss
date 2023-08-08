@@ -1,18 +1,72 @@
 .card__hover:hover {
     cursor: pointer;
-    box-shadow: 2px 2px 2px 1px rgb(230, 230, 230);
+    box-shadow: 0px 0px 5px 1px rgb(138, 138, 138);
+}
+
+.heart__button {
+    height: 25px;
+    width: 25px;
 }
 
 .cardComponent {
-    flex-basis: 20em;
-    flex-shrink: 1;
-    flex-grow: 1;
-    
+    margin: 0px;
+    flex: 0 1 100px;
+    flex-wrap: wrap;
+    height: 100px;
+    // width: 200px;
+    max-height: 100px;
+    min-width: 100px;
+    border: none;
+    margin: 4px 0px;
+    // min-height: 50px;
+    #cardBody {
+        // padding: 0px !important;
+        height: 100%;
+    }
+    .card-img {
+        height: inherit;
+    }
+
+    span {
+        font-size: .7em;
+    }
+    a {
+        height: 100%;
+    }
+
 }
 
-@media screen and (max-width: 608px) {
+.cardComponent:nth-last-child(-n + 3) {
+    display: none;
+}
+
+.cardTitle {
+    .bg-light {
+        background-color: red !important;
+    }
+}
+
+
+@media screen and (min-width: 608px) {
     .cardComponent {
-        flex-basis: 45%;
-        
+        span {
+            font-size: .9em;
+        }
+    }
+
+    .cardComponent:nth-last-child(-n + 3) {
+        display: flex;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .cardComponent {
+       
+        height: 120px;
+        flex-grow: 1;
+        max-height: 300px;
+        min-width: 100px;
+    
+    
     }
 }
