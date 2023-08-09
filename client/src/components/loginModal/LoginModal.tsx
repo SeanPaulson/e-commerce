@@ -4,7 +4,7 @@ import Form from "react-bootstrap/esm/Form";
 import Modal from "react-bootstrap/Modal";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { login } from "../../utils/fetchApi";
-import { ContextApp } from "../ContextProvider";
+import { ContextApp } from "../UserContext";
 import { ACTION_TYPES } from "../../reducers/profileReducer";
 
 export type Inputs = {

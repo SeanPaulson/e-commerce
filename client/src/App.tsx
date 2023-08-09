@@ -3,7 +3,7 @@ import ImgPreviewCircle from "./components/imgPreviewCircle/ImgPreviewCircle";
 import CardComponent from "./components/card/CardComponent";
 import Hero from "./components/hero/Hero";
 import { useContext } from "react";
-import { ContextApp } from "./components/ContextProvider";
+import { ContextApp } from "./components/UserContext";
 
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
       {Object.keys(state.userProfile).length != 0
         &&
         <div className="welcome">
-          Welcome back, {state.userProfile.first_name} {state.userProfile.last_name}
+          <h3>Welcome back, {state.userProfile.first_name}</h3>
         </div>}
       <Hero />
       <ImgPreviewCircle />

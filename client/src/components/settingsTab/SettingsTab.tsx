@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 import CardGroup from 'react-bootstrap/CardGroup';
 import Button from 'react-bootstrap/Button';
 import { useContext } from 'react';
-import { ContextApp } from '../ContextProvider';
+import { ContextApp } from '../UserContext';
 import PasswordForm from '../passwordForm/PasswordForm';
 import EmailForm from '../emailForm/EmailForm';
 

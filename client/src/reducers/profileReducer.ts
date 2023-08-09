@@ -1,4 +1,4 @@
-// import { InitialContext } from "../components/ContextProvider";
+// import { InitialContext } from "../components/UserContext";
 import { UserProfileStateContext, UserProfileType } from "../utils/types";
 
 export const enum ACTION_TYPES {

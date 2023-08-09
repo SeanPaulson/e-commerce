@@ -8,7 +8,7 @@
 }
 
 .welcome {
-    text-align: 'center';
+    margin: 10px auto;
     font-size: '2rem';
     font-family: '"Guardian-EgypTT",Charter,"Charter Bitstream",Cambria,"Noto Serif Light","Droid Serif",Georgia,serif';
     font-weight: '300'
@@ -35,6 +35,9 @@
         justify-content: center;
         column-gap: 20px;
         margin: 0px;
+    }
+    .welcome {
+        font-size: '4rem';
     }
 
 }

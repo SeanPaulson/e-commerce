@@ -7,7 +7,7 @@ import Container from "react-bootstrap/esm/Container";
 import Col from "react-bootstrap/esm/Col";
 import LoginModal from '../loginModal/LoginModal';
 import { useContext, useState } from "react";
-import { ContextApp } from "../ContextProvider";
+import { ContextApp } from "../UserContext";
 import { Link } from "react-router-dom";
 
 

@@ -5,16 +5,11 @@ import "./_ImgPreviewCircle.scss";
 // import CardImageOverlay from "react-bootstrap/CardImgOverlay";
 import Image from "react-bootstrap/esm/Image";
 import Container from "react-bootstrap/esm/Container";
-import { useContext } from 'react';
-import { ContextApp } from "../ContextProvider";
 
 const ImgPreviewCircle = () => {
 
-  const { state } = useContext(ContextApp);
-
   return (
     <Container id="wrapper">
-      {Object.keys(state.userProfile).length != 0 && <h4><i>Welcome back, {state.userProfile.first_name}!</i></h4>}
       <Row className="gap-4 justify-content-center" id="hero">
         <Col  >
           <Image roundedCircle className="imagePreview" alt="image preview" src="/computer.webP"></Image>

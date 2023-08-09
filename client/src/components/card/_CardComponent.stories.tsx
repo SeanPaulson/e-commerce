@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import CardComponent from './CardComponent';
-import ContextProvider from '../ContextProvider';
+import UserContext from '../UserContext';
 
 const meta: Meta<typeof CardComponent> = {
     component: CardComponent,
@@ -9,9 +9,9 @@ const meta: Meta<typeof CardComponent> = {
     tags: ['autodocs'],
     decorators: [
         (Story) => (
-            <ContextProvider>
+            <UserContext>
                 <Story />
-            </ContextProvider>
+            </UserContext>
         )
     ]
 };

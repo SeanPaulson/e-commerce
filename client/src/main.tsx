@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ErrorPage from "./pages/error/Error";
-import ContextProvider from "./components/ContextProvider";
+import UserContext from "./components/UserContext";
 import Footer from "./components/footer/Footer";
 import PrivateRoute from "./components/PrivateRoute";
 import NavbarWrapper from "./components/NavbarWrapper";
@@ -60,10 +60,10 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <div style={{ fontStyle: "bold", textAlign: "center" }}>loading...</div>
       }
     >
-      <ContextProvider>
+      <UserContext>
         <RouterProvider router={router} />
         <Footer />
-      </ContextProvider>
+      </UserContext>
     </Suspense>
   </React.StrictMode>
 );

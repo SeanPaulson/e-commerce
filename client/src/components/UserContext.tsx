@@ -25,7 +25,7 @@ export const ContextApp = createContext<IContext>({
   dispatch: () => { },
 });
 
-export default function ContextProvider({ children }: PropTypes) {
+export default function UserContext({ children }: PropTypes) {
   const [state, dispatch] = useReducer(profileReducer, initialState);
 
   const fetchData = async () => {

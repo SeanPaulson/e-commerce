@@ -1,4 +1,4 @@
-import { ContextApp } from "./ContextProvider";
+import { ContextApp } from "./UserContext";
 import { useContext } from "react";
 import { Outlet, Navigate } from "react-router-dom";
 import NavbarComponent from "./navbar/Navbar";
