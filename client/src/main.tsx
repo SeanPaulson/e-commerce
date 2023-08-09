@@ -13,44 +13,37 @@ const App = lazy(() => import("./App"));
 const Product = lazy(() => import("./pages/product/App"));
 const Settings = lazy(() => import("./pages/settings/Settings"));
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <NavbarWrapper />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        path: "/",
-        element: <App />,
-        errorElement: <ErrorPage />,
-      }
-    ],
-  },
-
-  {
-    path: "/",
-    element: <NavbarWrapper />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        path: "/product",
-        element: <Product />,
-        errorElement: <ErrorPage />,
-      }
-    ]
-  },
-  {
-    element: <PrivateRoute />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        path: "/settings",
-        element: <Settings />,
-        errorElement: <ErrorPage />,
-      },
-    ]
-  }
-],
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <NavbarWrapper />,
+      errorElement: <ErrorPage />,
+      children: [
+        {
+          path: "/",
+          element: <App />,
+          errorElement: <ErrorPage />,
+        },
+        {
+          path: "/product",
+          element: <Product />,
+          errorElement: <ErrorPage />,
+        },
+        {
+          element: <PrivateRoute />,
+          errorElement: <ErrorPage />,
+          children: [
+            {
+              path: "/settings",
+              element: <Settings />,
+              errorElement: <ErrorPage />,
+            },
+          ]
+        }
+      ],
+    },
+  ],
 );
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
