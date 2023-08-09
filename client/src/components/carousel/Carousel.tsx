@@ -14,21 +14,21 @@ const CarouselComponent = () => {
   return (
     <Carousel pause="hover" className="my-2 border" variant="dark" activeIndex={index} onSelect={handleSelect}>
       <Carousel.Item>
-        <Image className="carousel__img" alt="product image" src="/card-image.svg" />
+        <Image className="carousel__img" alt="product image" src="computer.webP" />
         <Carousel.Caption >
             <h3>first image</h3>
             <p>product description</p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-        <Image className="carousel__img" alt="product image" src="/card-image.svg" />
+        <Image className="carousel__img" alt="product image" src="shirt.webP" />
         <Carousel.Caption>
             <h3>first image</h3>
             <p>product description</p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-        <Image className="carousel__img" alt="product image" src="/card-image.svg" />
+        <Image className="carousel__img" alt="product image" src="jacket.webP" />
         <Carousel.Caption>
             <h3>first image</h3>
             <p>product description</p>

@@ -1,12 +1,17 @@
 .carousel__img {
   width: 100%;
+  height: 400px;
 }
 
 .carousel {
   width: 100dvw;
   margin: 0em;
+  overflow: hidden;
 }
 
+.carousel-caption {
+  color: white !important; 
+}
 .carousel button {
   border-radius: 100%;
   width: 10px !important;
@@ -19,7 +24,7 @@
 
 @media screen and (min-width: 767px) {
   .carousel__img {
-    width: 100%;
+    width: 400px;
   }
 
   .carousel {
@@ -29,7 +34,5 @@
     flex-grow: 0;
   }
 
-  .carousel-caption {
-    color: white !important; //TODO will need to remove when we add actual images instead of place holder
-  }
+  
 }
