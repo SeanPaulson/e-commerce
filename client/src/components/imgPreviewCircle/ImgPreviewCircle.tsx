@@ -13,30 +13,30 @@ const ImgPreviewCircle = () => {
   const { state } = useContext(ContextApp);
 
   return (
-    <Container id="intro">
+    <Container id="wrapper">
       {Object.keys(state.userProfile).length != 0 && <h4><i>Welcome back, {state.userProfile.first_name}!</i></h4>}
-      <div className="container" id="hero">
-        <div  className="col">
+      <Row className="gap-4 justify-content-center" id="hero">
+        <Col  >
           <Image roundedCircle className="imagePreview" alt="image preview" src="/computer.webP"></Image>
           <p>alsdfjdskafj</p>
-        </div>
-        <div className="col">
+        </Col>
+        <Col >
           <Image roundedCircle className="imagePreview" alt="image preview" src="/ring.webP"></Image>
           <p>alsdfjdskafj</p>
-        </div>
-        <div className="col">
+        </Col>
+        <Col >
           <Image roundedCircle className="imagePreview" alt="image preview" src="/shirt.webP"></Image>
           <p>alsdfjdskafj</p>
-        </div>
-        <div className="col">
+        </Col>
+        <Col >
           <Image roundedCircle className="imagePreview" alt="image preview" src="/jacket.webP"></Image>
           <p>alsdfjdskafj</p>
-        </div>
-        <div className="col">
+        </Col>
+        <Col >
           <Image roundedCircle className="imagePreview" alt="image preview" src="/backpack.webP"></Image>
           <p>alsdfjdskafj</p>
-        </div>
-      </div>
+        </Col>
+      </Row>
     </Container>
   );
 };
