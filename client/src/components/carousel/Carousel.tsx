@@ -3,7 +3,8 @@ import './Carousel.scss'
 import Carousel from "react-bootstrap/esm/Carousel";
 import Image from "react-bootstrap/esm/Image";
 
-const CarouselComponent = () => {
+
+const CarouselComponent = ({productImage}: {productImage: string}) => {
 
     const [index, setIndex] = useState(0);
 
@@ -14,25 +15,13 @@ const CarouselComponent = () => {
   return (
     <Carousel pause="hover" className="my-2 border" variant="dark" activeIndex={index} onSelect={handleSelect}>
       <Carousel.Item>
-        <Image className="carousel__img" alt="product image" src="computer.webP" />
-        <Carousel.Caption >
-            <h3>first image</h3>
-            <p>product description</p>
-        </Carousel.Caption>
+        <Image className="carousel__img" alt="product image" src={productImage} />
       </Carousel.Item>
       <Carousel.Item>
-        <Image className="carousel__img" alt="product image" src="shirt.webP" />
-        <Carousel.Caption>
-            <h3>first image</h3>
-            <p>product description</p>
-        </Carousel.Caption>
+        <Image className="carousel__img" alt="product image" src={productImage} />
       </Carousel.Item>
       <Carousel.Item>
-        <Image className="carousel__img" alt="product image" src="jacket.webP" />
-        <Carousel.Caption>
-            <h3>first image</h3>
-            <p>product description</p>
-        </Carousel.Caption>
+        <Image className="carousel__img" alt="product image" src={productImage} />
       </Carousel.Item>
     </Carousel>
   );

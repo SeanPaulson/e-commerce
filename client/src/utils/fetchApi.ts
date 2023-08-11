@@ -1,4 +1,6 @@
+import { LoaderFunction, LoaderFunctionArgs, Params } from "react-router";
 import { Inputs } from "../components/loginModal/LoginModal";
+import { Product } from "./types";
 export const login = async function ({ email, password }: Inputs) {
   try {
     const data = await fetch("/api/auth/login", {
@@ -26,15 +28,44 @@ export const login = async function ({ email, password }: Inputs) {
 
 export const getUserProfile = async function () {
   try {
-      const data = await fetch(`/api/users/profile`, {
-        method: "GET",
-      });
-      if (data.status === 200) {
-        return data.json();
-      } else {
-        throw Error();
-      }
-    } catch (error) {
-      return error;
+    const data = await fetch(`/api/users/profile`, {
+      method: "GET",
+    });
+    if (data.status === 200) {
+      return JSON.parse(JSON.stringify(data));
+    } else {
+      throw Error();
     }
+  } catch (error) {
+    return error;
+  }
 };
+
+export const getProductData = (async function (id: LoaderFunctionArgs | string):Promise<Product | never> {
+  try {
+    const res = await fetch(`/api/product/${id}`);
+    if (res.ok) {
+      const jdata: Array<Product> = await res.json();
+      return jdata[0];
+    }
+    throw Error('No data')
+  } catch (error: any) {
+    console.log(error);
+    return error;
+  }
+}) satisfies LoaderFunction;
+
+export const getFeaturedProducts = (async function ():Promise<Product[] | never> {
+  try {
+    const res = await fetch(`/api/product`);
+    if (res.ok) {
+      const jdata: Array<Product> = await res.json();
+      console.log(jdata[0].img_url)
+      return jdata;
+    }
+    throw Error('No data')
+  } catch (error: any) {
+    console.log(error);
+    return error;
+  }
+}) satisfies LoaderFunction;

@@ -7,6 +7,7 @@ import UserContext from "./components/UserContext";
 import Footer from "./components/footer/Footer";
 import PrivateRoute from "./components/PrivateRoute";
 import NavbarWrapper from "./components/NavbarWrapper";
+import { getFeaturedProducts, getProductData } from "./utils/fetchApi";
 
 
 const App = lazy(() => import("./App"));
@@ -24,11 +25,21 @@ const router = createBrowserRouter(
           path: "/",
           element: <App />,
           errorElement: <ErrorPage />,
+          loader: async () => {
+            return await getFeaturedProducts();
+          }
         },
         {
-          path: "/product",
+          path: "/product/:id",
           element: <Product />,
           errorElement: <ErrorPage />,
+          loader: async ({ params }) => {
+            const id = params.id;
+            if (id) {
+              const res = await getProductData(id)
+              return res;
+            }
+          }
         },
         {
           element: <PrivateRoute />,

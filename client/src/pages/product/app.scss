@@ -2,11 +2,16 @@
   text-align: center;
 }
 
+.app__body {
+  max-width: 530px;
+  overflow-wrap: break-word;
+}
+
 @media screen and (min-width: 767px) {
-  .app_body {
+  .app__body {
     width: 50%;
     overflow: visible;
-    height: 400px
+    height: 400px;
   }
 
   .app__container {

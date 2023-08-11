@@ -4,11 +4,17 @@ import CardComponent from "./components/card/CardComponent";
 import Hero from "./components/hero/Hero";
 import { useContext } from "react";
 import { ContextApp } from "./components/UserContext";
+import { useLoaderData } from "react-router";
+import { LoaderData } from "./utils/types";
+import { getFeaturedProducts } from "./utils/fetchApi";
 
 
 function App() {
 
   const { state } = useContext(ContextApp);
+  const featuredProducts = useLoaderData() as LoaderData<typeof getFeaturedProducts>;
+
+
 
   const arr = [0, 1, 2, 3, 4, 5];
   return (
@@ -22,7 +28,7 @@ function App() {
       <ImgPreviewCircle />
       <div className="cardContainer">
         {arr.map((index) => (
-          <CardComponent key={index} />
+          <CardComponent product={featuredProducts[index]} key={index} />
         ))}
       </div>
     </>
