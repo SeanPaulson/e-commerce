@@ -8,8 +8,17 @@ import Offcanvas from "react-bootstrap/esm/Offcanvas";
 import LoginOverlay from "../loginOverlay/LoginOverlay";
 import Button from "react-bootstrap/esm/Button";
 import { Link } from "react-router-dom";
+import { ProductCategories } from "../../utils/types";
+import { useState } from "react";
 
 function NavbarComponent() {
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => {
+    setShow(!show);
+  }
+
   return (
     <>
       <Navbar className="navbar__component">
@@ -42,26 +51,29 @@ function NavbarComponent() {
           </Nav.Link>
         </Nav.Item>
       </Navbar>
-      <Navbar expand="md" className="navbar__component" id='navbar_categories'>
+      <Navbar collapseOnSelect expand="md" className="navbar__component" id='navbar_categories'>
         <Navbar.Toggle
           aria-controls={`offcan>vasNavbar-expand-md`}
           className="nav-btn"
+          onClick={handleClose}
         />
         <Navbar.Offcanvas
+          show={show}
           restoreFocus
           aria-labelledby={`offcanvasNavbarLabel-expand-md`}
         >
-          <Offcanvas.Header closeButton>
+          <Offcanvas.Header >
             <h1>
               <b>Shop By Category</b>
             </h1>
+            <Button onClick={handleClose} variant="light">X</Button>
           </Offcanvas.Header>
           <Offcanvas.Body>
             <Nav className="justify-content-around w-100 " id="nav-categories">
-              <Nav.Link as={Link} to='#'>Men's Clothing</Nav.Link>
-              <Nav.Link as={Link} to='#'>Women's clothing</Nav.Link>
-              <Nav.Link as={Link} to='#'>Jewelry</Nav.Link>
-              <Nav.Link as={Link} to='#'>Electronics</Nav.Link>
+              <Nav.Link onClick={handleClose} as={Link} to={`/product/category/${ProductCategories["MENS CLOTHING"]}`}>Men's Clothing</Nav.Link>
+              <Nav.Link onClick={handleClose} as={Link} to={`/product/category/${ProductCategories["WOMENS CLOTHING"]}`}>Women's clothing</Nav.Link>
+              <Nav.Link onClick={handleClose} as={Link} to={`/product/category/${ProductCategories.JEWELRY}`}>Jewelry</Nav.Link>
+              <Nav.Link onClick={handleClose} as={Link} to={`/product/category/${ProductCategories.ELECTRONICS}`}>Electronics</Nav.Link>
             </Nav>
           </Offcanvas.Body>
         </Navbar.Offcanvas>

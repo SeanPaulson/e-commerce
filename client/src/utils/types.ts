@@ -1,4 +1,4 @@
-import { LoaderFunction } from 'react-router-dom';
+import { LoaderFunction, LoaderFunctionArgs } from 'react-router-dom';
 
 export type UserProfileType = {
   id: Number;
@@ -38,13 +38,20 @@ export type Product = {
   description: string;
   price: string;
   img_url: string
-  categoryId: number;
-  createdAt: string | null;
-  modifiedAt: string | null;
+  category_id: number;
+  modified_at: string | null;
+  created: string | null;
 }
 
+export enum ProductCategories  {
+  "MENS CLOTHING" = "0",
+  "WOMENS CLOTHING" = "1",
+  "JEWELRY" = "2",
+  "ELECTRONICS" = "3"
 
+}
 
 export type LoaderData<TLoaderFn extends LoaderFunction> = Awaited<ReturnType<TLoaderFn>> extends Response | infer D
 	? D
 	: never;
+

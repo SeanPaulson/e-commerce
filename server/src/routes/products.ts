@@ -33,7 +33,7 @@ productRouter.get('/:id', async (req: Request, res: Response) => {
 });
 
 
-productRouter.get('/:categoryId', async (req: Request, res: Response) => {
+productRouter.get('/category/:categoryId', async (req: Request, res: Response) => {
     const category_id = req.params.categoryId;
     try {
         const result = await db.query("SELECT * FROM commerce.product WHERE product.category_id = $1", [category_id]);

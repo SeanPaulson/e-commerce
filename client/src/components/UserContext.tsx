@@ -41,7 +41,6 @@ export default function UserContext({ children }: PropTypes) {
   };
 
   useEffect(() => {
-    console.log('useEffect')
     fetchData()
   }, []);
 

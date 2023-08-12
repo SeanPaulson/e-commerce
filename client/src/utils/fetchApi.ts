@@ -41,7 +41,7 @@ export const getUserProfile = async function () {
   }
 };
 
-export const getProductData = (async function (id: LoaderFunctionArgs | string):Promise<Product | never> {
+export const getProductById = (async function (id: LoaderFunctionArgs | string):Promise<Product | never> {
   try {
     const res = await fetch(`/api/product/${id}`);
     if (res.ok) {
@@ -60,7 +60,6 @@ export const getFeaturedProducts = (async function ():Promise<Product[] | never>
     const res = await fetch(`/api/product`);
     if (res.ok) {
       const jdata: Array<Product> = await res.json();
-      console.log(jdata[0].img_url)
       return jdata;
     }
     throw Error('No data')
@@ -69,3 +68,18 @@ export const getFeaturedProducts = (async function ():Promise<Product[] | never>
     return error;
   }
 }) satisfies LoaderFunction;
+
+export const getProductsByCategory = (async function (id: LoaderFunctionArgs | string):Promise<Product[] | never> {
+  try {
+    const res = await fetch(`/api/product/category/${id}`);
+    if (res.ok) {
+      const jdata: Array<Product> = await res.json();
+      return jdata;
+    }
+    throw Error('No data')
+  } catch (error: any) {
+    console.log(error);
+    return error;
+  }
+}) satisfies LoaderFunction;
+

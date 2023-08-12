@@ -7,7 +7,8 @@ import UserContext from "./components/UserContext";
 import Footer from "./components/footer/Footer";
 import PrivateRoute from "./components/PrivateRoute";
 import NavbarWrapper from "./components/NavbarWrapper";
-import { getFeaturedProducts, getProductData } from "./utils/fetchApi";
+import { getFeaturedProducts, getProductById, getProductsByCategory } from "./utils/fetchApi";
+import Category from "./pages/category/Category";
 
 
 const App = lazy(() => import("./App"));
@@ -17,7 +18,6 @@ const Settings = lazy(() => import("./pages/settings/Settings"));
 const router = createBrowserRouter(
   [
     {
-      path: "/",
       element: <NavbarWrapper />,
       errorElement: <ErrorPage />,
       children: [
@@ -36,8 +36,18 @@ const router = createBrowserRouter(
           loader: async ({ params }) => {
             const id = params.id;
             if (id) {
-              const res = await getProductData(id)
-              return res;
+              return await getProductById(id);
+            }
+          },
+        },
+        {
+          path: "/product/category/:id",
+          element: <Category />,
+          errorElement: <ErrorPage />,
+          loader: async ({ params }) => {
+            const id = params.id;
+            if (id) {
+              return await getProductsByCategory(id);
             }
           }
         },
@@ -71,3 +81,13 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     </Suspense>
   </React.StrictMode>
 );
+// loader: async ({ params }) => {
+//   const id = params.id;
+//   console.log(id)
+//   if (id) {
+//     const res = await getProductsByCategory(id);
+//     console.log(res);
+//     return res;
+//   }
+//   return null
+// }

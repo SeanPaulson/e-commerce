@@ -3,12 +3,12 @@ import CarouselComponent from "../../components/carousel/Carousel";
 import ProductDescription from "../../components/ProductDescription/ProductDescription";
 import { useLoaderData } from "react-router";
 import { LoaderData } from "../../utils/types";
-import { getProductData } from "../../utils/fetchApi";
+import { getProductById } from "../../utils/fetchApi";
 
 
 function App() {
 
-  const product = useLoaderData() as LoaderData<typeof getProductData>;
+  const product = useLoaderData() as LoaderData<typeof getProductById>;
 
   return (
     <div className="app__container">
