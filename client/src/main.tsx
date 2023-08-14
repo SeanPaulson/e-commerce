@@ -7,8 +7,9 @@ import UserContext from "./components/UserContext";
 import Footer from "./components/footer/Footer";
 import PrivateRoute from "./components/PrivateRoute";
 import NavbarWrapper from "./components/NavbarWrapper";
-import { getFeaturedProducts, getProductById, getProductsByCategory } from "./utils/fetchApi";
+import { getFeaturedProducts, getProductById, getProductsByCategory, getUserCart } from "./utils/fetchApi";
 import Category from "./pages/category/Category";
+import Cart from "./pages/cart/Cart";
 
 
 const App = lazy(() => import("./App"));
@@ -49,6 +50,14 @@ const router = createBrowserRouter(
             if (id) {
               return await getProductsByCategory(id);
             }
+          }
+        },
+        {
+          path: "/cart",
+          element: <Cart />,
+          errorElement: <ErrorPage />,
+          loader: async () => {
+            return await getUserCart();
           }
         },
         {

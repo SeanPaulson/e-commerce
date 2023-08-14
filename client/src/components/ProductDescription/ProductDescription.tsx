@@ -1,13 +1,40 @@
 import Button from "react-bootstrap/esm/Button";
 import Accordion from "react-bootstrap/esm/Accordion";
 import Image from "react-bootstrap/esm/Image";
+import Form from 'react-bootstrap/Form';
 import { Product } from "../../utils/types";
+import { useNavigate, useParams } from "react-router";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { addItemToCart } from "../../utils/fetchApi";
 
 type Iprops = {
     product: Product;
 }
 
+type InputType = {
+    quantity: number
+}
+
 export default function ProductDescription({ product }: Iprops) {
+
+
+
+    const { id } = useParams();
+    const navigate = useNavigate();
+
+    const { register, handleSubmit } = useForm<InputType>();
+
+
+    const onSubmit: SubmitHandler<InputType> = ({ quantity }) => {
+        if (id) {
+            addItemToCart(id, quantity)
+            .then(res => {
+                console.log(res);
+            })
+            .then(() => navigate('/cart'))
+        }
+    }
+
     return (<div className="app__body mx-4 ">
         <div className="app_header" >
             <span>
@@ -20,12 +47,25 @@ export default function ProductDescription({ product }: Iprops) {
                 <h4>{product.name}</h4> <p>{product.description}</p>
             </div>
 
-            <Button
-                variant="light"
-                className="mx-3 my-3 rounded-pill border border-dark border-2"
-            >
-                <b>Add to cart</b>
-            </Button>
+            <Form onSubmit={handleSubmit(onSubmit)}>
+                <Form.Group>
+
+                    <Form.Label>Quantity<b style={{ color: 'red' }}>*</b></Form.Label>
+                    <Form.Control
+                        size="sm"
+                        {...register("quantity", { required: true, min: 1 })}
+                        type="number"
+                        defaultValue={0}
+                    />
+                </Form.Group>
+                <Button
+                    type="submit"
+                    variant="light"
+                    className="mx-3 my-3 rounded-pill border border-dark border-2"
+                >
+                    <b>Add to cart</b>
+                </Button>
+            </Form>
             <Button
                 variant="success"
                 className="mx-3 my-2 rounded-pill"

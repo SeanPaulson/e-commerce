@@ -1,0 +1,23 @@
+.cart__wrapper {
+   
+    h1 {
+        text-align: center;
+    }
+}
+
+.cart__body--flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px 0px;
+}
+
+
+@media screen and (min-width: 767px) {
+    .cart__body--flex {
+        padding: 10px 0px;
+    }
+    .cart__wrapper {
+        padding: 0vh 15vw;
+    }
+}

@@ -7,7 +7,7 @@ router.get('/login', (req: Request, res: Response) => {
   res.send('login page');
 });
 router.post('/login', login);
-router.get('/logout', logout);
+router.post('/logout', logout);
 
 module.exports = router;
 

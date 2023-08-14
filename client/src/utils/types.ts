@@ -43,6 +43,17 @@ export type Product = {
   created: string | null;
 }
 
+export type CartItem = {
+  user_id: number;
+  name: string;
+  description: string;
+  price: string;
+  quantity: number;
+  total: string;
+  img_url: string;
+  product_id: number
+}
+
 export enum ProductCategories  {
   "MENS CLOTHING" = "0",
   "WOMENS CLOTHING" = "1",

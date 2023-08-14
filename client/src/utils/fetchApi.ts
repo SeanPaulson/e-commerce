@@ -1,6 +1,6 @@
 import { LoaderFunction, LoaderFunctionArgs, Params } from "react-router";
 import { Inputs } from "../components/loginModal/LoginModal";
-import { Product } from "./types";
+import { CartItem, Product, UserProfileType } from "./types";
 export const login = async function ({ email, password }: Inputs) {
   try {
     const data = await fetch("/api/auth/login", {
@@ -32,11 +32,11 @@ export const getUserProfile = async function () {
       method: "GET",
     });
     if (data.status === 200) {
-      return JSON.parse(JSON.stringify(data));
+      return await data.json()
     } else {
       throw Error();
     }
-  } catch (error) {
+  } catch (error: any) {
     return error;
   }
 };
@@ -83,3 +83,60 @@ export const getProductsByCategory = (async function (id: LoaderFunctionArgs | s
   }
 }) satisfies LoaderFunction;
 
+export const getUserCart = (async function ():Promise<CartItem[] | never> {
+  try {
+    const res = await fetch(`/api/cart`);
+    if (res.ok) {
+      const jdata:CartItem[] = await res.json();
+      return jdata;
+    }
+    throw Error('No data')
+  } catch (error: any) {
+    console.log(error);
+    return error;
+  }
+}) satisfies LoaderFunction;
+
+export const addItemToCart = async (id: string, quantity: number) => {
+  try {
+    const res = await fetch('/api/cart', {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        prod_id: id,
+        quantity,
+      }),
+    });
+    if (res.status === 200) {
+      return JSON.parse(JSON.stringify(res));
+    } else if (res.status === 401) {
+      throw Error("Email or password is incorrect.");
+    }
+  } catch (error: any) {
+    console.log(error);
+    return error;
+  }
+}
+
+export const deleteCartItem = async (id: number) => {
+  try {
+    const res = await fetch('api/cart', {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        prod_id: id
+      })
+    });
+    console.log(res);
+    return res;
+  } catch(error: any) {
+    console.log(error);
+    return error;
+  }
+}

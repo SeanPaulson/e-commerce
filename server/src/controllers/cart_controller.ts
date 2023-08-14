@@ -31,18 +31,20 @@ export const deleteCartItem = async (
   next: NextFunction
 ) => {
   try {
-    const user_id = req.params.id;
-    const item_id = req.body.cart_item;
+    const user_id = req.session.user?.id;
+    const item_id = req.body.prod_id;
     const result = await db.query("DELETE FROM commerce.cart_items WHERE user_id = $1 AND prod_id = $2",
     [user_id, item_id]);
-    if (result.rowCount != 1) {
-      throw Error('cart is empty');
+    console.log(result.rowCount === 0)
+    if (result.rowCount === 0) {
+      throw Error('Your cart is empty');
     }
-    console.log(result);
-    res.send(result);
+    console.log('result ' + result);
+    res.send('Item Deleted');
   }
-  catch (err) {
-    res.send(err);
+  catch (err: any) {
+    console.log('error '+ err)
+    res.send(err.message);
   }
 }
 
@@ -61,7 +63,7 @@ export const getUserCart = async (
   next: NextFunction
 ) => {
   try {
-    console.log(req.params.id);
+    console.log(req.session.user?.id);
     const user_id = req.session.user?.id;
     const cart_items = await db.query(
       "SELECT * FROM commerce.get_user_cart($1);",
@@ -81,7 +83,7 @@ export const getUserCart = async (
 
 export const checkoutCart = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const user_id = req.params.id;
+    const user_id = req.session.user?.id;
   // const { product_id, quantity, total } = req.body;
 
   //create a insert into order_details table

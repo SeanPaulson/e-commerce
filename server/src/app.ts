@@ -2,6 +2,7 @@ import express, {Express, NextFunction, Request, Response, urlencoded} from 'exp
 const productsRouter = require('./routes/products');
 const db = require('./db')
 const cors = require('cors');
+const timeout = require('connect-timeout');
 const expressSession = require("express-session");
 const swaggerJsdoc = require('swagger-jsdoc');
 const pgSession = require("connect-pg-simple")(expressSession);
@@ -28,6 +29,7 @@ app.use(urlencoded({ extended: true}))
 app.use(express.static(__dirname + '../Design'));
 app.set('trust proxy', 1)
 app.use(express.json());
+app.use(timeout('20s'));
 app.use(morgan('dev'));
 app.use(cors({
     origin: 'localhost:3001',  //Your Client, do not write '*'

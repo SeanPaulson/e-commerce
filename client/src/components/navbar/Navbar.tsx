@@ -22,7 +22,7 @@ function NavbarComponent() {
   return (
     <>
       <Navbar className="navbar__component">
-        <Nav.Link as={Link} to="/" className="navLogo"> 
+        <Nav.Link as={Link} to="/" className="navLogo">
           E-commerce
         </Nav.Link>
         <Form className="flex-grow-1 flex-shrink-0">
@@ -37,16 +37,18 @@ function NavbarComponent() {
         </Form>
         <Nav.Item className="p-1 nav-profile-cart d-flex flex-shrink-0  ">
           <LoginOverlay />
-          <Nav.Link className="rounded-circle nav-img-link">
+          <Nav.Link as={Link} to="/cart" className="rounded-circle nav-img-link">
             <Button variant="light" className="rounded-circle">
-              <Image
-                className="cart-img"
-                src="/cart.svg"
-                alt="cart"
-                roundedCircle
-                fluid
-                role="navigation"
-              ></Image>
+              {/* <Link to='/cart'> */}
+                <Image
+                  className="cart-img"
+                  src="/cart.svg"
+                  alt="cart"
+                  roundedCircle
+                  fluid
+                  role="navigation"
+                ></Image>
+              {/* </Link> */}
             </Button>
           </Nav.Link>
         </Nav.Item>

@@ -227,19 +227,11 @@ paths:
           description: could not find product
         404:
           description: default 
-  /cart/{id}:
+  /cart:
     get: 
       tags: 
         - cart
       description: get all items from ursers active category.
-      parameters:
-        - in: path 
-          name: id
-          required: true
-          schema:
-            type: integer
-            minimum: 0
-          description: user ID
       responses:
         '200':  
           description: array of products in users category.
@@ -255,14 +247,6 @@ paths:
       tags: 
         - cart
       description: add items to users category.
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: integer
-            minimum: 0
-          description: user ID
       requestBody:
        description: The product ID and quantity to add to cart.
        required: true
@@ -289,14 +273,6 @@ paths:
       tags:
         - cart
       description: delete item from cart
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: integer
-            minimum: 0
-          description: user ID
       requestBody:
        description: The product ID and quantity to add to cart.
        required: true
@@ -315,19 +291,11 @@ paths:
           description: success!
         '400': 
           description: your cart is empty.
-  /cart/{id}/checkout:
+  /cart/checkout:
     post:
       tags:
         - cart
       description: checkout all items in cart
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: integer
-            minimum: 0
-          description: user ID
       responses:
           '201':  
             description: success!

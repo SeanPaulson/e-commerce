@@ -7,8 +7,8 @@ import {
 } from "../controllers/cart_controller";
 import { isAuthorized } from "../utils/auth";
 
-router.get("/:id", isAuthorized, getUserCart);
-router.post("/:id", isAuthorized, addItemToCart)
-router.delete("/:id", isAuthorized, deleteCartItem);
-router.post("/:id/checkout", checkoutCart)
+router.get("/", isAuthorized, getUserCart);
+router.post("/", isAuthorized, addItemToCart)
+router.delete("/", isAuthorized, deleteCartItem);
+router.post("/checkout", checkoutCart)
 export default router;
