@@ -17,7 +17,7 @@
     max-height: 100px;
     min-width: 100px;
     border: none;
-    margin: 4px 0px;
+    margin: auto;
     // min-height: 50px;
     #cardBody {
         // padding: 0px !important;
@@ -40,15 +40,11 @@
     display: none;
 }
 
-.cardTitle {
-    .bg-light {
-        background-color: red !important;
-    }
-}
 
 
 @media screen and (min-width: 608px) {
     .cardComponent {
+        
         span {
             font-size: .9em;
         }
@@ -61,7 +57,6 @@
 
 @media screen and (min-width: 1000px) {
     .cardComponent {
-       
         height: 100%;
         flex-grow: 1;
         max-height: 300px;

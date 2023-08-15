@@ -14,9 +14,13 @@ import { useState } from "react";
 function NavbarComponent() {
 
   const [show, setShow] = useState(false);
+  const [toggled, setToggled] = useState(false)
 
   const handleClose = () => {
-    setShow(!show);
+    if (toggled) {
+      setShow(false);
+      setToggled(false);
+    }
   }
 
   return (
@@ -40,24 +44,27 @@ function NavbarComponent() {
           <Nav.Link as={Link} to="/cart" className="rounded-circle nav-img-link">
             <Button variant="light" className="rounded-circle">
               {/* <Link to='/cart'> */}
-                <Image
-                  className="cart-img"
-                  src="/cart.svg"
-                  alt="cart"
-                  roundedCircle
-                  fluid
-                  role="navigation"
-                ></Image>
+              <Image
+                className="cart-img"
+                src="/cart.svg"
+                alt="cart"
+                roundedCircle
+                fluid
+                role="navigation"
+              ></Image>
               {/* </Link> */}
             </Button>
           </Nav.Link>
         </Nav.Item>
       </Navbar>
-      <Navbar collapseOnSelect expand="md" className="navbar__component" id='navbar_categories'>
+      <Navbar collapseOnSelect expand='md' className="navbar__component" id='navbar_categories'>
         <Navbar.Toggle
-          aria-controls={`offcan>vasNavbar-expand-md`}
+          aria-controls={`offcanvasNavbar-expand-md`}
           className="nav-btn"
-          onClick={handleClose}
+          onClick={() => {
+            setToggled(true)
+            setShow(true);
+          }}
         />
         <Navbar.Offcanvas
           show={show}
@@ -68,7 +75,10 @@ function NavbarComponent() {
             <h1>
               <b>Shop By Category</b>
             </h1>
-            <Button onClick={handleClose} variant="light">X</Button>
+            <Button onClick={() => {
+              setShow(false);
+              setToggled(false);
+            }} variant="light">X</Button>
           </Offcanvas.Header>
           <Offcanvas.Body>
             <Nav className="justify-content-around w-100 " id="nav-categories">
@@ -79,7 +89,7 @@ function NavbarComponent() {
             </Nav>
           </Offcanvas.Body>
         </Navbar.Offcanvas>
-      </Navbar>
+      </Navbar >
     </>
   );
 }

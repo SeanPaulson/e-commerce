@@ -6,7 +6,7 @@ import { Product } from "../../utils/types";
 import { useNavigate, useParams } from "react-router";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { addItemToCart } from "../../utils/fetchApi";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ContextApp } from "../UserContext";
 
 type Iprops = {
@@ -27,10 +27,13 @@ export default function ProductDescription({ product }: Iprops) {
 
     const { register, handleSubmit, clearErrors, setError, formState: { errors } } = useForm<InputType>();
 
+    useEffect(() => {
+        clearErrors('auth');
+    },[state])
 
     const onSubmit: SubmitHandler<InputType> = ({ quantity }) => {
 
-        if (id && !(state.userProfile instanceof Error)) {
+        if (id && state.userProfile instanceof Error) {
             addItemToCart(id, quantity)
                 .then(res => {
                     console.log(res);

@@ -1,22 +1,22 @@
-
-
 .cart__item__wrapper {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     border-bottom: 1px solid #7a7a7a;
+
     img {
         height: auto;
         max-width: 100%;
         max-height: 300px;
     }
+
     h3 {
         width: 100%;
     }
 
     #description {
         // color: #868686;
-        
+
     }
 }
 
@@ -28,12 +28,25 @@
         justify-content: center;
         padding: 10px 10px;
         margin: 10px 0px;
-        box-shadow: 2px 2px 10px  black;
+        box-shadow: 2px 2px 10px black;
         border-radius: 5px;
+        max-height: 200px;
+        // max-width: 400px;
+        overflow: hidden;
+        row-gap: 5px;
+        p {
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+        h3 {
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
         img {
-            max-width: 200px;
-            
+            max-width: 150px;
+
         }
     }
-    
+
 }
