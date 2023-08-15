@@ -6,6 +6,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { login } from "../../utils/fetchApi";
 import { ContextApp } from "../UserContext";
 import { ACTION_TYPES } from "../../reducers/profileReducer";
+import { redirect } from "react-router";
 
 export type Inputs = {
   email: string;
@@ -40,12 +41,13 @@ const LoginModal = ({handleOverlay}: handleOverlayType) => {
   const logout = async () => {
     try {
       const res = await fetch("/api/auth/logout", {
-        method: "GET",
+        method: "POST",
         credentials: "include",
       });
       if (res.status === 200) {
         dispatch({type: ACTION_TYPES.LOGOUT, payload: {}})
         handleOverlay(false);
+        redirect('-1')
       }
     } catch (e) {
       //TODO find a way to handle logout errors

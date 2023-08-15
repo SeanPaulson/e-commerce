@@ -7,8 +7,6 @@ const db = require ('../db');
 productRouter.get('/', async (req: Request, res: Response, next: NextFunction) => {
     try{
         const result = await db.query('SELECT * FROM commerce.product LIMIT 10');
-        console.log('/product: ');
-        console.log(req.session);
         res.send(result.rows);
     }
     catch(err: any) {

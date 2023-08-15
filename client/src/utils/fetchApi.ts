@@ -86,9 +86,12 @@ export const getProductsByCategory = (async function (id: LoaderFunctionArgs | s
 export const getUserCart = (async function ():Promise<CartItem[] | never> {
   try {
     const res = await fetch(`/api/cart`);
+    console.log(res);
     if (res.ok) {
       const jdata:CartItem[] = await res.json();
       return jdata;
+    } if (res.status === 401) {
+      return []
     }
     throw Error('No data')
   } catch (error: any) {

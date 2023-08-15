@@ -6,33 +6,43 @@ import { Product } from "../../utils/types";
 import { useNavigate, useParams } from "react-router";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { addItemToCart } from "../../utils/fetchApi";
+import { useContext } from "react";
+import { ContextApp } from "../UserContext";
 
 type Iprops = {
     product: Product;
 }
 
 type InputType = {
-    quantity: number
+    quantity: number,
+    auth: string,
 }
 
 export default function ProductDescription({ product }: Iprops) {
 
-
+    const { state } = useContext(ContextApp);
 
     const { id } = useParams();
     const navigate = useNavigate();
 
-    const { register, handleSubmit } = useForm<InputType>();
+    const { register, handleSubmit, clearErrors, setError, formState: { errors } } = useForm<InputType>();
 
 
     const onSubmit: SubmitHandler<InputType> = ({ quantity }) => {
-        if (id) {
+
+        if (id && !(state.userProfile instanceof Error)) {
             addItemToCart(id, quantity)
-            .then(res => {
-                console.log(res);
-            })
-            .then(() => navigate('/cart'))
+                .then(res => {
+                    console.log(res);
+                })
+                .then(() => navigate('/cart'))
+        } else {
+            setError('auth', {
+                type: 'manual',
+                message: 'You must login'
+            });
         }
+        // clearErrors('auth');
     }
 
     return (<div className="app__body mx-4 ">
@@ -48,15 +58,21 @@ export default function ProductDescription({ product }: Iprops) {
             </div>
 
             <Form onSubmit={handleSubmit(onSubmit)}>
-                <Form.Group>
 
+                <Form.Group
+                    {...register('auth')}
+                >
+                    {errors.auth && <p>{errors.auth.message}</p>}
                     <Form.Label>Quantity<b style={{ color: 'red' }}>*</b></Form.Label>
                     <Form.Control
                         size="sm"
+                        min={0}
                         {...register("quantity", { required: true, min: 1 })}
                         type="number"
                         defaultValue={0}
+                        onChange={() => clearErrors('auth')}
                     />
+
                 </Form.Group>
                 <Button
                     type="submit"

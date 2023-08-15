@@ -10,7 +10,7 @@ import { useState } from 'react';
 export default function Cart() {
 
     const cartData = useLoaderData() as LoaderData<typeof getUserCart>;
-
+    console.log(cartData)
     const [cartState, setCartState] = useState<CartItem[]>([]);
     //TODO handle cart state
     const handleRemove = (id: number) => {
@@ -19,12 +19,12 @@ export default function Cart() {
             setCartState(newCart);
             console.log(cartState)
         }
-    }   
+    }
 
     return (
         <div className='cart__wrapper'>
-            <h1>{cartData.length} items in your cart</h1>
-            {cartState && <div className='cart__body--flex'>
+            <h1>{cartState.length} items in your cart</h1>
+            {cartData.length > 0 && <div className='cart__body--flex'>
                 {cartData.map((item, index) => (
                     <CartItems updateCart={handleRemove} cartData={item} key={index} />
                 ))}
