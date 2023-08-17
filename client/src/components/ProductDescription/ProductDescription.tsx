@@ -21,7 +21,6 @@ type InputType = {
 export default function ProductDescription({ product }: Iprops) {
 
     const { state } = useContext(ContextApp);
-
     const { id } = useParams();
     const navigate = useNavigate();
 
@@ -33,8 +32,8 @@ export default function ProductDescription({ product }: Iprops) {
 
     const onSubmit: SubmitHandler<InputType> = ({ quantity }) => {
 
-        if (id && state.userProfile instanceof Error) {
-            addItemToCart(id, quantity)
+        if (id && !(state.userProfile instanceof Error)) {
+            addItemToCart(Number(id), quantity)
                 .then(res => {
                     console.log(res);
                 })
@@ -65,7 +64,7 @@ export default function ProductDescription({ product }: Iprops) {
                 <Form.Group
                     {...register('auth')}
                 >
-                    {errors.auth && <p>{errors.auth.message}</p>}
+                    {errors.auth && <p className="errors">{errors.auth.message}</p>}
                     <Form.Label>Quantity<b style={{ color: 'red' }}>*</b></Form.Label>
                     <Form.Control
                         size="sm"

@@ -14,13 +14,14 @@ export default function Cart() {
 
     useEffect(() => {
         setCartState(cartData)
-    }, [cartData])
+    }, [])
 
-    const handleRemove = (id: number) => {
+    const handleRemove = (id?: number) => {
         const newCart = cartState?.filter((item) => item.product_id !== id)
         if (newCart) {
             setCartState(newCart);
         }
+        
     }
 
     return (
@@ -31,7 +32,7 @@ export default function Cart() {
                 {cartState.length > 0 && <>
                     <div className='cart__body--flex'>
                         {cartState.map((item, index) => (
-                            <CartItems updateCart={handleRemove} cartData={item} key={index} />
+                            <CartItems updateCart={handleRemove} cartItem={item} key={index} />
                         ))}
 
                     </div>

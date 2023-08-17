@@ -2,23 +2,41 @@ import { Button, Form, Image } from 'react-bootstrap';
 import { CartItem } from '../../utils/types';
 import './_cartItems.scss'
 import { useForm } from 'react-hook-form';
-import { deleteCartItem } from '../../utils/fetchApi';
+import { addItemToCart, deleteCartItem } from '../../utils/fetchApi';
+import { useState } from 'react';
+import QuantityForm from '../QuantityForm/QuantityForm';
 
 type Iprops = {
-    cartData: CartItem;
+    cartItem: CartItem;
     updateCart: (id: number) => void;
 }
 
-export default function CartItem({ cartData, updateCart }: Iprops) {
+export default function CartItem({ cartItem, updateCart }: Iprops) {
 
     const { handleSubmit } = useForm();
+    const [edit, setEdit] = useState(false);
+    const [quantity, setQuantity] = useState(cartItem.quantity)
 
+
+    const handleClick = async (newQuantity?: number) => {
+        if (newQuantity && newQuantity !== quantity) {
+            console.log('setting new quantity...' + newQuantity)
+            addItemToCart(cartItem.product_id, newQuantity)
+            .then((res) => {
+                console.log(res);
+                setQuantity(res.quantity);
+            })
+            .catch(error => console.log(error));
+        }
+        setEdit(!edit);
+
+    }
 
     const onSubmit = () => {
-        deleteCartItem(cartData.product_id)
+        deleteCartItem(cartItem.product_id)
             .then(res => {
                 if (res.ok) {
-                    updateCart(cartData.product_id);
+                    updateCart(cartItem.product_id);
                 }
             })
             .catch(err => console.log(err));
@@ -26,13 +44,25 @@ export default function CartItem({ cartData, updateCart }: Iprops) {
 
     return (
         <div className='cart__item__wrapper'>
-            <Image src={cartData.img_url} alt={`Product Image ${cartData.name}`} />
+            <Image src={cartItem.img_url} alt={`Product Image ${cartItem.name}`} />
             <div className='cart__item__body' >
-                <h3 id='name' >{cartData.name}</h3>
-                <p id='description' >{cartData.description}</p>
-                <div style={{ display: 'flex', justifyContent: 'space-evenly', flex: '0 1 100%' }}>
-                    <p id='quantity' >Quantity Selected: {cartData.quantity}</p>
-                    <p id='total' >{cartData.total}</p>
+                <h3 id='name' >{cartItem.name}</h3>
+                <p id='description' >{cartItem.description}</p>
+                <div className='cart__item__footer' >
+                    <div id='quantity' >Quantity Selected:
+                        {
+                            edit ?
+                                <QuantityForm save={handleClick} quantity={cartItem.quantity} />
+                                :
+                                <>{quantity} <Button onClick={(e) => {
+                                    e.preventDefault();
+                                    handleClick();
+                                }} variant='light' >Edit</Button></>
+                        }
+
+                    </div>
+
+                    <p id='total' >{cartItem.total}</p>
                 </div>
             </div>
             <Form onSubmit={handleSubmit(onSubmit)} style={{ alignSelf: 'center' }}>

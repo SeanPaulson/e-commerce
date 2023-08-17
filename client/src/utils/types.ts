@@ -1,4 +1,4 @@
-import { LoaderFunction, LoaderFunctionArgs } from 'react-router-dom';
+import { LoaderFunction } from 'react-router-dom';
 
 export type UserProfileType = {
   id: Number;

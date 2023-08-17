@@ -1,6 +1,6 @@
-import { LoaderFunction, LoaderFunctionArgs, Params } from "react-router";
+import { LoaderFunction, LoaderFunctionArgs } from "react-router";
 import { Inputs } from "../components/loginModal/LoginModal";
-import { CartItem, Product, UserProfileType } from "./types";
+import { CartItem, Product } from "./types";
 export const login = async function ({ email, password }: Inputs) {
   try {
     const data = await fetch("/api/auth/login", {
@@ -100,7 +100,7 @@ export const getUserCart = (async function ():Promise<CartItem[] | never> {
   }
 }) satisfies LoaderFunction;
 
-export const addItemToCart = async (id: string, quantity: number) => {
+export const addItemToCart = async (id: number, quantity: number) => {
   try {
     const res = await fetch('/api/cart', {
       method: "POST",
@@ -113,8 +113,9 @@ export const addItemToCart = async (id: string, quantity: number) => {
         quantity,
       }),
     });
-    if (res.status === 200) {
-      return JSON.parse(JSON.stringify(res));
+    console.log(res);
+    if (res.status === 201) {
+      return await res.json();
     } else if (res.status === 401) {
       throw Error("Email or password is incorrect.");
     }

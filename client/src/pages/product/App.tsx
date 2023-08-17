@@ -1,4 +1,4 @@
-import "./app.scss";
+import "./_app.scss";
 import CarouselComponent from "../../components/carousel/Carousel";
 import ProductDescription from "../../components/ProductDescription/ProductDescription";
 import { useLoaderData } from "react-router";

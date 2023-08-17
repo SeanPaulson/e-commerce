@@ -11,13 +11,11 @@
   .app__body {
     width: 50%;
     overflow: visible;
-    height: 400px;
   }
 
   .app__container {
     display: flex;
     padding: 10px 0px;
-    height: 550px;
     justify-content: center;
   }
   .accordion-button:not(.collapsed) {
