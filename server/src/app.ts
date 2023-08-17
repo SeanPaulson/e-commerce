@@ -90,15 +90,11 @@ app.use('/auth', authRouter);
 app.use('/product', productsRouter);
 app.use('/users', userRouter);
 app.use('/cart', cartRouter);
-app.use((req:Request, res: Response, next) => {
-    console.log(req.url)
-    next();
-});
 
 
 app.use(function (err: Error, req: Request, res: Response, next: NextFunction) {
     console.log( err);
-    next();
+    res.end();
 })
 
 app.listen(port, () => {

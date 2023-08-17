@@ -142,7 +142,6 @@ export const deleteUser = async (req: Request, res: Response) => {
       "DELETE FROM commerce.user CASCADE WHERE id = $1 RETURNING *",
       [user_id]
     );
-    console.log(isDeleted.rowCount);
     res.send("deleted user");
   } catch (err: any) {
     console.log("cannot delete user");
@@ -152,22 +151,25 @@ export const deleteUser = async (req: Request, res: Response) => {
 
 export const getAllOrders = async (req: Request, res: Response) => {
   try {
-    const user_id = req.params.id;
+    const user_id = req.session.user?.id
     const orders = await db.query(
       "SELECT id, user_id, total FROM commerce.order_details WHERE user_id = $1",
       [user_id]
     );
-    if (orders.rows == 0) {
-      return res.send("no orders found");
+    if (orders.rows !== 0) {
+      return res.send(orders.rows);
     }
-    res.send(orders.rows);
+    
+    return res.send("no orders found");
   } catch (err) {
+    console.log(err);
     res.send(err);
   }
 };
 
 export const getOrder = async (req: Request, res: Response) => {
   try {
+    //TODO should probably change id from params to body
     const orderID = req.params.orderID;
     const orders = await db.query(
       "SELECT * FROM commerce.order_items WHERE id = $1",
