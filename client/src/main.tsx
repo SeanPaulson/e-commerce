@@ -8,16 +8,18 @@ import Footer from "./components/footer/Footer";
 import PrivateRoute from "./subRouters/PrivateRoute";
 import NavbarWrapper from "./components/NavbarWrapper";
 import { getFeaturedProducts, getProductById, getProductsByCategory, getUserCart, getUserOrderHistory } from "./utils/fetchApi";
-import Category from "./pages/category/Category";
-import Cart from "./pages/cart/Cart";
-import Order from "./pages/order/Order";
-import OrderRouter from "./subRouters/OrderRouter";
+
 
 //TODO change scss files to modules *.module.scss
 
 const App = lazy(() => import("./App"));
 const Product = lazy(() => import("./pages/product/App"));
 const Settings = lazy(() => import("./pages/settings/Settings"));
+const Cart = lazy(() => import("./pages/cart/Cart"));
+const Order = lazy(() => import("./pages/order/Order"));
+const OrderRouter = lazy(() => import("./subRouters/OrderRouter"));
+const Category = lazy(() => import("./pages/category/Category"));
+
 
 
 const router = createBrowserRouter(
