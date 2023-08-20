@@ -44,7 +44,13 @@ const LoginOverlay = () => {
           <Popover.Body className="d-flex">
             <Container>
               <Col>
-                <strong>Holy guacamole!</strong>
+                {
+                  Object.keys(state.userProfile).length != 0 
+                  && 
+                  <Link to='/orders' >
+                    View Your Orders
+                  </Link>
+                }
               </Col>
               <Col>Check this info.info</Col>
             </Container>

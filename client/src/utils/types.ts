@@ -66,3 +66,8 @@ export type LoaderData<TLoaderFn extends LoaderFunction> = Awaited<ReturnType<TL
 	? D
 	: never;
 
+export type OrdersList = {
+  id: Number;
+  user_id: Number;
+  total: Number;
+}

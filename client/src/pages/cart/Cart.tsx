@@ -1,16 +1,18 @@
 import './_cart.scss';
 import CartItems from '../../components/CartItem/CartItems';
 import { Button } from 'react-bootstrap';
-import { useLoaderData } from 'react-router';
+import { redirect, useLoaderData } from 'react-router';
 import { CartItem, LoaderData } from '../../utils/types';
-import { getUserCart } from '../../utils/fetchApi';
+import { checkout, getUserCart } from '../../utils/fetchApi';
 import { useEffect, useState } from 'react';
+import useConvertMoneyToNumber from '../../hooks/useConvertMoneyToNumber';
 
 
 export default function Cart() {
 
     const cartData = useLoaderData() as LoaderData<typeof getUserCart>;
     const [cartState, setCartState] = useState<CartItem[]>([]);
+    const [cartTotal, setCartTotal] = useState(useConvertMoneyToNumber(cartData));
 
     useEffect(() => {
         setCartState(cartData)
@@ -20,8 +22,15 @@ export default function Cart() {
         const newCart = cartState?.filter((item) => item.product_id !== id)
         if (newCart) {
             setCartState(newCart);
+            setCartTotal(useConvertMoneyToNumber(newCart));
         }
-        
+    }
+//TODO !Important!! cannot checkout array of items!
+    const handleCheckout = async () => {
+        const res = await checkout();
+        console.log(res);
+        setCartState([])
+        redirect('/orders');
     }
 
     return (
@@ -37,8 +46,9 @@ export default function Cart() {
 
                     </div>
                     <div className='checkout'>
-                        <h5><b>How you'll pay</b></h5>
-                        <Button className='rounded-pill' variant='dark'>Proceed to checkout</Button>
+                        <h5><b>How you'll pay //TODO !Important!! cannot checkout array of items!</b></h5>
+                        <p>total: {cartTotal}</p>
+                        <Button onClick={handleCheckout} className='rounded-pill' variant='dark'>Proceed to checkout</Button>
                     </div></>
                 }
 

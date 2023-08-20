@@ -5,16 +5,20 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import ErrorPage from "./pages/error/Error";
 import UserContext from "./components/UserContext";
 import Footer from "./components/footer/Footer";
-import PrivateRoute from "./components/PrivateRoute";
+import PrivateRoute from "./subRouters/PrivateRoute";
 import NavbarWrapper from "./components/NavbarWrapper";
-import { getFeaturedProducts, getProductById, getProductsByCategory, getUserCart } from "./utils/fetchApi";
+import { getFeaturedProducts, getProductById, getProductsByCategory, getUserCart, getUserOrderHistory } from "./utils/fetchApi";
 import Category from "./pages/category/Category";
 import Cart from "./pages/cart/Cart";
+import Order from "./pages/order/Order";
+import OrderRouter from "./subRouters/OrderRouter";
 
+//TODO change scss files to modules *.module.scss
 
 const App = lazy(() => import("./App"));
 const Product = lazy(() => import("./pages/product/App"));
 const Settings = lazy(() => import("./pages/settings/Settings"));
+
 
 const router = createBrowserRouter(
   [
@@ -70,6 +74,23 @@ const router = createBrowserRouter(
               element: <Settings />,
               errorElement: <ErrorPage />,
             },
+            {
+              path: "/orders",
+              element: < OrderRouter />,
+              errorElement: <ErrorPage />,
+              loader: async () => {
+                const res = await getUserOrderHistory();
+                return res;
+              },
+              children: [
+                {
+                  path: "/orders/:id",
+                  element: <Order />,
+                  errorElement: <ErrorPage />
+                }
+              ]
+            },
+            
           ]
         }
       ],

@@ -1,6 +1,6 @@
 import { LoaderFunction, LoaderFunctionArgs } from "react-router";
 import { Inputs } from "../components/loginModal/LoginModal";
-import { CartItem, Product } from "./types";
+import { CartItem, OrdersList, Product } from "./types";
 export const login = async function ({ email, password }: Inputs) {
   try {
     const data = await fetch("/api/auth/login", {
@@ -140,6 +140,41 @@ export const deleteCartItem = async (id: number) => {
     console.log(res);
     return res;
   } catch(error: any) {
+    console.log(error);
+    return error;
+  }
+}
+
+export const getUserOrderHistory = (async function ():Promise<OrdersList[] | never> {
+  try {
+    const res = await fetch(`/api/users/orders`);
+    console.log(res);
+    if (res.ok) {
+      const jdata:OrdersList[] = await res.json();
+      return jdata;
+    } if (res.status === 401) {
+      return []
+    }
+    throw Error('No data')
+  } catch (error: any) {
+    console.log(error);
+    return error;
+  }
+}) satisfies LoaderFunction;
+
+export const checkout = async () => {
+  try {
+    const res = await fetch('/api/cart/checkout', {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      }
+    })
+    const jres = await res.json();
+    console.log(jres);
+    return jres;
+  } catch(error) {
     console.log(error);
     return error;
   }
