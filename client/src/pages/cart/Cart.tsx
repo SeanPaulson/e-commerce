@@ -46,7 +46,7 @@ export default function Cart() {
 
                     </div>
                     <div className='checkout'>
-                        <h5><b>How you'll pay //TODO !Important!! cannot checkout array of items!</b></h5>
+                        <h5><b>How you'll pay: //TODO show credit card</b></h5>
                         <p>total: {cartTotal}</p>
                         <Button onClick={handleCheckout} className='rounded-pill' variant='dark'>Proceed to checkout</Button>
                     </div></>
