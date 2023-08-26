@@ -1,7 +1,8 @@
-import { LoaderFunction } from 'react-router-dom';
+import { LoaderFunction, LoaderFunctionArgs, Params } from 'react-router-dom';
+
 
 export type UserProfileType = {
-  id: Number;
+  id: number;
   first_name: String;
   last_name: String;
   email_address: String;
@@ -9,7 +10,7 @@ export type UserProfileType = {
   address_line1?: String;
   address_line2?: String;
   city?: String;
-  zip_code?: Number;
+  zip_code?: number;
   country_code?: String;
   expires?: Date;
   provider?: String;
@@ -20,7 +21,7 @@ export type UserProfileStateContext = {
 };
 
 export type UsersType = {
-  id: Number;
+  id: number;
   first_name: String;
   last_name: String;
   email_address: String;
@@ -32,7 +33,7 @@ export type initialState = {
     initialState: null
 }
 
-export type Product = {
+export type ProductType = {
   id: number;
   name: string;
   description: string;
@@ -67,7 +68,27 @@ export type LoaderData<TLoaderFn extends LoaderFunction> = Awaited<ReturnType<TL
 	: never;
 
 export type OrdersList = {
-  id: Number;
-  user_id: Number;
-  total: Number;
+  id: number;
+  user_id: number;
+  total: number;
 }
+
+export type OrderDetailsList = {
+  created_at?: string;
+  id: number;
+  modified_at?: string;
+  order_id: number;
+  product_id: number;
+  quantity: number;
+}
+
+export type CustomParams = {
+  params: {[id: string]: string};
+}
+
+
+// const args: {
+//   params: {
+//       id: string;
+//   };
+// }

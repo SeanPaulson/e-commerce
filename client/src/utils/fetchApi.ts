@@ -1,6 +1,17 @@
-import { LoaderFunction, LoaderFunctionArgs } from "react-router";
+import {
+  ActionFunctionArgs,
+  LoaderFunction,
+  LoaderFunctionArgs,
+} from "react-router";
 import { Inputs } from "../components/loginModal/LoginModal";
-import { CartItem, OrdersList, Product } from "./types";
+import {
+  CartItem,
+  CustomParams,
+  OrderDetailsList,
+  OrdersList,
+  ProductType,
+} from "./types";
+
 export const login = async function ({ email, password }: Inputs) {
   try {
     const data = await fetch("/api/auth/login", {
@@ -32,7 +43,7 @@ export const getUserProfile = async function () {
       method: "GET",
     });
     if (data.status === 200) {
-      return await data.json()
+      return await data.json();
     } else {
       throw Error();
     }
@@ -41,68 +52,75 @@ export const getUserProfile = async function () {
   }
 };
 
-export const getProductById = (async function (id: LoaderFunctionArgs | string):Promise<Product | never> {
+export const getProductById = async function (
+  id: LoaderFunctionArgs | string
+): Promise<ProductType | never> {
   try {
     const res = await fetch(`/api/product/${id}`);
     if (res.ok) {
-      const jdata: Array<Product> = await res.json();
+      const jdata: Array<ProductType> = await res.json();
       return jdata[0];
     }
-    throw Error('No data')
+    throw Error("No data");
   } catch (error: any) {
     console.log(error);
     return error;
   }
-}) satisfies LoaderFunction;
+} satisfies LoaderFunction;
 
-export const getFeaturedProducts = (async function ():Promise<Product[] | never> {
+export const getFeaturedProducts = async function (): Promise<
+  ProductType[] | never
+> {
   try {
     const res = await fetch(`/api/product`);
     if (res.ok) {
-      const jdata: Array<Product> = await res.json();
+      const jdata: Array<ProductType> = await res.json();
       return jdata;
     }
-    throw Error('No data')
+    throw Error("No data");
   } catch (error: any) {
     console.log(error);
     return error;
   }
-}) satisfies LoaderFunction;
+} satisfies LoaderFunction;
 
-export const getProductsByCategory = (async function (id: LoaderFunctionArgs | string):Promise<Product[] | never> {
+export const getProductsByCategory = async function (
+  id: LoaderFunctionArgs | string
+): Promise<ProductType[] | never> {
   try {
     const res = await fetch(`/api/product/category/${id}`);
     if (res.ok) {
-      const jdata: Array<Product> = await res.json();
+      const jdata: Array<ProductType> = await res.json();
       return jdata;
     }
-    throw Error('No data')
+    throw Error("No data");
   } catch (error: any) {
     console.log(error);
     return error;
   }
-}) satisfies LoaderFunction;
+} satisfies LoaderFunction;
 
-export const getUserCart = (async function ():Promise<CartItem[] | never> {
+export const getUserCart = async function (): Promise<CartItem[] | never> {
   try {
     const res = await fetch(`/api/cart`);
     console.log(res);
     if (res.ok) {
-      const jdata:CartItem[] = await res.json();
+      const jdata: CartItem[] = await res.json();
       return jdata;
-    } if (res.status === 401) {
-      return []
     }
-    throw Error('No data')
+    if (res.status === 401) {
+      return [];
+    }
+    throw Error("No data");
   } catch (error: any) {
     console.log(error);
     return error;
   }
-}) satisfies LoaderFunction;
+} satisfies LoaderFunction;
 
 export const addItemToCart = async (id: number, quantity: number) => {
   try {
-    const res = await fetch('/api/cart', {
+    const res = await fetch("/api/cart", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -123,59 +141,81 @@ export const addItemToCart = async (id: number, quantity: number) => {
     console.log(error);
     return error;
   }
-}
+};
 
 export const deleteCartItem = async (id: number) => {
   try {
-    const res = await fetch('api/cart', {
+    const res = await fetch("api/cart", {
       method: "DELETE",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        prod_id: id
-      })
+        prod_id: id,
+      }),
     });
-    console.log(res);
     return res;
-  } catch(error: any) {
-    console.log(error);
-    return error;
-  }
-}
-
-export const getUserOrderHistory = (async function ():Promise<OrdersList[] | never> {
-  try {
-    const res = await fetch(`/api/users/orders`);
-    console.log(res);
-    if (res.ok) {
-      const jdata:OrdersList[] = await res.json();
-      return jdata;
-    } if (res.status === 401) {
-      return []
-    }
-    throw Error('No data')
   } catch (error: any) {
     console.log(error);
     return error;
   }
-}) satisfies LoaderFunction;
+};
+
+export const getUserOrderHistory = async function (): Promise<
+  OrdersList[] | never
+> {
+  try {
+    const res = await fetch(`/api/users/orders`);
+    if (res.ok) {
+      const jdata: OrdersList[] = await res.json();
+      return jdata;
+    }
+    if (res.status === 401) {
+      return [];
+    }
+    throw Error("No data");
+  } catch (error: any) {
+    console.log(error);
+    return error;
+  }
+} satisfies LoaderFunction;
+
+export const getOrderById = async function (
+  args:
+    | LoaderFunctionArgs
+    | CustomParams
+): Promise<OrderDetailsList[] | never> {
+  try {
+    const res = await fetch(`/api/users/orders/${args.params.id}`);
+    if (res.ok) {
+      const jdata: OrderDetailsList[] = await res.json();
+      return jdata;
+    }
+    if (res.status === 404) {
+      return [];
+    }
+    throw Error("No data");
+  } catch (error: any) {
+    console.log(error);
+    return error;
+  }
+} satisfies LoaderFunction;
 
 export const checkout = async () => {
   try {
-    const res = await fetch('/api/cart/checkout', {
+    const res = await fetch("/api/cart/checkout", {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-      }
-    })
+      },
+    });
     const jres = await res.json();
     console.log(jres);
     return jres;
-  } catch(error) {
+  } catch (error) {
     console.log(error);
     return error;
   }
-}
+};

@@ -1,0 +1,57 @@
+.orderRouter {
+    margin-top: 50px;
+    ol,
+    li {
+
+        margin: 0px ;
+        padding: 0px ;
+    }
+
+    ul {
+        margin: auto;
+    }
+}
+
+
+#orderRouter__tabs {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+p {
+    text-align: center;
+}
+
+li {
+    list-style: none;
+    border: 1px solid white;
+    width: fit-content;
+    padding: 3px !important;
+    margin: auto;
+    // border-radius: 5px;
+}
+li:hover {
+    border-bottom: 1px solid black;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:active {
+    color: black
+}
+
+
+@media screen and (min-width: 812px) {
+    .orderRouter {
+        padding: 0vh 15vw;
+    }
+    
+}

@@ -1,22 +1,48 @@
-import { Link, useOutletContext, useParams } from "react-router-dom";
-import { OrdersList } from "../../utils/types";
+import './_order.modules.scss';
+import { Link, useLoaderData } from "react-router-dom";
+import CardComponent from "../../components/card/CardComponent";
+import { LoaderData, ProductType } from '../../utils/types';
+import { useEffect, useState } from 'react';
+import { getOrderById, getProductById } from '../../utils/fetchApi';
 
 
-export default function Order () {
-    
-    const data = useOutletContext<OrdersList[]>();
-    const { id } = useParams();
-  
-    console.log(id);
-    console.log(JSON.stringify(data));
-    const index = data.findIndex((item) => {
-      console.log("item in search: " + JSON.stringify(item));
-      console.log("id: " + id);
-      if (item.id === Number(id)) {
-        return true;
-      } else {
-        return false;
-      }
-    });
-    return <p>{`${data[index].id}`}</p>;
+export default function Order() {
+
+  const orders = useLoaderData() as LoaderData<typeof getOrderById>;
+  const [products, setProducts] = useState<ProductType[]>([])
+
+  useEffect(() => {
+    let active = true;
+    if (active) {
+      setProducts([]);
+      orders.forEach((item) => {
+        getProductById(item.product_id.toString()).then((res) => {
+          setProducts(prev => [...prev, res])
+        });
+      });
+    }
+    return () => {
+      active = false;
+    };
+  }, [orders]);
+  return (
+    <div className="orderDetails__wrapper">
+      {products[0] ? <ul>
+        {
+          products.map((product, index) => (
+            <Link to={`/product/${product.id}`}>
+              <div className='cardComponent__wrapper'>
+                <CardComponent key={index} product={product} />
+                <div className='cardComponent__details'>
+                  <p id='name'><b>{product.name}</b></p>
+                  <p id='description'>{product.description}</p>
+                </div>
+              </div >
+            </Link>
+          ))
+        }
+      </ul> : null}
+    </div>
+  )
 }
+

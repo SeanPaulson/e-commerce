@@ -172,11 +172,11 @@ export const getOrder = async (req: Request, res: Response) => {
     //TODO should probably change id from params to body
     const orderID = req.params.orderID;
     const orders = await db.query(
-      "SELECT * FROM commerce.order_items WHERE id = $1",
+      "SELECT * FROM commerce.order_items WHERE order_id = $1",
       [orderID]
     );
     if (orders.rows == 0) {
-      return res.send("no orders found");
+      return res.status(404).send("no orders found");
     }
     res.send(orders.rows);
   } catch (err) {

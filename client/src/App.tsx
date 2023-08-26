@@ -1,4 +1,4 @@
-import "./app.scss";
+import './app.scss';
 import ImgPreviewCircle from "./components/imgPreviewCircle/ImgPreviewCircle";
 import CardComponent from "./components/card/CardComponent";
 import Hero from "./components/hero/Hero";
