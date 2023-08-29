@@ -1,20 +1,20 @@
 import './_orderRouter.modules.scss';
-import { Link, Outlet, useLoaderData } from "react-router-dom";
+import { Outlet, useLoaderData, useNavigate } from "react-router-dom";
 import { getUserOrderHistory } from "../utils/fetchApi";
 import {  LoaderData } from "../utils/types";
-
-
-
-// type ParamsCustom = {
-//   id: Params | undefined
-// }
+import { Button } from 'react-bootstrap';
+import { useState } from 'react';
 
 
 export default function OrderRouter() {
   const orders = useLoaderData() as LoaderData<typeof getUserOrderHistory>;
-  //TODO try and order link total to outlet via context
-
-
+  const navigate = useNavigate();
+  const [total, setTotal] = useState(0);
+  const handleClick = (id: number, t: number) => {
+    setTotal(t)
+    navigate(`/orders/${id}`)
+    
+  }
 
   if (orders.length === 0) {
     return <p style={{ textAlign: 'center', marginTop: '5rem' }}><b>You have not ordered anything</b></p>
@@ -25,11 +25,11 @@ export default function OrderRouter() {
       <ul id='orderRouter__tabs'>
         {orders.map((order) => (
           <li key={order.id}>
-            <Link to={`/orders/${order.id}`}>{`order ${order.id}`}</Link>
+            <Button key={order.id} onClick={() => handleClick(order.id, order.total)} >{`order ${order.id}`}</Button>
           </li>
         ))}
       </ul>
-      <Outlet />
+      <Outlet context={total}/>
     </div>
   )
 }

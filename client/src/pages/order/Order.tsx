@@ -1,5 +1,5 @@
 import './_order.modules.scss';
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, useOutletContext } from "react-router-dom";
 import CardComponent from "../../components/card/CardComponent";
 import { LoaderData, ProductType } from '../../utils/types';
 import { useEffect, useState } from 'react';
@@ -9,7 +9,8 @@ import { getOrderById, getProductById } from '../../utils/fetchApi';
 export default function Order() {
 
   const orders = useLoaderData() as LoaderData<typeof getOrderById>;
-  const [products, setProducts] = useState<ProductType[]>([])
+  const [products, setProducts] = useState<ProductType[]>([]);
+  const total = useOutletContext<number>();
 
   useEffect(() => {
     let active = true;
@@ -35,7 +36,8 @@ export default function Order() {
                 <CardComponent key={index} product={product} />
                 <div className='cardComponent__details'>
                   <p id='name'><b>{product.name}</b></p>
-                  <p id='description'>{product.description}</p>
+                  <p id='total'>Total: {total}</p>
+                  <p>order date: {product.modified_at ?? product.created}</p>
                 </div>
               </div >
             </Link>

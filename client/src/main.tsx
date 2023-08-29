@@ -8,7 +8,7 @@ import Footer from "./components/footer/Footer";
 import { getFeaturedProducts, getOrderById, getProductById, getProductsByCategory, getUserCart, getUserOrderHistory } from "./utils/fetchApi";
 
 
-//TODO change scss files to modules *.module.scss
+//TODO change scss files to modules *.modules.scss
 
 const App = lazy(() => import("./App"));
 const Product = lazy(() => import("./pages/product/App"));
@@ -19,10 +19,6 @@ const OrderRouter = lazy(() => import("./subRouters/OrderRouter"));
 const PrivateRoute = lazy(() => import("./subRouters/PrivateRoute"));
 const Category = lazy(() => import("./pages/category/Category"));
 const NavbarWrapper = lazy(() => import("./components/NavbarWrapper"));
-
-
-//TODO break up all routes into objects in seperate files under src/clientRoutes/*
-
 
 
 

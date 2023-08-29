@@ -25,7 +25,7 @@ export default function Cart() {
             setCartTotal(useConvertMoneyToNumber(newCart));
         }
     }
-//TODO !Important!! cannot checkout array of items!
+//TODO res is sending entire server Response. need to make a custom response. 
     const handleCheckout = async () => {
         const res = await checkout();
         console.log(res);
