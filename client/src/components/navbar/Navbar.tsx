@@ -7,14 +7,17 @@ import Form from "react-bootstrap/esm/Form";
 import Offcanvas from "react-bootstrap/esm/Offcanvas";
 import LoginOverlay from "../loginOverlay/LoginOverlay";
 import Button from "react-bootstrap/esm/Button";
-import { Link } from "react-router-dom";
-import { ProductCategories } from "../../utils/types";
-import { useState } from "react";
+import { Link, useRouteLoaderData } from "react-router-dom";
+import { ProductCategories, CartItem } from "../../utils/types";
+import { useEffect, useState } from "react";
+import Badge from "react-bootstrap/esm/Badge";
 
 function NavbarComponent() {
 
   const [show, setShow] = useState(false);
   const [toggled, setToggled] = useState(false)
+  const cartItems = useRouteLoaderData('cart') as CartItem[];
+  const [cartQuantity, setCartQuantity] = useState(0);
 
   const handleClose = () => {
     if (toggled) {
@@ -22,6 +25,12 @@ function NavbarComponent() {
       setToggled(false);
     }
   }
+
+  useEffect(() => {
+    if (cartItems && cartItems[0]) {
+      setCartQuantity(cartItems.length)
+    }
+  }, [cartItems])
 
   return (
     <>
@@ -42,8 +51,7 @@ function NavbarComponent() {
         <Nav.Item className="p-1 nav-profile-cart d-flex flex-shrink-0  ">
           <LoginOverlay />
           <Nav.Link as={Link} to="/cart" className="rounded-circle nav-img-link">
-            <Button variant="light" className="rounded-circle">
-              {/* <Link to='/cart'> */}
+            <Button variant="light" className="rounded-circle ">
               <Image
                 className="cart-img"
                 src="/cart.svg"
@@ -52,8 +60,8 @@ function NavbarComponent() {
                 fluid
                 role="navigation"
               ></Image>
-              {/* </Link> */}
             </Button>
+            <Badge className="pill__cart" pill bg='success' >{cartQuantity ?? cartQuantity}</Badge>
           </Nav.Link>
         </Nav.Item>
       </Navbar>

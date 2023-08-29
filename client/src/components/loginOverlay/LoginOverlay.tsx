@@ -16,6 +16,11 @@ const LoginOverlay = () => {
 
   const { state } = useContext(ContextApp);
   const [showOverLay, setShowOverLay] = useState(false);
+  const handleOverLayTrigger = () => {
+    setShowOverLay(!showOverLay);
+  }
+
+
   return (
     <OverlayTrigger
       trigger="click"
@@ -24,7 +29,7 @@ const LoginOverlay = () => {
       overlay={
         <Popover id={"popover-positioned-bottom"}>
           <Popover.Header className="d-flex align-items-center column-gap-1 bg-light">
-            {Object.keys(state.userProfile).length != 0 && <Link to="/settings">
+            {Object.keys(state.userProfile).length != 0 && <Link onClick={handleOverLayTrigger} to="/settings">
               <Image
                 className="profile-img"
                 src="/person.svg"
@@ -47,7 +52,7 @@ const LoginOverlay = () => {
                 {
                   Object.keys(state.userProfile).length != 0 
                   && 
-                  <Link to='/orders' >
+                  <Link onClick={handleOverLayTrigger} to='/orders' >
                     View Your Orders
                   </Link>
                 }

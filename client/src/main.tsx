@@ -62,6 +62,7 @@ const router = createBrowserRouter(
           path: "/cart",
           element: <Cart />,
           errorElement: <ErrorPage />,
+          id: 'cart',
           loader: async () => {
             const res = await getUserCart();
             return res
