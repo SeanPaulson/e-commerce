@@ -2,6 +2,7 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import './settings.scss';
 import SettingsTab from "../../components/settingsTab/SettingsTab";
+import SettingsCCTab from '../../components/SettingsCCTab/SettingsCCTab';
 
 export default function Settings() {
 
@@ -19,7 +20,7 @@ export default function Settings() {
                         item 1
                     </Tab>
                     <Tab eventKey="creditCards" title='creditCards'>
-                        item 2
+                        <SettingsCCTab />
                     </Tab>
                     <Tab eventKey="emails" title='emails'>
                         item 2

@@ -1,4 +1,4 @@
-import { LoaderFunction, LoaderFunctionArgs, Params } from 'react-router-dom';
+import { LoaderFunction } from 'react-router-dom';
 
 
 export type UserProfileType = {
@@ -14,6 +14,7 @@ export type UserProfileType = {
   country_code?: String;
   expires?: Date;
   provider?: String;
+  account_number?: String;
 };
 
 export type UserProfileStateContext = {
@@ -85,10 +86,3 @@ export type OrderDetailsList = {
 export type CustomParams = {
   params: {[id: string]: string};
 }
-
-
-// const args: {
-//   params: {
-//       id: string;
-//   };
-// }

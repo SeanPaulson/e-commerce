@@ -68,7 +68,8 @@ export const profileSettings = async (req: Request, res: Response) => {
       commerce.user_address.zip_code,
       commerce.user_address.country_code,
       commerce.user_payment.expires,
-      commerce.user_payment.provider
+      commerce.user_payment.provider,
+      commerce.user_payment.account_number
       FROM commerce.user 
         JOIN commerce.user_address
             ON commerce.user.id = commerce.user_address.user_id
