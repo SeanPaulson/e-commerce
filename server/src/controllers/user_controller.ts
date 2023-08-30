@@ -94,37 +94,39 @@ export const profileSettings = async (req: Request, res: Response) => {
  */
 export const updateProfile = async (req: Request, res: Response) => {
   try {
-    const user_id = req.params.id;
+    const user_id = req.session.user!.id;
     const profileInfo: profileBodyReq = req.body;
-    const userField = Object.keys(profileInfo)[0];
-    let updatedProfile;
-    console.log(userField);
-    switch (userField) {
-      case "first_name" || "last_name" || "email_address" || "phone":
-        const t1 = "user";
-        updatedProfile = await db.getClient(updateUserProfile(userField, t1), [
-          profileInfo[userField],
-          user_id,
-        ]);
-        break;
-      case "expires" || "provider":
-        const t2 = "user_payment";
-        updatedProfile = await db.getClient(updateUserProfile(userField, t2), [
-          profileInfo[userField],
-          user_id,
-        ]);
-        break;
-      default:
-        const t3 = "user_address";
-        updatedProfile = await db.getClient(updateUserProfile(userField, t3), [
-          profileInfo[userField],
-          user_id,
-        ]);
-        break;
-    }
-    if (updatedProfile.rowCount > 0) {
-      res.send(updatedProfile);
-    }
+    console.log(profileInfo)
+    const userField = Object.keys(profileInfo).map(async key => {
+      let table;
+      if(key === 'first_name' || key ===  "last_name" || key ===  "email_address" || key ===  "phone") {
+        table = "user";
+        const updatedProfile = await db.getClient(updateUserProfile(key, table), [
+                profileInfo[key],
+                user_id,
+              ]);
+              return updatedProfile
+      } else if (key === "expires" || key === "provider" || key === "account_number") {
+        table = "user_payment";
+        const updatedProfile = await db.getClient(updateUserProfile(key, table), [
+                profileInfo[key],
+                user_id,
+              ]);
+              console.log(updatedProfile)
+              return updatedProfile
+      } else {
+        table = "user_address";
+        const updatedProfile = await db.getClient(updateUserProfile(key, table), [
+                profileInfo[key],
+                user_id,
+              ]);
+              return updatedProfile
+      }
+    })
+
+  res.sendStatus(200);
+
+   
   } catch (err: any) {
     res.send(err.message + err);
   }

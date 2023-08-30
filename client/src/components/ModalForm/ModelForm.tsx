@@ -6,11 +6,17 @@ import { useForm } from "react-hook-form";
 
 type IProps<T> = {
   defaultValues: T;
-  formBtnText: string;
+  action: (data: T) => Promise<void>,
+  formBtnText?: string;
 }
 
 
-const ModelFrom = ({ defaultValues, formBtnText }: IProps<{ [index: string]: string }>) => {
+type IPropsSignature = {
+  [index: string]: string | number | Date
+}
+
+
+const ModelFrom = ({ defaultValues, formBtnText, action }: IProps<IPropsSignature>) => {
 
   const {
     register,
@@ -19,9 +25,7 @@ const ModelFrom = ({ defaultValues, formBtnText }: IProps<{ [index: string]: str
     setError,
     clearErrors,
     formState: { errors },
-  } = useForm({
-    defaultValues,
-  });
+  } = useForm({ defaultValues });
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -33,9 +37,10 @@ const ModelFrom = ({ defaultValues, formBtnText }: IProps<{ [index: string]: str
     try {
       clearErrors();
       console.log(data);
+      await action(data);
       reset();
       handleClose();
-      
+
     } catch (e: any) {
       // setError("serverError", {
       //   type: "400",
@@ -47,7 +52,7 @@ const ModelFrom = ({ defaultValues, formBtnText }: IProps<{ [index: string]: str
   return (
 
     <>
-      <Button onClick={handleShow}>{formBtnText}</Button>
+      <Button onClick={handleShow}>{formBtnText ?? 'open'}</Button>
       <Modal
         backdrop='static'
         size="lg"
@@ -64,15 +69,15 @@ const ModelFrom = ({ defaultValues, formBtnText }: IProps<{ [index: string]: str
 
             {
               Object.keys(defaultValues).map((value, index) => (
-                <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Group key={index} className="mb-3" controlId="formBasicEmail">
                   <Form.Label key={index + 5}>{value}</Form.Label>
-                  <Form.Control 
-                      key={index}
-                      placeholder={value}
-                  {...register(`${value}`, {
-                    required: true,
-                    valueAsDate: value === 'Expiration' ? true : false
-                  })}
+                  <Form.Control
+                    key={index}
+                    placeholder={`${defaultValues[value]}`}
+                    {...register(`${value}`, {
+                      required: true,
+                      valueAsDate: value === 'Expiration' ? true : false
+                    })}
                   />
                 </Form.Group>
               ))

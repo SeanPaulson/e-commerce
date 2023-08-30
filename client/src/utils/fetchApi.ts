@@ -1,5 +1,4 @@
 import {
-  ActionFunctionArgs,
   LoaderFunction,
   LoaderFunctionArgs,
 } from "react-router";
@@ -10,6 +9,7 @@ import {
   OrderDetailsList,
   OrdersList,
   ProductType,
+  UserProfileType,
 } from "./types";
 
 export const login = async function ({ email, password }: Inputs) {
@@ -51,6 +51,27 @@ export const getUserProfile = async function () {
     return error;
   }
 };
+
+export const updateUserProfile = async function (data: Partial<UserProfileType>) {
+  try {
+    const res = await fetch('/api/users/profile', {
+      method: 'PUT',
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+if (res.ok) {
+  const jdata: UserProfileType = await res.json();
+  console.log(jdata);
+  return jdata
+}
+
+  } catch (error: any) {
+
+  }
+}
 
 export const getProductById = async function (
   id: LoaderFunctionArgs | string
