@@ -5,7 +5,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import ErrorPage from "./pages/error/Error";
 import UserContext from "./components/UserContext";
 import Footer from "./components/footer/Footer";
-import { getFeaturedProducts, getOrderById, getProductById, getProductsByCategory, getUserCart, getUserOrderHistory } from "./utils/fetchApi";
+import { addItemToCart, getFeaturedProducts, getOrderById, getProductById, getProductsByCategory, getUserCart, getUserOrderHistory, updateUserProfile } from "./utils/fetchApi";
+import { UserProfileType } from "./utils/types";
 
 
 //TODO change scss files to modules *.modules.scss
@@ -63,6 +64,16 @@ const router = createBrowserRouter(
           element: <Cart />,
           errorElement: <ErrorPage />,
           id: 'cart',
+          action: async ({ params, request}) => {
+            console.log('************action**********')
+            let formData = await request.formData();
+            console.log(formData);
+            let quantity = Number(formData.get('quantity'));
+            const id = Number(formData.get('id'));
+            console.log('quantity: ' + quantity);
+            return await addItemToCart(id, quantity);
+            
+          },
           loader: async () => {
             const res = await getUserCart();
             return res
@@ -76,6 +87,12 @@ const router = createBrowserRouter(
               path: "/settings",
               element: <Settings />,
               errorElement: <ErrorPage />,
+              action: async ({ params, request}) => {
+                console.log('************action**********')
+                let formData: Partial<UserProfileType> = Object.fromEntries(await request.formData());
+                console.log(formData);
+                return await updateUserProfile(formData);
+              },
             },
             {
               path: "/orders",

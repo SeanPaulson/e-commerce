@@ -3,6 +3,8 @@ import Tabs from 'react-bootstrap/Tabs';
 import './settings.scss';
 import SettingsTab from "../../components/settingsTab/SettingsTab";
 import SettingsCCTab from '../../components/SettingsCCTab/SettingsCCTab';
+import SettingsEmailTab from '../../components/SettingsEmailTab/SettingsEmailTab';
+import SettingsAddressTab from '../../components/SettingsAddressTab/SettingsAddressTab';
 
 export default function Settings() {
 
@@ -17,13 +19,13 @@ export default function Settings() {
                         item 2
                     </Tab>
                     <Tab eventKey="addresses" title='addresses'>
-                        item 1
+                        <SettingsAddressTab />
                     </Tab>
                     <Tab eventKey="creditCards" title='creditCards'>
                         <SettingsCCTab />
                     </Tab>
                     <Tab eventKey="emails" title='emails'>
-                        item 2
+                        <SettingsEmailTab />
                     </Tab>
                 </Tabs>
             </div>

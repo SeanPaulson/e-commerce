@@ -1,8 +1,10 @@
-import { Button, Form } from "react-bootstrap";
+import { Button, Form as BootstrapForm } from "react-bootstrap";
 import { useState } from "react";
+import { Form } from 'react-router-dom';
+import { SubmitTarget } from "react-router-dom/dist/dom";
 
 type Iprops = {
-    save: (newQuantity?: number) => void;
+    save: (newQuantity?: number, formData?: SubmitTarget) => void;
     quantity: number;
 }
 
@@ -13,9 +15,11 @@ export default function QuantityForm({ quantity, save }: Iprops) {
     const [nanError, setNaNError] = useState(false);
     const [newQuantity, setNewQuantity] = useState(quantity)
 
-    const handleSubmit = () => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         if (!nanError) {
+            // const formData = new FormData(e.currentTarget)
             save(newQuantity)
+            
         }
     }
 
@@ -30,25 +34,29 @@ export default function QuantityForm({ quantity, save }: Iprops) {
     }
 
     return (
-        <Form onSubmit={(e) => {
-            e.preventDefault();
-            handleSubmit();
-        }}>
-            <Form.Group style={{ display: "flex" }}>
-                <Form.Control
+
+        <BootstrapForm
+            onSubmit={(e) => {
+                e.preventDefault();
+                handleSubmit(e);
+            }}
+        >
+            <BootstrapForm.Group style={{ display: "flex" }}>
+                <BootstrapForm.Control
                     size="sm"
                     min={0}
                     required
+                    name="quantity"
                     type="text"
                     defaultValue={quantity}
                     style={{ width: '40px' }}
-                    onChange={(e) => {handleChange(e.currentTarget.value)}} />
+                    onChange={(e) => { handleChange(e.currentTarget.value) }} />
                 <Button type="submit" variant="light">
                     Save
                 </Button>
 
-            </Form.Group >
+            </BootstrapForm.Group >
             {nanError && <p style={{ color: 'red' }}>you must enter a number over 0</p>}
-        </Form>
+        </ BootstrapForm>
     )
 }

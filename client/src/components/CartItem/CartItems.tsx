@@ -2,9 +2,10 @@ import { Button, Form, Image } from 'react-bootstrap';
 import { CartItem } from '../../utils/types';
 import './_cartItems.scss'
 import { useForm } from 'react-hook-form';
-import { addItemToCart, deleteCartItem } from '../../utils/fetchApi';
+import { deleteCartItem } from '../../utils/fetchApi';
 import { useState } from 'react';
 import QuantityForm from '../QuantityForm/QuantityForm';
+import { useSubmit } from 'react-router-dom';
 
 type Iprops = {
     cartItem: CartItem;
@@ -13,6 +14,7 @@ type Iprops = {
 
 export default function CartItem({ cartItem, updateCart }: Iprops) {
 
+    const submit = useSubmit();
     const { handleSubmit } = useForm();
     const [edit, setEdit] = useState(false);
     const [quantity, setQuantity] = useState(cartItem.quantity)
@@ -21,12 +23,17 @@ export default function CartItem({ cartItem, updateCart }: Iprops) {
     const handleClick = async (newQuantity?: number) => {
         if (newQuantity && newQuantity !== quantity) {
             console.log('setting new quantity...' + newQuantity)
-            addItemToCart(cartItem.product_id, newQuantity)
-            .then((res) => {
-                console.log(res);
-                setQuantity(res.quantity);
-            })
-            .catch(error => console.log(error));
+            const data =
+            {
+                quantity: newQuantity,
+                id: cartItem.product_id
+            }
+            submit(data, {
+                method: 'POST',
+                encType: 'multipart/form-data',
+                action: '/cart'
+            });
+            setQuantity(newQuantity);
         }
         setEdit(!edit);
 
@@ -49,20 +56,18 @@ export default function CartItem({ cartItem, updateCart }: Iprops) {
                 <h3 id='name' >{cartItem.name}</h3>
                 <p id='description' >{cartItem.description}</p>
                 <div className='cart__item__footer' >
-                    <div id='quantity' >Quantity Selected:
+                    <div id='quantity' ><p style={{alignSelf: 'center'}}>Quantity Selected:</p>
                         {
                             edit ?
                                 <QuantityForm save={handleClick} quantity={cartItem.quantity} />
                                 :
-                                <>{quantity} <Button onClick={(e) => {
+                                <span>{quantity} <Button onClick={(e) => {
                                     e.preventDefault();
                                     handleClick();
-                                }} variant='light' >Edit</Button></>
+                                }} variant='light' >Edit</Button></span>
                         }
 
                     </div>
-
-                    <p id='total' >{cartItem.total}</p>
                 </div>
             </div>
             <Form onSubmit={handleSubmit(onSubmit)} style={{ alignSelf: 'center' }}>

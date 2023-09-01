@@ -18,7 +18,7 @@ export type UserProfileType = {
 };
 
 export type UserProfileStateContext = {
-  userProfile: Partial<UserProfileType>
+  userProfile: Partial<UserProfileType> | Record<PropertyKey, never>,
 };
 
 export type UsersType = {

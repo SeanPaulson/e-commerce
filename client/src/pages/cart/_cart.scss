@@ -2,6 +2,12 @@
    
     
 // }
+#paymentInfo {
+    p {
+        padding: 0px;
+        margin: 0px;
+    }
+}
 h1 {
     text-align: center;
 }
@@ -27,5 +33,7 @@ h1 {
     .checkout {
         min-width: 200px;
         text-align: center;
+        align-self: flex-start;
     }
+    
 }

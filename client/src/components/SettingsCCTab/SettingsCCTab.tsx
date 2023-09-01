@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import './_settingsCCTab.modules.scss';
 import Card from 'react-bootstrap/esm/Card';
 import { ContextApp } from '../UserContext';
@@ -7,8 +7,8 @@ import ModelForm from '../ModalForm/ModelForm';
 import { updateUserProfile } from '../../utils/fetchApi';
 import { UserProfileType } from '../../utils/types';
 import { DateTime } from 'luxon';
-import { useFormState } from '../../hooks/useFormState';
 import { ACTION_TYPES } from '../../reducers/profileReducer';
+import { useSubmit } from 'react-router-dom';
 
 const CREDITCARDFORMDEFAULTVALUES = {
     provider: '',
@@ -20,16 +20,31 @@ const CREDITCARDFORMDEFAULTVALUES = {
 export default function SettingsCCTab() {
 
     const { state, dispatch } = useContext(ContextApp);
-    // const [formState, setFormState] = useFormState<{[index: string]: string | Number | Date}>(CREDITCARDFORMDEFAULTVALUES);
-    
+    const submit = useSubmit();
+
     const dispatchUserProfileState = (data: Partial<UserProfileType>) => {
         dispatch({ type: ACTION_TYPES.UPDATEPAYMENT, payload: data });
     }
     const handleRemove = () => {
         try {
-            //TODO PUT: users/profile set payment info to {} or undefined
-        // dispatch({ type: ACTION_TYPES.DELETEPAYMENT, payload: {}})
-        } catch(error) {
+            const newState = {
+                provider: undefined,
+                expires: undefined,
+                account_number: undefined
+            }
+            submit({
+                provider: '',
+                expires: '',
+                account_number: '',
+
+            },
+                {
+                    method: 'PUT',
+                    encType: 'multipart/form-data',
+                    action: '/settings',
+                });
+                dispatch({ type: ACTION_TYPES.DELETEPAYMENT, payload: newState })
+        } catch (error) {
             console.log(error)
         }
     }

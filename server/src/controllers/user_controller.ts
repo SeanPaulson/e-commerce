@@ -96,7 +96,7 @@ export const profileSettings = async (req: Request, res: Response) => {
 export const updateProfile = async (req: Request, res: Response) => {
   try {
     const user_id = req.session.user!.id;
-    const { serverError, ...profileInfo } = req.body;
+    const {...profileInfo } = req.body;
     console.log(profileInfo);
     const userField = Object.keys(profileInfo).map(async (key) => {
       let table;
@@ -113,6 +113,7 @@ export const updateProfile = async (req: Request, res: Response) => {
         );
         return updatedProfile;
       } else if (
+        //TODO not updating expires or account_number when deleting
         key === "expires" ||
         key === "provider" ||
         key === "account_number"

@@ -1,5 +1,5 @@
 import { createContext, useReducer, useEffect } from "react";
-import { UserProfileStateContext } from "../utils/types";
+import { UserProfileStateContext, UserProfileType } from "../utils/types";
 import {
   ACTION_TYPES,
   ActionType,
@@ -31,7 +31,7 @@ export default function UserContext({ children }: PropTypes) {
   const fetchData = async () => {
     //TODO send error response from server user not logged in if get profile returns null or empty
     getUserProfile()
-    .then((data) => {
+    .then((data: UserProfileType | Error) => {
       if (data instanceof Error) {
         throw Error('server error')
       }
