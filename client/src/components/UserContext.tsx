@@ -32,11 +32,12 @@ export default function UserContext({ children }: PropTypes) {
     //TODO send error response from server user not logged in if get profile returns null or empty
     getUserProfile()
     .then((data) => {
-      console.log(data);
+      if (data instanceof Error) {
+        throw Error('server error')
+      }
       dispatch({ type: ACTION_TYPES.INITIALIZE, payload: { userProfile: data } })
     })
-    .catch((error) => {
-      console.log({ message: error });
+    .catch(() => {
       dispatch({ type: ACTION_TYPES.LOGOUT, payload: {} })
     });
   };

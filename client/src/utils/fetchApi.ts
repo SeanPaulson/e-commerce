@@ -62,14 +62,15 @@ export const updateUserProfile = async function (data: Partial<UserProfileType>)
       },
       body: JSON.stringify(data),
     });
-if (res.ok) {
-  const jdata: UserProfileType = await res.json();
-  console.log(jdata);
-  return jdata
+    console.log(res);
+if (res.status === 200) {
+  return res
+} else {
+  throw Error(`${res.statusText}`);
 }
 
   } catch (error: any) {
-
+    return error
   }
 }
 
@@ -124,7 +125,6 @@ export const getProductsByCategory = async function (
 export const getUserCart = async function (): Promise<CartItem[] | never> {
   try {
     const res = await fetch(`/api/cart`);
-    console.log(res);
     if (res.ok) {
       const jdata: CartItem[] = await res.json();
       return jdata;

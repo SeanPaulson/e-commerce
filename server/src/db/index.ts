@@ -9,7 +9,6 @@ module.exports = {
     },
     async getClient(query: string, params?: any[]) {
         const client = await pool.connect();
-        console.log(params)
         try{
             await client.query('BEGIN')
             const res = await client.query(query, params);

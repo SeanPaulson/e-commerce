@@ -2,6 +2,7 @@ const db = require("../db");
 import { Response, Request } from "express";
 import { updateUserProfile } from "../db/queries";
 import { profileBodyReq } from "../types";
+import { QueryResult } from "pg";
 
 /**
  *gets all users (currently only gets 10) todo
@@ -30,7 +31,7 @@ export const getUsers = async (req: Request, res: Response) => {
  */
 export const getUser = async (req: Request, res: Response) => {
   try {
-    const reqId = req.params.id
+    const reqId = req.params.id;
     const user = await db.query(
       "SELECT id, first_name, last_name, email_address, phone FROM commerce.user WHERE id = $1",
       [reqId]
@@ -52,7 +53,7 @@ export const getUser = async (req: Request, res: Response) => {
 export const profileSettings = async (req: Request, res: Response) => {
   try {
     if (!req.session.user) {
-      return res.status(402).send('please login');
+      return res.status(402).send("please login");
     }
     const reqId = req.session.user.id;
     const user = await db.query(
@@ -95,40 +96,52 @@ export const profileSettings = async (req: Request, res: Response) => {
 export const updateProfile = async (req: Request, res: Response) => {
   try {
     const user_id = req.session.user!.id;
-    const profileInfo: profileBodyReq = req.body;
-    console.log(profileInfo)
-    const userField = Object.keys(profileInfo).map(async key => {
+    const { serverError, ...profileInfo } = req.body;
+    console.log(profileInfo);
+    const userField = Object.keys(profileInfo).map(async (key) => {
       let table;
-      if(key === 'first_name' || key ===  "last_name" || key ===  "email_address" || key ===  "phone") {
+      if (
+        key === "first_name" ||
+        key === "last_name" ||
+        key === "email_address" ||
+        key === "phone"
+      ) {
         table = "user";
-        const updatedProfile = await db.getClient(updateUserProfile(key, table), [
-                profileInfo[key],
-                user_id,
-              ]);
-              return updatedProfile
-      } else if (key === "expires" || key === "provider" || key === "account_number") {
+        const updatedProfile = await db.getClient(
+          updateUserProfile(key, table),
+          [profileInfo[key], user_id]
+        );
+        return updatedProfile;
+      } else if (
+        key === "expires" ||
+        key === "provider" ||
+        key === "account_number"
+      ) {
         table = "user_payment";
-        const updatedProfile = await db.getClient(updateUserProfile(key, table), [
-                profileInfo[key],
-                user_id,
-              ]);
-              console.log(updatedProfile)
-              return updatedProfile
+        const updatedProfile = await db.getClient(
+          updateUserProfile(key, table),
+          [profileInfo[key], user_id]
+        );
+        return updatedProfile;
       } else {
         table = "user_address";
-        const updatedProfile = await db.getClient(updateUserProfile(key, table), [
-                profileInfo[key],
-                user_id,
-              ]);
-              return updatedProfile
+        const updatedProfile = await db.getClient(
+          updateUserProfile(key, table),
+          [profileInfo[key], user_id]
+        );
+        return updatedProfile;
       }
+    });
+    Promise.all(userField)
+    .then((item) => {
+      console.log(item);
+      return res.sendStatus(200);
     })
-
-  res.sendStatus(200);
-
-   
+    .catch(error => {
+      res.status(400).send(error.message)
+    })
   } catch (err: any) {
-    res.send(err.message + err);
+    res.status(400).send(err.message);
   }
 };
 
@@ -154,7 +167,7 @@ export const deleteUser = async (req: Request, res: Response) => {
 
 export const getAllOrders = async (req: Request, res: Response) => {
   try {
-    const user_id = req.session.user?.id
+    const user_id = req.session.user?.id;
     const orders = await db.query(
       "SELECT id, user_id, total FROM commerce.order_details WHERE user_id = $1",
       [user_id]
@@ -162,7 +175,7 @@ export const getAllOrders = async (req: Request, res: Response) => {
     if (orders.rows !== 0) {
       return res.send(orders.rows);
     }
-    
+
     return res.send("no orders found");
   } catch (err) {
     console.log(err);

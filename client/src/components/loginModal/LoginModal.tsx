@@ -14,12 +14,12 @@ export type Inputs = {
   serverError: string;
 };
 
-type handleOverlayType = {handleOverlay: React.Dispatch<React.SetStateAction<boolean>>}
+type handleOverlayType = { handleOverlay: React.Dispatch<React.SetStateAction<boolean>> }
 
 
-const LoginModal = ({handleOverlay}: handleOverlayType) => {
-  const {state, dispatch} = useContext(ContextApp);
-  
+const LoginModal = ({ handleOverlay }: handleOverlayType) => {
+  const { state, dispatch } = useContext(ContextApp);
+
   const {
     register,
     handleSubmit,
@@ -45,27 +45,35 @@ const LoginModal = ({handleOverlay}: handleOverlayType) => {
         credentials: "include",
       });
       if (res.status === 200) {
-        dispatch({type: ACTION_TYPES.LOGOUT, payload: {}})
+        dispatch({ type: ACTION_TYPES.LOGOUT, payload: {} })
         handleOverlay(false);
         redirect('-1')
       }
-    } catch (e) {
+    } catch (e: any) {
       //TODO find a way to handle logout errors
       console.log(e);
+      setError("serverError", {
+        type: "400",
+        message: e.message,
+      });
     }
   };
 
-  
+
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
       clearErrors();
-      const {userData} = await login(data);
-      dispatch({type: ACTION_TYPES.LOGIN, payload: userData});
-      handleClose();
-      handleOverlay(false);
-      if (userData instanceof Error) {
-        throw new Error(userData.message);
+      const res = await login(data);
+      if (res instanceof Error) {
+        throw new Error(res.message);
+      } else {
+        dispatch({ type: ACTION_TYPES.LOGIN, payload: res.userData });
+        handleClose();
+        handleOverlay(false);
       }
+
+
+
     } catch (e: any) {
       setError("serverError", {
         type: "400",
@@ -75,7 +83,7 @@ const LoginModal = ({handleOverlay}: handleOverlayType) => {
   };
 
   return (
-    
+
     <>{console.log('render loginModel')}
       {Object.keys(state.userProfile).length != 0 ? (
         <Button variant="light" onClick={logout}>
@@ -105,6 +113,7 @@ const LoginModal = ({handleOverlay}: handleOverlayType) => {
                 {...register("email", { required: "email required" })}
                 type="email"
                 placeholder="Enter email"
+                onChange={() => clearErrors(['email', 'serverError'])}
               />
 
               <Form.Text className="text-muted">
@@ -122,6 +131,7 @@ const LoginModal = ({handleOverlay}: handleOverlayType) => {
                 })}
                 type="password"
                 placeholder="Password"
+                onChange={() => clearErrors(['password', 'serverError'])}
               />
               {errors.serverError?.type === "400" && (
                 <p style={{ color: "red" }}>{errors.serverError.message}</p>
