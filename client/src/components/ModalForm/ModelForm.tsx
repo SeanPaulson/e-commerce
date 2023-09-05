@@ -67,7 +67,7 @@ const ModelFrom = ({ defaultValues, formBtnText, action, cb }: IProps<IPropsSign
   return (
 
     <>
-      <Button onClick={handleShow}>{formBtnText ?? 'open'}</Button>
+      <Button variant='dark' className="rounded-pill w-25" onClick={handleShow}>{formBtnText ?? 'open'}</Button>
       <Modal
         backdrop='static'
         size="lg"

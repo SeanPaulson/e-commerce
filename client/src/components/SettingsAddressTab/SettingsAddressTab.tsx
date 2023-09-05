@@ -28,8 +28,6 @@ export default function SettingsCCTab() {
     }
     const handleRemove = () => {
         try {
-            //TODO PUT: users/profile set payment info to {} or undefined
-            // dispatch({ type: ACTION_TYPES.DELETEPAYMENT, payload: {}})
             const newState = {
                 address_line1: undefined,
                 address_line2: undefined,
@@ -38,11 +36,11 @@ export default function SettingsCCTab() {
                 country_code: undefined,
             }
             submit({
-                address_line1: '',
-                address_line2: '',
-                city: '',
-                zip_code: '',
-                country_code: '',
+                address_line1: null,
+                address_line2: null,
+                city: null,
+                zip_code: null,
+                country_code: null,
             }, {
                 method: 'PUT',
                 encType: 'multipart/form-data',
@@ -61,14 +59,13 @@ export default function SettingsCCTab() {
                     <Card>
                         <Card.Header>Address</Card.Header>
                         <Card.Body>
-                            <Card.Title>Default</Card.Title>
                             <Card.Text>{state.userProfile.address_line1}</Card.Text>
                             <Card.Text>{state.userProfile.address_line2 === 'empty' ? '' : state.userProfile.address_line2}</Card.Text>
                             <Card.Text>{state.userProfile.city ?? state.userProfile.city} {state.userProfile.zip_code ?? state.userProfile.zip_code} {state.userProfile.country_code ?? state.userProfile.country_code}</Card.Text>
                         </Card.Body>
                         <Card.Footer>
                             <ModelForm defaultValues={ADDRESSFORMDEFAULTVALUES} action={updateUserProfile} formBtnText='edit' cb={dispatchUserProfileState} />
-                            <Button onClick={handleRemove} variant='light' className='rounded-pill bg-white'>Remove</Button>
+                            <Button onClick={handleRemove} variant='light' className='bg-white rounded-pill w-25 border-dark'>Remove</Button>
                         </Card.Footer>
                     </Card>
                     :

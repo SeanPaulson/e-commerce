@@ -52,7 +52,7 @@ export const getUserProfile = async function () {
   }
 };
 
-export const updateUserProfile = async function (data: Partial<UserProfileType>) {
+export const updateUserProfile = async function (data: Partial<UserProfileType> | FormData) {
   try {
     const res = await fetch('/api/users/profile', {
       method: 'PUT',

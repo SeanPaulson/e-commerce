@@ -33,9 +33,9 @@ export default function SettingsCCTab() {
                 account_number: undefined
             }
             submit({
-                provider: '',
-                expires: '',
-                account_number: '',
+                provider: null,
+                expires: null,
+                account_number: null,
 
             },
                 {
@@ -43,7 +43,7 @@ export default function SettingsCCTab() {
                     encType: 'multipart/form-data',
                     action: '/settings',
                 });
-                dispatch({ type: ACTION_TYPES.DELETEPAYMENT, payload: newState })
+            dispatch({ type: ACTION_TYPES.DELETEPAYMENT, payload: newState })
         } catch (error) {
             console.log(error)
         }

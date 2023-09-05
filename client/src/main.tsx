@@ -90,7 +90,6 @@ const router = createBrowserRouter(
               action: async ({ params, request}) => {
                 console.log('************action**********')
                 let formData: Partial<UserProfileType> = Object.fromEntries(await request.formData());
-                console.log(formData);
                 return await updateUserProfile(formData);
               },
             },

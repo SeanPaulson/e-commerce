@@ -48,13 +48,11 @@ export function profileReducer(
       };
     }
     case ACTION_TYPES.DELETEPAYMENT: {
+      const newState = removeObjectsFromState(state, action.payload)
       return {
         ...state,
         userProfile: {
-          ...state.userProfile,
-          provider: action.payload.provider,
-          account_number: action.payload.account_number,
-          expires: action.payload.expires,
+          ...newState
         },
       };
     }
@@ -81,11 +79,11 @@ export function profileReducer(
       };
     }
     case ACTION_TYPES.DELETEADDRESS: {
+      const newState = removeObjectsFromState(state, action.payload)
       return {
         ...state,
         userProfile: {
-          ...state.userProfile,
-          ...action.payload
+          ...newState
         }
       };
     }
@@ -93,4 +91,19 @@ export function profileReducer(
       return state;
     }
   }
+}
+
+
+const removeObjectsFromState = (state: UserProfileStateContext, obj: Partial<UserProfileType> | Record<PropertyKey, never>) => {
+  const newState = Object.fromEntries(
+    Object.entries(state.userProfile).filter(([key, value]) => {
+      if (
+        !Object.keys(obj).find(item => item === key)
+      ) {
+        return [key, value]
+      }
+      return null
+    })
+  )
+  return newState
 }

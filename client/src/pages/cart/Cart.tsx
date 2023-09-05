@@ -8,14 +8,14 @@ import { useContext, useEffect, useState } from 'react';
 import useConvertMoneyToNumber from '../../hooks/useConvertMoneyToNumber';
 import { ContextApp } from '../../components/UserContext';
 
-
+//TODO card item breaks on mobile
 export default function Cart() {
 
     const cartData = useLoaderData() as LoaderData<typeof getUserCart>;
     const { state } = useContext(ContextApp);
     const [cartState, setCartState] = useState<CartItem[]>([]);
     const [cartTotal, setCartTotal] = useState<string>();
-
+console.log(cartTotal)
     useEffect(() => {
         if (cartData[0]) {
             setCartState(cartData)

@@ -97,8 +97,10 @@ export const updateProfile = async (req: Request, res: Response) => {
   try {
     const user_id = req.session.user!.id;
     const {...profileInfo } = req.body;
-    console.log(profileInfo);
-    const userField = Object.keys(profileInfo).map(async (key) => {
+    const NullsProfileInfo = Object.fromEntries(Object.entries(profileInfo).map(([key, value]) => value === 'null' ? [key, null] : [key, value]));
+    console.log(NullsProfileInfo)
+    // console.log(profileInfo);
+    const userField = Object.keys(NullsProfileInfo).map(async (key) => {
       let table;
       if (
         key === "first_name" ||
@@ -109,7 +111,7 @@ export const updateProfile = async (req: Request, res: Response) => {
         table = "user";
         const updatedProfile = await db.getClient(
           updateUserProfile(key, table),
-          [profileInfo[key], user_id]
+          [NullsProfileInfo[key], user_id]
         );
         return updatedProfile;
       } else if (
@@ -121,14 +123,14 @@ export const updateProfile = async (req: Request, res: Response) => {
         table = "user_payment";
         const updatedProfile = await db.getClient(
           updateUserProfile(key, table),
-          [profileInfo[key], user_id]
+          [NullsProfileInfo[key], user_id]
         );
         return updatedProfile;
       } else {
         table = "user_address";
         const updatedProfile = await db.getClient(
           updateUserProfile(key, table),
-          [profileInfo[key], user_id]
+          [NullsProfileInfo[key], user_id]
         );
         return updatedProfile;
       }

@@ -2,7 +2,7 @@ import Button from "react-bootstrap/esm/Button";
 import Accordion from "react-bootstrap/esm/Accordion";
 import Image from "react-bootstrap/esm/Image";
 import Form from 'react-bootstrap/Form';
-import { Product } from "../../utils/types";
+import { ProductType } from "../../utils/types";
 import { useNavigate, useParams } from "react-router";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { addItemToCart } from "../../utils/fetchApi";
@@ -10,7 +10,7 @@ import { useContext, useEffect } from "react";
 import { ContextApp } from "../UserContext";
 
 type Iprops = {
-    product: Product;
+    product: ProductType;
 }
 
 type InputType = {
@@ -28,7 +28,7 @@ export default function ProductDescription({ product }: Iprops) {
 
     useEffect(() => {
         clearErrors('auth');
-    },[state])
+    }, [state])
 
     const onSubmit: SubmitHandler<InputType> = ({ quantity }) => {
 
@@ -84,12 +84,15 @@ export default function ProductDescription({ product }: Iprops) {
                     <b>Add to cart</b>
                 </Button>
             </Form>
-            <Button
-                variant="success"
-                className="mx-3 my-2 rounded-pill"
-            >
-                <b>Buy it now</b>
-            </Button>
+            <span className="d-flex align-items-center">
+                <Button
+                    variant="success"
+                    className="mx-3 my-2 rounded-pill"
+                >
+                    <b>Buy it now</b>
+                </Button>
+                <p className="m-0"><span style={{ color: "blue" }}>{state.userProfile.provider} </span>{ state.userProfile.account_number ? `Card ending in ${state.userProfile.account_number.toString().slice(-4)}` : ''}</p>
+            </span>
         </div>
         <Accordion alwaysOpen={true} flush >
             <Accordion.Item eventKey="0" className="w-100"></Accordion.Item>
