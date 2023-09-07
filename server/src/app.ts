@@ -42,7 +42,7 @@ app.use(expressSession({
         tableName: "shopping_session",
         schemaName: "commerce",
         createTableIfMissing: true,
-        connectionString: 'postgres://commerce_87x9_user:HTl87OcczR2nGM7vRdphenX9O0ANoSST@dpg-cjt00m7uih5c73a80nk0-a/commerce_87x9?ssl=true'
+        ssl: true,
     }),
     secret: process.env.SECRET,
     resave: true,
