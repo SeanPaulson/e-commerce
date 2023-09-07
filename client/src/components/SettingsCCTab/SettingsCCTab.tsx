@@ -62,7 +62,7 @@ export default function SettingsCCTab() {
                         </Card.Body>
                         <Card.Footer>
                             <ModelForm defaultValues={CREDITCARDFORMDEFAULTVALUES} action={updateUserProfile} formBtnText='edit' cb={dispatchUserProfileState} />
-                            <Button onClick={handleRemove} variant='light' className='rounded-pill bg-white'>Remove</Button>
+                            <Button onClick={handleRemove} variant='light' className='rounded-pill bg-white border border-black w-25'>Remove</Button>
                         </Card.Footer>
                     </Card>
                     :
