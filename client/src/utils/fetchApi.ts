@@ -80,7 +80,7 @@ export const getProductById = async function (
   id: LoaderFunctionArgs | string
 ): Promise<ProductType | never> {
   try {
-    const res = await fetch(`/api/product/${id}`);
+    const res = await fetch(`${API_URL}/product/${id}`);
     if (res.ok) {
       const jdata: Array<ProductType> = await res.json();
       return jdata[0];
@@ -96,7 +96,7 @@ export const getFeaturedProducts = async function (): Promise<
   ProductType[] | never
 > {
   try {
-    const res = await fetch(`/api/product`);
+    const res = await fetch(`${API_URL}/product`);
     if (res.ok) {
       const jdata: Array<ProductType> = await res.json();
       return jdata;
@@ -112,7 +112,7 @@ export const getProductsByCategory = async function (
   id: LoaderFunctionArgs | string
 ): Promise<ProductType[] | never> {
   try {
-    const res = await fetch(`/api/product/category/${id}`);
+    const res = await fetch(`${API_URL}/product/category/${id}`);
     if (res.ok) {
       const jdata: Array<ProductType> = await res.json();
       return jdata;
@@ -126,7 +126,7 @@ export const getProductsByCategory = async function (
 
 export const getUserCart = async function (): Promise<CartItem[] | never> {
   try {
-    const res = await fetch(`/api/cart`);
+    const res = await fetch(`${API_URL}/cart`);
     if (res.ok) {
       const jdata: CartItem[] = await res.json();
       return jdata;
@@ -143,7 +143,7 @@ export const getUserCart = async function (): Promise<CartItem[] | never> {
 
 export const addItemToCart = async (id: number, quantity: number) => {
   try {
-    const res = await fetch("/api/cart", {
+    const res = await fetch(`${API_URL}/cart`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -168,7 +168,7 @@ export const addItemToCart = async (id: number, quantity: number) => {
 
 export const deleteCartItem = async (id: number) => {
   try {
-    const res = await fetch("api/cart", {
+    const res = await fetch(`${API_URL}/cart`, {
       method: "DELETE",
       headers: {
         Accept: "application/json",
@@ -189,7 +189,7 @@ export const getUserOrderHistory = async function (): Promise<
   OrdersList[] | never
 > {
   try {
-    const res = await fetch(`/api/users/orders`);
+    const res = await fetch(`${API_URL}/users/orders`);
     if (res.ok) {
       const jdata: OrdersList[] = await res.json();
       return jdata;
@@ -210,7 +210,7 @@ export const getOrderById = async function (
     | CustomParams
 ): Promise<OrderDetailsList[] | never> {
   try {
-    const res = await fetch(`/api/users/orders/${args.params.id}`);
+    const res = await fetch(`${API_URL}/users/orders/${args.params.id}`);
     if (res.ok) {
       const jdata: OrderDetailsList[] = await res.json();
       return jdata;
@@ -227,7 +227,7 @@ export const getOrderById = async function (
 
 export const checkout = async () => {
   try {
-    const res = await fetch("/api/cart/checkout", {
+    const res = await fetch(`${API_URL}/cart/checkout`, {
       method: "POST",
       headers: {
         Accept: "application/json",
