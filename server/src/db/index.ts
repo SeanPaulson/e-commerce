@@ -1,7 +1,8 @@
 import { Pool } from "pg";
 
 const pool: Pool = new Pool({
-    connectionString: process.env.CONNECTIONSTRING
+    connectionString: process.env.CONNECTIONSTRING,
+    ssl: true,
 });
 
 module.exports = {
