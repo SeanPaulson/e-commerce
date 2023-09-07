@@ -1,6 +1,5 @@
 import { Button, Form as BootstrapForm } from "react-bootstrap";
 import { useState } from "react";
-import { Form } from 'react-router-dom';
 import { SubmitTarget } from "react-router-dom/dist/dom";
 
 type Iprops = {
