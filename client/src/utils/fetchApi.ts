@@ -12,6 +12,8 @@ import {
   UserProfileType,
 } from "./types";
 
+const API_URL = 'https://e-commerce-server-ceon.onrender.com'
+
 export const login = async function ({ email, password }: Inputs) {
   try {
     const data = await fetch("/api/auth/login", {
@@ -54,7 +56,7 @@ export const getUserProfile = async function (): Promise<Partial<UserProfileType
 
 export const updateUserProfile = async function (data: Partial<UserProfileType> | FormData) {
   try {
-    const res = await fetch('/api/users/profile', {
+    const res = await fetch(`${API_URL}/users/profile`, {
       method: 'PUT',
       headers: {
         Accept: "application/json",
