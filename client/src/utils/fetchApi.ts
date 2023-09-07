@@ -41,7 +41,7 @@ export const login = async function ({ email, password }: Inputs) {
 
 export const getUserProfile = async function (): Promise<Partial<UserProfileType> | Error> {
   try {
-    const data = await fetch(`/api/users/profile`, {
+    const data = await fetch(`${API_URL}/users/profile`, {
       method: "GET",
     });
     if (data.status === 200) {
