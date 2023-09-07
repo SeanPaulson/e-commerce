@@ -1,6 +1,8 @@
 import { Pool } from "pg";
 
-const pool: Pool = new Pool();
+const pool: Pool = new Pool({
+    connectionString: process.env.CONNECTIONSTRING
+});
 
 module.exports = {
     async query(text: string,params: any[]) {
