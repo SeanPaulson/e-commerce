@@ -41,7 +41,8 @@ app.use(expressSession({
         pool: db.pool,
         tableName: "shopping_session",
         schemaName: "commerce",
-        createTableIfMissing: true
+        createTableIfMissing: true,
+        ssl: true,
     }),
     secret: process.env.SECRET,
     resave: true,
