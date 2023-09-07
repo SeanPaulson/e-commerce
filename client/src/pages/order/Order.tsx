@@ -4,7 +4,7 @@ import CardComponent from "../../components/card/CardComponent";
 import { LoaderData, ProductType } from '../../utils/types';
 import { useEffect, useState } from 'react';
 import { getOrderById, getProductById } from '../../utils/fetchApi';
-
+import { DateTime } from 'luxon';
 
 export default function Order() {
 
@@ -37,7 +37,7 @@ export default function Order() {
                 <div className='cardComponent__details'>
                   <p id='name'><b>{product.name}</b></p>
                   <p id='total'>Total: {total}</p>
-                  <p>order date: {product.modified_at ?? product.created}</p>
+                  <p>order date: {DateTime.fromISO(`${product.modified_at}`).toISODate() ?? DateTime.fromISO(`${product.created}`).toISODate()}</p>
                 </div>
               </div >
             </Link>

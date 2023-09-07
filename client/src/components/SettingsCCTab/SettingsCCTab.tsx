@@ -54,11 +54,15 @@ export default function SettingsCCTab() {
                 state.userProfile.account_number ?
                     <Card>
                         <Card.Header>{state.userProfile.provider} ending in {state.userProfile.account_number}</Card.Header>
-                        <Card.Body>
-                            <Card.Title>Expiration date</Card.Title>
-                            <Card.Text>{`${DateTime.fromISO(`${state.userProfile.expires}`).toISODate()}`}</Card.Text>
-                            <Card.Title>Name on card</Card.Title>
-                            <Card.Text>{`${state.userProfile.first_name} ${state.userProfile.last_name}`}</Card.Text>
+                        <Card.Body >
+                            <Card.Title className='d-flex space-between gap-5'>
+                                Expiration date
+                                <Card.Text style={{fontSize: '1rem', lineHeight: '1.5'}}>{`${DateTime.fromISO(`${state.userProfile.expires}`).toISODate()}`}</Card.Text>
+                            </Card.Title>
+                            <Card.Title className='d-flex space-between gap-5'>
+                                Name on card
+                                <Card.Text style={{fontSize: '1rem', lineHeight: '1.5'}}>{`${state.userProfile.first_name} ${state.userProfile.last_name}`}</Card.Text>
+                            </Card.Title>
                         </Card.Body>
                         <Card.Footer>
                             <ModelForm defaultValues={CREDITCARDFORMDEFAULTVALUES} action={updateUserProfile} formBtnText='edit' cb={dispatchUserProfileState} />
