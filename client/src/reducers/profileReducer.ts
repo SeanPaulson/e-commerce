@@ -11,9 +11,11 @@ export const enum ACTION_TYPES {
   UPDATEADDRESS = "UPDATEADDRESS",
   DELETEADDRESS = "DELETEADDRESS",
 }
+// TODO fix type: had to use any instead of Record<PropertyKey, never>. using record here because {} object causes problems
+
 export type ActionType = {
   type: ACTION_TYPES;
-  payload: Partial<UserProfileType> | Record<PropertyKey, never>;
+  payload: Partial<UserProfileType> | any;
 };
 
 export function profileReducer(

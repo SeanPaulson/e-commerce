@@ -14,11 +14,10 @@ export default function QuantityForm({ quantity, save }: Iprops) {
     const [nanError, setNaNError] = useState(false);
     const [newQuantity, setNewQuantity] = useState(quantity)
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = () => {
         if (!nanError) {
-            // const formData = new FormData(e.currentTarget)
             save(newQuantity)
-            
+
         }
     }
 
@@ -37,7 +36,7 @@ export default function QuantityForm({ quantity, save }: Iprops) {
         <BootstrapForm
             onSubmit={(e) => {
                 e.preventDefault();
-                handleSubmit(e);
+                handleSubmit();
             }}
         >
             <BootstrapForm.Group style={{ display: "flex" }}>

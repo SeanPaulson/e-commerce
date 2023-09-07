@@ -8,7 +8,6 @@ import { useContext, useEffect, useState } from 'react';
 import useConvertMoneyToNumber from '../../hooks/useConvertMoneyToNumber';
 import { ContextApp } from '../../components/UserContext';
 
-//TODO card item breaks on mobile
 export default function Cart() {
 
     const cartData = useLoaderData() as LoaderData<typeof getUserCart>;

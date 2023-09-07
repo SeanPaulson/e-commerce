@@ -13,5 +13,5 @@ export default meta;
 type Story = StoryObj<typeof CarouselComponent>;
 
 export const mobile: Story = {
-    render: () => <CarouselComponent />
+    render: ({ productImage }) => <CarouselComponent productImage={productImage}/>
 }

@@ -64,7 +64,7 @@ const router = createBrowserRouter(
           element: <Cart />,
           errorElement: <ErrorPage />,
           id: 'cart',
-          action: async ({ params, request}) => {
+          action: async ({ request}) => {
             console.log('************action**********')
             let formData = await request.formData();
             console.log(formData);
@@ -87,7 +87,7 @@ const router = createBrowserRouter(
               path: "/settings",
               element: <Settings />,
               errorElement: <ErrorPage />,
-              action: async ({ params, request}) => {
+              action: async ({ request}) => {
                 console.log('************action**********')
                 let formData: Partial<UserProfileType> = Object.fromEntries(await request.formData());
                 return await updateUserProfile(formData);

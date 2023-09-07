@@ -21,5 +21,5 @@ export default meta;
 type Story = StoryObj<typeof CardComponent>;
 
 export const mobile: Story = {
-    render: () => <CardComponent />
+    render: ({ product }) => <CardComponent product={product} />
 }
