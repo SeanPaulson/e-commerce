@@ -2,7 +2,9 @@ import { Pool } from "pg";
 
 const pool: Pool = new Pool({
     connectionString: process.env.CONNECTIONSTRING,
-    ssl: true,
+    ssl: {
+        rejectUnauthorized: true
+    },
 });
 
 module.exports = {

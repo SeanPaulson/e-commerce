@@ -42,7 +42,6 @@ app.use(expressSession({
         tableName: "shopping_session",
         schemaName: "commerce",
         createTableIfMissing: true,
-        ssl: true,
     }),
     secret: process.env.SECRET,
     resave: true,
