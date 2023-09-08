@@ -39,6 +39,7 @@ app.use(compression());
 app.use(expressSession({
     store: new pgSession({
         pool: db.pool,
+        table: "shopping_session",
         tableName: "shopping_session",
         schemaName: "commerce",
         createTableIfMissing: true,
@@ -46,7 +47,7 @@ app.use(expressSession({
     secret: process.env.SECRET,
     resave: true,
     saveUninitialized: false,
-    cookie: {secure: true, maxAge: 1000 * 60 * 60 * 24, sameSite: true, httpOnly: 'true'},
+    cookie: {secure: true, maxAge: 1000 * 60 * 60 * 24, sameSite: true  , httpOnly: 'true'},
 }));
 const openAPIoptions = {
     failOnErrors: true,

@@ -43,6 +43,7 @@ export const getUserProfile = async function (): Promise<Partial<UserProfileType
   try {
     const data = await fetch(`${API_URL}/users/profile`, {
       method: "GET",
+      credentials: 'include',
     });
     if (data.status === 200) {
       return await data.json();

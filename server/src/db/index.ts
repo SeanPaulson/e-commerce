@@ -1,7 +1,6 @@
 import { Pool } from "pg";
 
 const pool: Pool = new Pool({
-    // connectionString: `${process.env.CONNECTIONSTRING}?sslmode=require`,
     connectionString: process.env.CONNECTIONSTRING,
 });
 
