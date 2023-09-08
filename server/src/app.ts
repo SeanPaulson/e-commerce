@@ -32,7 +32,7 @@ app.use(express.json());
 app.use(timeout('20s'));
 app.use(morgan('dev'));
 app.use(cors({
-    origin: ['https://e-commerce-site-4e1r.onrender.com', 'localhost:3001'],  //Your Client, do not write '*'
+    origin: ['https://e-commerce-site-4e1r.onrender.com', 'https://e-commerce-server-ceon.onrender.com/',  'localhost:3001'],  //Your Client, do not write '*'
     credentials: true,
 }));
 app.use(compression());
@@ -47,7 +47,7 @@ app.use(expressSession({
     secret: process.env.SECRET,
     resave: true,
     saveUninitialized: false,
-    cookie: {secure: true, maxAge: 1000 * 60 * 60 * 24, sameSite: 'strict'  , httpOnly: 'true'},
+    cookie: {secure: true, maxAge: 1000 * 60 * 60 * 24, sameSite: 'lax'  , httpOnly: 'true'},
 }));
 const openAPIoptions = {
     failOnErrors: true,
