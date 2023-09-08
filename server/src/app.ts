@@ -47,7 +47,7 @@ app.use(expressSession({
     secret: process.env.SECRET,
     resave: true,
     saveUninitialized: false,
-    cookie: {secure: true, maxAge: 1000 * 60 * 60 * 24, sameSite: true  , httpOnly: 'true'},
+    cookie: {secure: true, maxAge: 1000 * 60 * 60 * 24, sameSite: false  , httpOnly: 'true'},
 }));
 const openAPIoptions = {
     failOnErrors: true,
