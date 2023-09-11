@@ -12,8 +12,8 @@ import {
   UserProfileType,
 } from "./types";
 
-// const API_URL = 'https://e-commerce-server-ceon.onrender.com'
-const API_URL = 'https://localhost:3001'
+const API_URL = 'https://e-commerce-server-ceon.onrender.com'
+// const API_URL = 'https://localhost:3001'
 
 export const login = async function ({ email, password }: Inputs) {
   try {
