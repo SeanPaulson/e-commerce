@@ -22,10 +22,7 @@ const authRouter = require("./routes/auth");
 const userRouter = require("./routes/users");
 import cartRouter from "./routes/shopping_cart";
 const morgan = require("morgan");
-const options = {
-    key: fs.readFileSync(path.join(os.homedir(), 'localhost-key.pem')),
-    cert: fs.readFileSync(path.join(os.homedir(), 'localhost.pem'))
-};
+
 
 // const openapiSpecification = require('../Design/api_doc');
 
@@ -48,10 +45,8 @@ app.use(
   cors({
     origin: [
       "https://e-commerce-site-4e1r.onrender.com",
-      "https://e-commerce-server-ceon.onrender.com/",
       "localhost:4173",
       "http://localhost:5173",
-      "localhost:3001",
     ], //Your Client, do not write '*'
     credentials: true,
   })
@@ -128,7 +123,10 @@ app.use(function (err: Error, req: Request, res: Response, next: NextFunction) {
 
 if (process.env.NODE_ENV !== 'production') {
     https
-    .createServer(options, app)
+    .createServer({
+            key: fs.readFileSync(path.join(os.homedir(), 'localhost-key.pem')),
+            cert: fs.readFileSync(path.join(os.homedir(), 'localhost.pem'))
+        }, app)
     .listen(port, () => {
         console.log(process.env.NODE_ENV)
         console.log(`Listening on port ${port}`);
