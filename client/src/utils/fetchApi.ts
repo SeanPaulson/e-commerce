@@ -12,7 +12,8 @@ import {
   UserProfileType,
 } from "./types";
 
-const API_URL = 'https://e-commerce-server-ceon.onrender.com'
+// const API_URL = 'https://e-commerce-server-ceon.onrender.com'
+const API_URL = 'https://localhost:3001'
 
 export const login = async function ({ email, password }: Inputs) {
   try {
@@ -26,6 +27,7 @@ export const login = async function ({ email, password }: Inputs) {
         email: email,
         password: password,
       }),
+      credentials: 'include'
     });
     if (data.status === 200) {
       return data.json();
@@ -61,8 +63,8 @@ export const updateUserProfile = async function (data: Partial<UserProfileType> 
       method: 'PUT',
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json",
       },
+      credentials: 'include',
       body: JSON.stringify(data),
     });
     console.log(res);
@@ -127,7 +129,7 @@ export const getProductsByCategory = async function (
 
 export const getUserCart = async function (): Promise<CartItem[] | never> {
   try {
-    const res = await fetch(`${API_URL}/cart`);
+    const res = await fetch(`${API_URL}/cart`, { credentials: 'include' });
     if (res.ok) {
       const jdata: CartItem[] = await res.json();
       return jdata;
@@ -150,6 +152,7 @@ export const addItemToCart = async (id: number, quantity: number) => {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
+      credentials: 'include',
       body: JSON.stringify({
         prod_id: id,
         quantity,
@@ -175,6 +178,7 @@ export const deleteCartItem = async (id: number) => {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
+      credentials: 'include',
       body: JSON.stringify({
         prod_id: id,
       }),
@@ -190,7 +194,7 @@ export const getUserOrderHistory = async function (): Promise<
   OrdersList[] | never
 > {
   try {
-    const res = await fetch(`${API_URL}/users/orders`);
+    const res = await fetch(`${API_URL}/users/orders`, { credentials: 'include' });
     if (res.ok) {
       const jdata: OrdersList[] = await res.json();
       return jdata;
@@ -211,7 +215,7 @@ export const getOrderById = async function (
     | CustomParams
 ): Promise<OrderDetailsList[] | never> {
   try {
-    const res = await fetch(`${API_URL}/users/orders/${args.params.id}`);
+    const res = await fetch(`${API_URL}/users/orders/${args.params.id}`, {credentials: 'include'});
     if (res.ok) {
       const jdata: OrderDetailsList[] = await res.json();
       return jdata;
@@ -234,6 +238,7 @@ export const checkout = async () => {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
+      credentials: 'include'
     });
     const jres = await res.json();
     console.log(jres);

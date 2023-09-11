@@ -1,103 +1,143 @@
-import express, {Express, NextFunction, Request, Response, urlencoded} from 'express';
-const productsRouter = require('./routes/products');
-const db = require('./db')
-const cors = require('cors');
-const timeout = require('connect-timeout');
+import express, {
+  Express,
+  NextFunction,
+  Request,
+  Response,
+  urlencoded,
+} from "express";
+const https = require("https");
+const fs = require("fs");
+const path = require('path');
+const os = require('os');
+const productsRouter = require("./routes/products");
+const db = require("./db");
+const cors = require("cors");
+const timeout = require("connect-timeout");
 const expressSession = require("express-session");
-const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerJsdoc = require("swagger-jsdoc");
 const pgSession = require("connect-pg-simple")(expressSession);
-const compression = require('compression');
-const swaggerUi = require('swagger-ui-express');
-const authRouter = require('./routes/auth');
-const userRouter = require('./routes/users');
+const compression = require("compression");
+const swaggerUi = require("swagger-ui-express");
+const authRouter = require("./routes/auth");
+const userRouter = require("./routes/users");
 import cartRouter from "./routes/shopping_cart";
-const morgan = require('morgan');
+const morgan = require("morgan");
+const options = {
+    key: fs.readFileSync(path.join(os.homedir(), 'localhost-key.pem')),
+    cert: fs.readFileSync(path.join(os.homedir(), 'localhost.pem'))
+};
 
 // const openapiSpecification = require('../Design/api_doc');
 
-if (process.env.NODE_ENV !== 'production'){
-    require('dotenv').config();
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
 }
 
 const app: Express = express();
 const port = process.env.PORT || 3001;
 
-
 // app.use express.favicon()
 app.use(express.json());
-app.use(urlencoded({ extended: true}))
-app.use(express.static(__dirname + '../Design'));
-app.set('trust proxy', 1)
+app.use(urlencoded({ extended: true }));
+app.use(express.static(__dirname + "../Design"));
+app.set("trust proxy", 1);
 app.use(express.json());
-app.use(timeout('20s'));
-app.use(morgan('dev'));
-app.use(cors({
-    origin: ['https://e-commerce-site-4e1r.onrender.com', 'https://e-commerce-server-ceon.onrender.com/',  'localhost:3001'],  //Your Client, do not write '*'
+app.use(timeout("20s"));
+app.use(morgan("dev"));
+app.use(
+  cors({
+    origin: [
+      "https://e-commerce-site-4e1r.onrender.com",
+      "https://e-commerce-server-ceon.onrender.com/",
+      "localhost:4173",
+      "http://localhost:5173",
+      "localhost:3001",
+    ], //Your Client, do not write '*'
     credentials: true,
-}));
+  })
+);
 app.use(compression());
-app.use(expressSession({
+app.use(
+  expressSession({
     store: new pgSession({
-        pool: db.pool,
-        table: "shopping_session",
-        tableName: "shopping_session",
-        schemaName: "commerce",
-        createTableIfMissing: true,
+      pool: db.pool,
+      table: "shopping_session",
+      tableName: "shopping_session",
+      schemaName: "commerce",
+      createTableIfMissing: true,
     }),
     secret: process.env.SECRET,
     resave: true,
     saveUninitialized: false,
-    cookie: {secure: true, maxAge: 1000 * 60 * 60 * 24, sameSite: 'none'  , httpOnly: 'true'},
-}));
-const openAPIoptions = {
-    failOnErrors: true,
-    definition: {
-      openapi: '3.0.0',
-      info: {
-        title: 'Hello World',
-        version: '1.0.0',
-      },
-      servers: [
-        {
-          url: 'http://localhost:3001',
-          description: 'Development server',
-          
-        },
-        ],
-        tags: [
-            {
-                name: "users",
-                description: "Everything about users/customers",
-            },
-            {
-                products: "products",
-                description: "information about available products",
-            },
-            {
-                cart: "cart",
-                description: "user cart information",
-            }
-        ]
+    cookie: {
+      secure: true,
+      maxAge: 1000 * 60 * 60 * 24,
+      sameSite: "none",
+      httpOnly: "true",
     },
-    apis: ['./dist/src/swagger_docs/*.yaml'], // files containing annotations as above
-  };
-
+  })
+);
+const openAPIoptions = {
+  failOnErrors: true,
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Hello World",
+      version: "1.0.0",
+    },
+    servers: [
+      {
+        url: "http://localhost:3001",
+        description: "Development server",
+      },
+    ],
+    tags: [
+      {
+        name: "users",
+        description: "Everything about users/customers",
+      },
+      {
+        products: "products",
+        description: "information about available products",
+      },
+      {
+        cart: "cart",
+        description: "user cart information",
+      },
+    ],
+  },
+  apis: ["./dist/src/swagger_docs/*.yaml"], // files containing annotations as above
+};
+app.get('/', (req: Request, res: Response) => {
+    res.send('hello form https express server');
+})
 const openapiSpecification = swaggerJsdoc(openAPIoptions);
-app.use('/api-docs', swaggerUi.serve)
-app.get('/api-docs',  swaggerUi.setup(openapiSpecification))
+app.use("/api-docs", swaggerUi.serve);
+app.get("/api-docs", swaggerUi.setup(openapiSpecification));
 
-
-app.use('/auth', authRouter);
-app.use('/product', productsRouter);
-app.use('/users', userRouter);
-app.use('/cart', cartRouter);
-
+app.use("/auth", authRouter);
+app.use("/product", productsRouter);
+app.use("/users", userRouter);
+app.use("/cart", cartRouter);
 
 app.use(function (err: Error, req: Request, res: Response, next: NextFunction) {
-    console.log( err);
-    res.end();
-})
-
-app.listen(port, () => {
-    console.log(`Listening on port ${port}`);
+  console.log(err);
+  res.end();
 });
+
+
+if (process.env.NODE_ENV !== 'production') {
+    https
+    .createServer(options, app)
+    .listen(port, () => {
+        console.log(process.env.NODE_ENV)
+        console.log(`Listening on port ${port}`);
+    })
+} else {
+    app.listen(port, () => {
+  console.log(`Listening on port ${port}`);
+});
+}
+
+
+
