@@ -64,15 +64,12 @@ const router = createBrowserRouter(
           element: <Cart />,
           errorElement: <ErrorPage />,
           id: 'cart',
-          action: async ({ request}) => {
-            console.log('************action**********')
+          action: async ({ request }) => {
             let formData = await request.formData();
-            console.log(formData);
             let quantity = Number(formData.get('quantity'));
             const id = Number(formData.get('id'));
-            console.log('quantity: ' + quantity);
             return await addItemToCart(id, quantity);
-            
+
           },
           loader: async () => {
             const res = await getUserCart();
@@ -87,8 +84,7 @@ const router = createBrowserRouter(
               path: "/settings",
               element: <Settings />,
               errorElement: <ErrorPage />,
-              action: async ({ request}) => {
-                console.log('************action**********')
+              action: async ({ request }) => {
                 let formData: Partial<UserProfileType> = Object.fromEntries(await request.formData());
                 return await updateUserProfile(formData);
               },
@@ -132,14 +128,14 @@ const router = createBrowserRouter(
 );
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-    <Suspense
-      fallback={
-        <div style={{ fontStyle: "bold", textAlign: "center" }}>loading...</div>
-      }
-    >
-      <UserContext>
-        <RouterProvider router={router} />
-        <Footer />
-      </UserContext>
-    </Suspense>
+  <Suspense
+    fallback={
+      <div style={{ fontStyle: "bold", textAlign: "center" }}>loading...</div>
+    }
+  >
+    <UserContext>
+      <RouterProvider router={router} />
+      <Footer />
+    </UserContext>
+  </Suspense>
 );

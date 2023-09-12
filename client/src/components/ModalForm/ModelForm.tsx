@@ -43,13 +43,11 @@ const ModelFrom = ({ defaultValues, formBtnText, action, cb }: IProps<IPropsSign
     try {
       clearErrors();
 
-      console.log(data);
       const res = await action(data);
-      console.log(res)
       if (res instanceof Error) {
         throw new Error(res.message);
       } else if (res) {
-        if(cb) {
+        if (cb) {
           cb(data)
         }
         reset();

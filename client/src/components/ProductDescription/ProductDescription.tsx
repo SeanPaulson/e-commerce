@@ -35,7 +35,9 @@ export default function ProductDescription({ product }: Iprops) {
         if (id && !(state.userProfile instanceof Error)) {
             addItemToCart(Number(id), quantity)
                 .then(res => {
-                    console.log(res);
+                    if(res.ok) {
+                        return
+                    }
                 })
                 .then(() => navigate('/cart'))
         } else {

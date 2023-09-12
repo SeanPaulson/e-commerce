@@ -22,7 +22,6 @@ export default function CartItem({ cartItem, updateCart }: Iprops) {
 
     const handleClick = async (newQuantity?: number) => {
         if (newQuantity && newQuantity !== quantity) {
-            console.log('setting new quantity...' + newQuantity)
             const data =
             {
                 quantity: newQuantity,

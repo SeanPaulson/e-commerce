@@ -84,7 +84,6 @@ export const updateUserProfile = async function (data: Partial<UserProfileType> 
       credentials: 'include',
       body: JSON.stringify(data),
     });
-    console.log(res);
 if (res.status === 200) {
   return res
 } else {
@@ -175,7 +174,6 @@ export const addItemToCart = async (id: number, quantity: number) => {
         quantity,
       }),
     });
-    console.log(res);
     if (res.status === 201) {
       return await res.json();
     } else if (res.status === 401) {
@@ -258,7 +256,6 @@ export const checkout = async () => {
       credentials: 'include'
     });
     const jres = await res.json();
-    console.log(jres);
     return jres;
   } catch (error) {
     console.log(error);

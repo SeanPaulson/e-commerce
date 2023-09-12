@@ -77,7 +77,7 @@ const LoginModal = ({ handleOverlay }: handleOverlayType) => {
 
   return (
 
-    <>{console.log('render loginModel')}
+    <>
       {Object.keys(state.userProfile).length != 0 ? (
         <Button variant="light" onClick={handleLogout}>
           logout

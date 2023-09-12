@@ -13,6 +13,7 @@ const CardComponent = ({product}: Iprops) => {
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
+    //TODO add liked products functionality 
     console.log('liked');
   }
 
