@@ -3,7 +3,7 @@ import Button from "react-bootstrap/esm/Button";
 import Form from "react-bootstrap/esm/Form";
 import Modal from "react-bootstrap/Modal";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { login } from "../../utils/fetchApi";
+import { login, logout } from "../../utils/fetchApi";
 import { ContextApp } from "../UserContext";
 import { ACTION_TYPES } from "../../reducers/profileReducer";
 import { redirect } from "react-router";
@@ -38,23 +38,16 @@ const LoginModal = ({ handleOverlay }: handleOverlayType) => {
   const handleShow = () => setShow(true);
 
 
-  const logout = async () => {
-    try {
-      const res = await fetch(`https://e-commerce-server-ceon.onrender.com/auth/logout`, {
-        method: "POST",
-        credentials: "include",
-      });
-      if (res.status === 200) {
-        dispatch({ type: ACTION_TYPES.LOGOUT, payload: {} })
-        handleOverlay(false);
-        redirect('-1')
-      }
-    } catch (e: any) {
-      //TODO find a way to handle logout errors
-      console.log(e);
+  const handleLogout = async () => {
+    const res = await logout();
+    if (res && res.status === 200) {
+      dispatch({ type: ACTION_TYPES.LOGOUT, payload: {} })
+      handleOverlay(false);
+      redirect('/')
+    } else if (res instanceof Error) {
       setError("serverError", {
         type: "400",
-        message: e.message,
+        message: res.message,
       });
     }
   };
@@ -86,7 +79,7 @@ const LoginModal = ({ handleOverlay }: handleOverlayType) => {
 
     <>{console.log('render loginModel')}
       {Object.keys(state.userProfile).length != 0 ? (
-        <Button variant="light" onClick={logout}>
+        <Button variant="light" onClick={handleLogout}>
           logout
         </Button>
       ) : (

@@ -11,9 +11,10 @@ import {
   ProductType,
   UserProfileType,
 } from "./types";
-
-const API_URL = 'https://e-commerce-server-ceon.onrender.com'
-// const API_URL = 'https://localhost:3001'
+let API_URL = 'https://localhost:3001'
+if (import.meta.env.PROD) {
+   API_URL = 'https://e-commerce-server-ceon.onrender.com'
+}
 
 export const login = async function ({ email, password }: Inputs) {
   try {
@@ -40,6 +41,22 @@ export const login = async function ({ email, password }: Inputs) {
     return error;
   }
 };
+
+export const logout = async function () {
+  try {
+    const res = await fetch(`${API_URL}/auth/logout`, {
+      method: "POST",
+      credentials: "include",
+    });
+    if (res.status === 200) {
+      return res;
+    } else return res;
+  } catch (e: any) {
+    //TODO find a way to handle logout errors
+    console.log(e);
+    return e;
+  }
+}
 
 export const getUserProfile = async function (): Promise<Partial<UserProfileType> | Error> {
   try {
