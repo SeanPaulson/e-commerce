@@ -40,7 +40,7 @@ const LoginModal = ({ handleOverlay }: handleOverlayType) => {
 
   const logout = async () => {
     try {
-      const res = await fetch("/api/auth/logout", {
+      const res = await fetch(`https://e-commerce-server-ceon.onrender.com/auth/logout`, {
         method: "POST",
         credentials: "include",
       });
