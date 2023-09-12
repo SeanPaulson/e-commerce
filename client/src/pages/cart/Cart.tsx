@@ -32,8 +32,10 @@ export default function Cart() {
     //TODO res is sending entire server Response. need to make a custom response. 
     const handleCheckout = async () => {
         const res = await checkout();
-        setCartState([])
-        redirect('/orders');
+        if (res && res.ok) {
+            setCartState([])
+            redirect('/orders');
+        }
     }
 
     return (
