@@ -14,7 +14,7 @@ export default function Cart() {
     const { state } = useContext(ContextApp);
     const [cartState, setCartState] = useState<CartItem[]>([]);
     const [cartTotal, setCartTotal] = useState<string>();
-console.log(cartTotal)
+
     useEffect(() => {
         if (cartData[0]) {
             setCartState(cartData)
@@ -39,7 +39,8 @@ console.log(cartTotal)
 
     return (
         <>
-            <h1>{cartState.length === 0 ? cartState.length : 0} items in your cart</h1>
+        {console.log(cartState.length)}
+            <h1>{cartState.length === 0 ? 0 : cartState.length} items in your cart</h1>
             <div className='cart__wrapper'>
 
                 {cartState[0] &&
