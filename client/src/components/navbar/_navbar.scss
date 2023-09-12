@@ -42,7 +42,15 @@
   bottom: 10px;
 }
 
+@media screen and (max-width: 375px) {
+  .pill__cart {
+    z-index: 100;
+    position: relative;
+    right: 40px;
+    bottom: 10px;
+  }
 
+}
 
 @media screen and (max-width: 480px) {
   .navLogo {
