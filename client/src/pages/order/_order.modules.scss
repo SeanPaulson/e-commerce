@@ -1,10 +1,6 @@
 .orderDetails__wrapper {
     padding: 20px 0px !important;
-    // margin-top: 20px;
     border-top: 1px solid lightgray;
-    a {
-        // width: 100%;
-    }
 
     a:hover {
         box-shadow: 1px 1px 1px 2px lightgray;
@@ -22,8 +18,6 @@
 
     .cardComponent {
         margin: 0px;
-        // width:400px;
-        // flex: 0 1 200px !important;
         height: auto;
         max-height: none;
     }
@@ -59,7 +53,6 @@
 .cardComponent__details {
     max-height: 200px;
     height: 100%;
-    // margin: 20px 0px;
     flex-grow: 1;
     text-overflow: ellipsis;
 }
@@ -77,11 +70,8 @@
     .orderDetails__wrapper .cardComponent {
         margin: 0px;
         width: 400px;
-        // flex: 0 1 900px !important;
         height: 200px;
         max-height: 200px;
-      }
-      .orderDetails__wrapper{
-        // height: 200px;
-      }
+    }
+
 }
