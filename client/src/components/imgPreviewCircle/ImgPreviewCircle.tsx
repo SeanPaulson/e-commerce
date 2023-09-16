@@ -5,6 +5,7 @@ import "./_ImgPreviewCircle.scss";
 // import CardImageOverlay from "react-bootstrap/CardImgOverlay";
 import Image from "react-bootstrap/esm/Image";
 import Container from "react-bootstrap/esm/Container";
+import { Link } from "react-router-dom";
 
 const ImgPreviewCircle = () => {
 
@@ -13,19 +14,19 @@ const ImgPreviewCircle = () => {
       <Row className="gap-4 justify-content-center" id="hero">
         <Col  >
           <Image roundedCircle className="imagePreview" alt="image preview" src="/computer.webP"></Image>
-          <p><a href="/product/category/3" >Electronics</a></p>
+          <Link to={`/product/category/3`} >Electronics</Link>
         </Col>
         <Col >
           <Image roundedCircle className="imagePreview" alt="image preview" src="/ring.webP"></Image>
-          <p><a href="/product/category/2" >Jewelry</a></p>
+          <Link to={`/product/category/3`} >Jewelry</Link>
         </Col>
         <Col >
           <Image roundedCircle className="imagePreview" alt="image preview" src="/shirt.webP"></Image>
-          <p><a href="/product/category/0" >Men's Cloths</a></p>
+          <Link to={`/product/category/0`} >Men's Cloths</Link>
         </Col>
         <Col >
           <Image roundedCircle className="imagePreview" alt="image preview" src="/jacket.webP"></Image>
-          <p><a href="/product/category/1" >Women's Cloths</a></p>
+          <Link to={`/product/category/1`} >Women's Cloths</Link>
         </Col>
       </Row>
     </Container>
