@@ -18,7 +18,7 @@ const ImgPreviewCircle = () => {
         </Col>
         <Col >
           <Image roundedCircle className="imagePreview" alt="image preview" src="/ring.webP"></Image>
-          <Link to={`/product/category/3`} >Jewelry</Link>
+          <Link to={`/product/category/2`} >Jewelry</Link>
         </Col>
         <Col >
           <Image roundedCircle className="imagePreview" alt="image preview" src="/shirt.webP"></Image>
